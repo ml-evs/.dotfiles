@@ -1,0 +1,326 @@
+Host hartree
+    HostName 81.101.27.88
+    Port 222
+    User matthew
+
+Host archer
+    HostName login.archer.ac.uk
+    Port 22
+    User me388
+
+Host darwin
+    HostName login.hpc.cam.ac.uk
+    User me388
+    ForwardX11 yes
+
+Host noggin
+    HostName cluster2.tcm.phy.cam.ac.uk
+    Port 22
+    ForwardX11 yes
+    User me388
+
+Host node1
+    HostName node1
+    User me388
+    ProxyCommand ssh noggin netcat %h %p
+
+Host pc1
+    HostName pc1.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc2
+    HostName pc2.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc3
+    HostName pc3.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc4
+    HostName pc4.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc5
+    HostName pc5.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc6
+    HostName pc6.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc7
+    HostName pc7.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc8
+    HostName pc8.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc9
+    HostName pc9.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc10
+    HostName pc10.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc11
+    HostName pc11.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc12
+    HostName pc12.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc13
+    HostName pc13.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc14
+    HostName pc14.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc15
+    HostName pc15.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc16
+    HostName pc16.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc17
+    HostName pc17.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc18
+    HostName pc18.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc19
+    HostName pc19.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc20
+    HostName pc20.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc21
+    HostName pc21.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc22
+    HostName pc22.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc23
+    HostName pc23.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc24
+    HostName pc24.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc25
+    HostName pc25.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc26
+    HostName pc26.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc27
+    HostName pc27.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc28
+    HostName pc28.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc29
+    HostName pc29.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc30
+    HostName pc30.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc31
+    HostName pc31.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc32
+    HostName pc32.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc33
+    HostName pc33.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc34
+    HostName pc34.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc35
+    HostName pc35.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc36
+    HostName pc36.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc37
+    HostName pc37.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc38
+    HostName pc38.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc39
+    HostName pc39.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc40
+    HostName pc40.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc41
+    HostName pc41.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc42
+    HostName pc42.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc43
+    HostName pc43.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc44
+    HostName pc44.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc45
+    HostName pc45.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc46
+    HostName pc46.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc47
+    HostName pc47.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc48
+    HostName pc48.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc49
+    HostName pc49.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc50
+    HostName pc50.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc51
+    HostName pc51.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc52
+    HostName pc52.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc53
+    HostName pc53.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc54
+    HostName pc54.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc55
+    HostName pc55.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc56
+    HostName pc56.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc57
+    HostName pc57.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc58
+    HostName pc58.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc59
+    HostName pc59.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc60
+    HostName pc60.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc61
+    HostName pc61.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc62
+    HostName pc62.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc63
+    HostName pc63.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc64
+    HostName pc64.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc65
+    HostName pc65.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc66
+    HostName pc66.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc67
+    HostName pc67.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc68
+    HostName pc68.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc69
+    HostName pc69.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc70
+    HostName pc70.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc71
+    HostName pc71.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc72
+    HostName pc72.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc73
+    HostName pc73.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc74
+    HostName pc74.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
+Host pc75
+    HostName pc75.tcm.phy.cam.ac.uk
+    Port 22
+    User me388
