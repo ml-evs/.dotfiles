@@ -223,16 +223,16 @@ set nowrap "Wrap lines
 au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 noautoindent
 
 
-"nnoremap <leader><space> :call HighlightNearCursor()<CR>
-"function HighlightNearCursor()
-  "if !exists("s:highlightcursor")
-    "match Todo /\k*\%#\k*/
-    "let s:highlightcursor=1
-  "else
-    "match None
-    "unlet s:highlightcursor
-  "endif
-"endfunction
+nnoremap <leader><space> :call HighlightNearCursor()<CR>
+function HighlightNearCursor()
+  if !exists("s:highlightcursor")
+    match Todo /\k*\%#\k*/
+    let s:highlightcursor=1
+  else
+    match None
+    unlet s:highlightcursor
+  endif
+endfunction
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
