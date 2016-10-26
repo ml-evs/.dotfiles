@@ -193,20 +193,20 @@ bindsym Escape mode "default"
 bindsym $mod+r mode "resize"
 
 # My bar
-bar {
-#		i3bar_command ~/.local/bin/i3bar
+#bar {
+    #i3bar_command ~/.i3/lemonbar/i3_lemonbar.sh
 #    status_command i3status -c ~/.i3/i3status.conf
-	  workspace_buttons yes
-    position top
-		tray_output VGA1
-	  colors {
+		#workspace_buttons yes
+    #position top
+		#tray_output VGA1
+		#colors {
 	  				# Whole color settings
-					background #1B181B
-					statusline #aaaaaa
-					separator  #566E9C
-					focused_workspace  #0a0a0a #268BD2 #ffffff
-					active_workspace   #1B181B  #1B181B #ffffff
-					inactive_workspace #1B181B  #1B181B #ffffff
-					urgent_workspace   #0a0a0a #0a0a0a #FCF5C7
-	  }
-}
+					#background #1B181B
+					#statusline #aaaaaa
+					#separator  #566E9C
+					#focused_workspace  #0a0a0a #268BD2 #ffffff
+					#active_workspace   #1B181B  #1B181B #ffffff
+					#inactive_workspace #1B181B  #1B181B #ffffff
+					#urgent_workspace   #0a0a0a #0a0a0a #FCF5C7
+		#}
+#}
