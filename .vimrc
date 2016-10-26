@@ -219,6 +219,7 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set nowrap "Wrap lines
+set incsearch
 
 au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 noautoindent
 
