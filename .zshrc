@@ -87,7 +87,7 @@ alias alert_helper='history|tail -n1|sed -e "s/^\s*[0-9]\+\s*//" -e "s/;\s*alert
 alias alert='notify-send "[$?] $(alert_helper)"'
 
 ng () {
-    ssh -t noggin screen -x $1
+    ssh -t noggin tmux attach -t $1
 }
 
 #vim () {
