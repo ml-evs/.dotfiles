@@ -1,0 +1,9 @@
+*.check
+*.cst_esp
+*.bands
+*.castep_bin
+*.check_bin
+*.dome_bin
+*.ome_bin
+*.orbitals
+*.pdos_bin
