@@ -7,3 +7,4 @@
 *.ome_bin
 *.orbitals
 *.pdos_bin
+*.dfpt*
