@@ -12,8 +12,8 @@ bindsym Mod4+g gaps outer current set 20 gaps inner current set 20
 
 # Hybrid colors
 set $back               #121212
-set $background         #B5BD56
-set $border             #1B181B
+set $background         #0b1c2c
+set $border             #56bf8b
 set $black              #282A2E
 set $grey               #373B41
 set $lightgrey          #707880
@@ -21,7 +21,7 @@ set $white              #C5C8C6
 set $yellow             #F0C674
 set $red                #CC6666
 set $darkred            #A54242
-set $green              #50956B
+set $green              #56bf8b
 set $blue               #17457B
 
 #class                  border      backgr.     text        split
@@ -200,12 +200,12 @@ bar {
     workspace_buttons yes
     position top
     colors {
-          background #1B181B
-          statusline #aaaaaa
-          separator  #566E9C
-          focused_workspace  #0a0a0a #268BD2 #ffffff
-          active_workspace   #1B181B  #1B181B #ffffff
-          inactive_workspace #1B181B  #1B181B #ffffff
+          background #0b1c2c
+          statusline #cbd6e2
+          separator  #cbd6e2
+          focused_workspace  #223b54 #8b56bf #cbd6e2
+          active_workspace   #223b54 #568bbf #ffffff
+          inactive_workspace #223b54 #0b1c2c #ffffff
           urgent_workspace   #0a0a0a #0a0a0a #FCF5C7
     }
 }
