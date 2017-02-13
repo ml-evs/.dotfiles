@@ -31,6 +31,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'airblade/vim-gitgutter.git'
 Plugin 'bling/vim-airline'
 Plugin 'mhinz/vim-startify'
+Plugin 'racer-rust/vim-racer'
 Plugin 'wting/rust.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
@@ -71,6 +72,12 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+let g:racer_cmd = "$HOME/.cargo/bin/racer"
+let $RUST_SRC_PATH="$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
+let g:racer_experimental_completer = 1
+
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
