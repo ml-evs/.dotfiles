@@ -1,4 +1,4 @@
-font pango:Input Mono Medium 5
+font pango:Input Mono Narrow Medium 6
 
 #..........
 # Look
@@ -36,16 +36,34 @@ client.background       $background
 #..........
 
 #exec_always --no-startup-id xrandr --output VGA1 --left-of eDP1 --mode 1920x100
-exec_always --no-startup-id xmodmap $HOME/.Xmodmap
-exec --no-startup-id nitrogen --restore
-#exec --no-startup-id start-pulseaudio-x11
-exec --no-startup-id ssh-agent
-exec --no-startup-id xset -b
+exec --no-startup-id exec kcminit_startup
+exec --no-startup-id exec compton
+exec --no-startup-id exec kwalletd5
+exec --no-startup-id exec nitrogen --restore
+#exec --no-startup-id exec nm-applet 
+exec --no-startup-id exec xfce4-power-manager 
+exec --no-startup-id exec start-pulseaudio-x11
+exec --no-startup-id exec ssh-agent
+exec --no-startup-id exec xset -b
+exec --no-startup-id exec xautolock -time 5 -locker '$HOME/.bin/lock ~/.bin/lock.png'
 
 # Principal mod key (Super = Win key)
 # mod1 = Alt (xmodmap to show)
 # mod4 = Winkey (xmodmap to show)
 set $mod Mod1
+
+# Pulse Audio controls
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute sound
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec xbacklight -inc 20 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 20 # decrease screen brightness
+
+# Touchpad controls
+#bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
+
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -56,6 +74,7 @@ for_window [class=".*Steam.*"] floating enable
 for_window [class=".*plasmashell.*"] floating enable
 for_window [title=".*Mendeley.*"] move container to workspace 5:doc
 for_window [title=".*Figure.*"] floating enable
+for_window [class="Ase-gui"] floating enable
 for_window [class="XMGrace"] floating enable
 for_window [class="krunner"] floating enable
 for_window [class="Gnuplot_qt"] floating enable
@@ -72,6 +91,9 @@ for_window [title=".*idget.*"] floating enable
 # start a terminal
 bindsym $mod+Return exec gnome-terminal
 bindsym Mod4+w exec google-chrome
+bindsym Mod4+Shift+L exec "sh -c '$HOME/.bin/lock $HOME/.bin/lock.png'"
+bindsym $mod+d exec krunner 
+#bindsym $mod+d exec i3-dmenu-desktop --dmenu="dmenu_run -i -b -nb '$background' -fn 'Input Mono Narrow Medium:pixelsize=12'"
 
 # Layout
 
@@ -164,10 +186,24 @@ bindsym Mod4+h move workspace to output left
 bindsym Mod4+Right move workspace to output right
 bindsym Mod4+l move workspace to output right
 
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+R restart
+
 # exit i3 (logs you out of your X session)
-#bindsym $mod+Shift+E exit
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $HOME/.bin/i3exit lock, mode "default"
+    bindsym e exec --no-startup-id $HOME/.bin/i3exit logout, mode "default"
+    bindsym s exec --no-startup-id $HOME/.bin/i3exit suspend, mode "default"
+    bindsym h exec --no-startup-id $HOME/.bin/i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id $HOME/.bin/i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id $HOME/.bin/i3exit shutdown, mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym Ctrl+$mod+Delete mode "$mode_system"
 
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
