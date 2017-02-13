@@ -8,3 +8,8 @@
 *.orbitals
 *.pdos_bin
 *.dfpt*
+*guff*
+*.wfc*
+*dyn*
+*a2Fq2r*
+*/tmp/*
