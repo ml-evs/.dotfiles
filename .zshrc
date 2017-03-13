@@ -35,18 +35,19 @@ export PATH=$HOME/.local/bin:$PATH:$HOME/.bin
 export PATH=$PATH:$HOME/src/CASTEP-8.0/bin/linux_x86_64_gfortran4.8
 export PATH=$PATH:$HOME/src/aisp/bin
 export PATH=$HOME/src/matador/bin:$PATH
+export PATH=$HOME/src/matador/scripts:$PATH
 export PATH=$PATH:$HOME/.cargo/bin
 
 export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 
 # add cuda and atlas to library path
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib64:/usr/local/lib64
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/lib
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.conda/lib
 # set python path to include locally installed packages and CASTEP 7 scripts
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib64/python2.7/site-packages
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib/python2.7/site-packages
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/opt/ase
-#export PYTHONPATH=$PYTHONPATH:$HOME/src/matador/src
+export PYTHONPATH=$PYTHONPATH:$HOME/src/matador
 export PYTHONPATH=$PYTHONPATH:$HOME/src/pyairss
 export CASTEP_COMMAND=castep.mpi
 HYPHEN_INSENSITIVE="true"
@@ -93,16 +94,16 @@ ng () {
     ssh -t noggin tmux attach
 }
 
-#vim () {
-    #gvim -v "$@" --servername VIM
-#}
-
 rbusy () {
     ssh -t noggin rbusy $1 $2 $3
 }
 
 cavis () {
     ca -l -r -t $1 | awk '{print $1".res"}' | xargs $HOME/.local/bin/VESTA
+}
+
+vimtex () {
+    gvim -v "$@" --servername VIM
 }
 
 DIRSTACKSIZE=9
