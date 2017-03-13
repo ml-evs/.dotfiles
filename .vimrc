@@ -27,9 +27,11 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
+Plugin 'kien/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'airblade/vim-gitgutter.git'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
 Plugin 'racer-rust/vim-racer'
 Plugin 'wting/rust.vim'
@@ -39,7 +41,8 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'junegunn/goyo.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'lervag/vimtex'
-Plugin 'atelierbram/vim-colors_atelier-schemes'
+"Plugin 'atelierbram/vim-colors_atelier-schemes'
+Plugin 'chriskempson/base16-vim'
 Plugin 'bling/vim-bufferline'
 
 let g:startify_custom_header =
@@ -47,7 +50,7 @@ let g:startify_custom_header =
 
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
-"let g:airline_theme = 'term'
+let g:airline_theme = 'base16'
 
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
@@ -183,8 +186,7 @@ syntax enable
 set background=dark
 let base16colorspace=256  " Access colors present in 256 colorspace
 "colorscheme jellybeans
-"colorscheme base16-atelierheath
-colorscheme base16-atelierforest
+colorscheme base16-harmonic16-dark
 
 "hi SignColumn ctermbg=233
 hi Search cterm=NONE ctermbg=grey ctermfg=blue
@@ -231,16 +233,16 @@ set incsearch
 au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 noautoindent
 
 
-nnoremap <leader><space> :call HighlightNearCursor()<CR>
-function HighlightNearCursor()
-  if !exists("s:highlightcursor")
-    match Todo /\k*\%#\k*/
-    let s:highlightcursor=1
-  else
-    match None
-    unlet s:highlightcursor
-  endif
-endfunction
+"nnoremap <leader><space> :call HighlightNearCursor()<CR>
+"function HighlightNearCursor()
+  "if !exists("s:highlightcursor")
+    "match Todo /\k*\%#\k*/
+    "let s:highlightcursor=1
+  "else
+    "match None
+    "unlet s:highlightcursor
+  "endif
+"endfunction
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
@@ -341,9 +343,9 @@ func! DeleteTrailingWS()
   exe "normal `z"
 endfunc
 nnoremap <Leader>p :call DeleteTrailingWS()
-"autocmd BufWrite *.py :call DeleteTrailingWS()
-"autocmd BufWrite *rc :call DeleteTrailingWS()
-"autocmd BufWrite *.coffee :call DeleteTrailingWS()
+autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *rc :call DeleteTrailingWS()
+autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
