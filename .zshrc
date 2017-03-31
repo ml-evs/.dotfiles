@@ -47,7 +47,6 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.conda/lib
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib64/python2.7/site-packages
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib/python2.7/site-packages
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/opt/ase
-export PYTHONPATH=$PYTHONPATH:$HOME/src/matador
 export PYTHONPATH=$PYTHONPATH:$HOME/src/pyairss
 export CASTEP_COMMAND=castep.mpi
 HYPHEN_INSENSITIVE="true"
@@ -67,7 +66,7 @@ export GMON_OUT_PREFIX='gprof'
 # For a full list of active aliases, run `alias`.
 #
  #Example aliases
-#alias vim="$HOME/.local/bin/vim"
+alias vim="export PYTHONPATH=$HOME/src/matador:$PYTHONPATH; vim"
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias grephist="cat ~/.zsh_history | grep"
@@ -85,13 +84,14 @@ alias cry='ca -l -r -t'
 alias fryan='noglob fryan'
 alias zypper='sudo zypper'
 alias zyp='sudo zypper'
+alias rake='noglob rake'
 alias gs='gst'
 #alias cleanstep='ls | grep -v *.cell | grep -v *.param | grep -v *.usp | xargs rm'
 alias alert_helper='history|tail -n1|sed -e "s/^\s*[0-9]\+\s*//" -e "s/;\s*alert$//"'
 alias alert='notify-send "[$?] $(alert_helper)"'
 
 ng () {
-    ssh -t noggin tmux attach
+    ssh -X -t noggin tmux attach
 }
 
 rbusy () {
