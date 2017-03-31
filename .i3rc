@@ -71,6 +71,7 @@ floating_modifier $mod
 bindsym $mod+Shift+Q kill
 
 for_window [class=".*Steam.*"] floating enable
+for_window [class=".*Wine.*"] floating enable
 for_window [class=".*plasmashell.*"] floating enable
 for_window [title=".*Mendeley.*"] move container to workspace 5:doc
 for_window [title=".*Figure.*"] floating enable
