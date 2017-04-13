@@ -31,7 +31,6 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'airblade/vim-gitgutter.git'
 Plugin 'bling/vim-airline'
 Plugin 'mhinz/vim-startify'
-Plugin 'racer-rust/vim-racer'
 Plugin 'wting/rust.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
@@ -51,6 +50,7 @@ let g:airline_powerline_fonts = 1
 
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
+autocmd FileType rst :SyntasticToggleMode
 let g:jedi#popup_on_dot = 0
 let g:jedi#force_py_version = 3
 
@@ -72,12 +72,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
-let g:racer_cmd = "$HOME/.cargo/bin/racer"
-let $RUST_SRC_PATH="$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-let g:racer_experimental_completer = 1
-
-
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -201,7 +195,8 @@ set ffs=unix,dos,mac
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
+set backup
+set backupdir=$HOME/.backup
 set nowb
 set noswapfile
 
@@ -226,7 +221,6 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set nowrap "Wrap lines
-set incsearch
 
 au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 noautoindent
 
@@ -309,11 +303,11 @@ set viminfo^=%
 " Always show the status line
 set laststatus=2
 
-" YCM
-"nnoremap <Leader>d :YcmCompleter GetDoc<CR>
 " toggle Syntastic
 nnoremap <Leader>s :SyntasticToggleMode<CR>
 nnoremap <Leader>l :lnext<CR>
+nnoremap <Leader>ll :ll<CR>
+nnoremap <Leader>lp :lp<CR>
 nnoremap <Leader>gc :Gcommit % <CR>
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gb :Gblame<CR>
@@ -341,9 +335,7 @@ func! DeleteTrailingWS()
   exe "normal `z"
 endfunc
 nnoremap <Leader>p :call DeleteTrailingWS()
-"autocmd BufWrite *.py :call DeleteTrailingWS()
-"autocmd BufWrite *rc :call DeleteTrailingWS()
-"autocmd BufWrite *.coffee :call DeleteTrailingWS()
+autocmd BufWrite *.py :call DeleteTrailingWS()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
