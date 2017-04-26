@@ -1,4 +1,4 @@
-font pango:Input Mono Narrow Medium 6
+font pango:Input Mono Compressed Medium 6
 
 #..........
 # Look
@@ -10,9 +10,23 @@ gaps outer 20
 bindsym $mod+g gaps inner current set 0 
 bindsym Mod4+g gaps outer current set 20 gaps inner current set 20
 
-# Hybrid colors
+# Harmonic 
+# set $back               #121212
+# set $background         #0b1c2c
+# set $border             #56bf8b
+# set $black              #282A2E
+# set $grey               #373B41
+# set $lightgrey          #707880
+# set $white              #C5C8C6
+# set $yellow             #F0C674
+# set $red                #CC6666
+# set $darkred            #A54242
+# set $green              #56bf8b
+# set $blue               #17457B
+
+# Heath
 set $back               #121212
-set $background         #0b1c2c
+set $background         #1b181b
 set $border             #56bf8b
 set $black              #282A2E
 set $grey               #373B41
@@ -22,7 +36,6 @@ set $yellow             #F0C674
 set $red                #CC6666
 set $darkred            #A54242
 set $green              #56bf8b
-set $blue               #17457B
 
 #class                  border      backgr.     text        split
 client.focused          $green       $green     $black      
@@ -237,7 +250,7 @@ bar {
     workspace_buttons yes
     position top
     colors {
-          background #0b1c2c
+          background #1b181b
           statusline #cbd6e2
           separator  #cbd6e2
           focused_workspace  #223b54 #8b56bf #cbd6e2
