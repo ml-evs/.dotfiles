@@ -30,7 +30,9 @@ Plugin 'L9'
 Plugin 'kien/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'airblade/vim-gitgutter.git'
+Plugin 'suan/vim-instant-markdown'
 Plugin 'bling/vim-airline'
+Plugin 'matze/vim-tex-fold'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
 Plugin 'racer-rust/vim-racer'
@@ -102,6 +104,10 @@ set autoread
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
+let maplocalleader = "."
+
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -127,7 +133,7 @@ set relativenumber
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
-set so=10
+set so=7
 
 " Turn on the WiLd menu
 set wildmenu
@@ -185,8 +191,7 @@ set tm=500
 syntax enable
 set background=dark
 let base16colorspace=256  " Access colors present in 256 colorspace
-"colorscheme jellybeans
-colorscheme base16-harmonic16-dark
+colorscheme base16-atelier-heath
 
 "hi SignColumn ctermbg=233
 hi Search cterm=NONE ctermbg=grey ctermfg=blue
