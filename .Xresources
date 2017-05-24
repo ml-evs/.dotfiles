@@ -1,0 +1,21 @@
+! ------------------------------------------------------------------------------
+! ROFI Color theme
+! ------------------------------------------------------------------------------
+! Use extended color scheme
+rofi.font : input mono compressed medium 8
+! Use extended color scheme
+rofi.color-enabled:                  true
+! Color scheme for normal row
+rofi.color-normal:                   #1b181b,#C5C8C6,#1b181b,#56bf8b,#1b181b
+! Color scheme for urgent row
+rofi.color-urgent:                   #1b181b,#C5C8C6,#1b181b,#56bf8b,#1b181b
+! Color scheme for active row
+rofi.color-active:                   #1b181b,#C5C8C6,#1b181b,#56bf8b,#1b181b
+! Color scheme window
+rofi.color-window:                   #1b181b,#56bf8b
+! Separator style (none, dash, solid)
+rofi.separator-style:                solid
+rofi.location: 2
+rofi.sidebar-mode : true
+rofi.lines: 15
+rofi.yoffset: 20
