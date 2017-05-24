@@ -1,4 +1,4 @@
-font pango:Input Mono Compressed Medium 6
+font pango:Input Mono Compressed Medium 8
 
 #..........
 # Look
@@ -105,8 +105,9 @@ for_window [title=".*idget.*"] floating enable
 # start a terminal
 bindsym $mod+Return exec gnome-terminal
 bindsym Mod4+w exec google-chrome
+bindsym Mod4+s exec slack
 bindsym Mod4+Shift+L exec "sh -c '$HOME/.bin/lock $HOME/.bin/lock.png'"
-bindsym $mod+d exec krunner 
+bindsym $mod+d exec rofi -show run
 #bindsym $mod+d exec i3-dmenu-desktop --dmenu="dmenu_run -i -b -nb '$background' -fn 'Input Mono Narrow Medium:pixelsize=12'"
 
 # Layout

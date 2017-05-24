@@ -40,6 +40,7 @@ export PATH=$PATH:$HOME/.cargo/bin
 export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 
 # add cuda and atlas to library path
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/X11R6/lib:/usr/X11R6/lib64
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib64:/usr/local/lib64
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.conda/lib
 # set python path to include locally installed packages and CASTEP 7 scripts
