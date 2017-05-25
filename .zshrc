@@ -6,6 +6,7 @@ if [[ "$HOST" == "cluster2" ]]; then
 else
     ZSH_THEME="agnoster_host"
 fi
+
 #export PYTHONPATH="/u/fs1/me388/.local/lib64/python2.7/site-packages
 export PYTHONPATH=""
 #export PYTHONPATH="$PYTHONPATH:$HOME/matador/src"
@@ -33,29 +34,41 @@ HYPHEN_INSENSITIVE="true"
 DISABLE_AUTO_UPDATE="true"
 DISABLE_AUTO_TITLE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-plugins=(git z)
+plugins=(git z virtualenv)
 export CASTEP_COMMAND="$HOME/CASTEPY/bin/linux_x86_64_gfortran4.8/castep.serial"
 alias vim="PYTHONPATH=$HOME/src/matador-devel:$PYTHONPATH vim"
 alias zshrc="vim $HOME/.zshrc"
 alias mt="~/src/matador-devel/bin/matador"
 alias wat="tail -n 50 -f"
 alias oj="oddjob"
+alias lt="ls -altr"
 alias pup="pip install --upgrade ."
 lr() {
     if [ -z "$1" ]
     then
-        ls | grep res | wc -l
+        ls | grep .res | wc -l
     else
-        ls $1 | grep res | wc -l
+        ls $1 | grep .res | wc -l
     fi
     return
 }
 fing() {
     if [ -z "$1" ]
     then
-        ssh $1 'finger'
-    else
         /usr/bin/finger
+    else
+        ssh node$1 'finger'
+    fi
+    return
+}
+myps() {
+    me=$(whoami)
+    echo $me
+    if [ -z "$1" ]
+    then
+        ps aux | grep $me | grep -v 'ssh\|ps\|grep'
+    else
+        ssh node$1 "ps aux | grep $me" | grep -v 'ssh\|ps\|grep'
     fi
     return
 }
