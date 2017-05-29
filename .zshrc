@@ -1,13 +1,13 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
-#ZSH_THEME="amuse"
 ZSH_THEME="bullet-train"
 # Default user; displays host if !=
 export DEFAULT_USER=matthew
 #export KDEWM='/home/matthew/.local/bin/i3'
 # Fixes tmux colours
 export TERM="xterm-256color"
+echo -e -n "\x1b[\x35 q" # changes to blinking bar
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
@@ -33,7 +33,7 @@ export PATH=$HOME/.local/bin:$PATH:$HOME/.bin
 #export PATH=$PATH:$HOME/.local/opt/ase/tools
 export PATH=$PATH:$HOME/src/CASTEP-8.0/bin/linux_x86_64_gfortran4.8
 export PATH=$PATH:$HOME/src/aisp/bin
-export PATH=$HOME/src/matador/bin:$PATH
+#export PATH=$HOME/src/matador/bin:$PATH
 export PATH=$HOME/src/matador/scripts:$PATH
 export PATH=$PATH:$HOME/.cargo/bin
 
@@ -42,21 +42,18 @@ export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu
 # add cuda and atlas to library path
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/X11R6/lib:/usr/X11R6/lib64
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib64:/usr/local/lib64
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/mpi/gcc/openmpi/lib64
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.conda/lib
 # set python path to include locally installed packages and CASTEP 7 scripts
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib64/python2.7/site-packages
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib/python2.7/site-packages
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/opt/ase
-export PYTHONPATH=$PYTHONPATH:$HOME/src/pyairss
+export PYTHONPATH=$HOME/src/pyairss
 export CASTEP_COMMAND=castep.mpi
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
-# User configuration
 
-source $ZSH/oh-my-zsh.sh
-
-plugins=(git z virtualenv)
 export EDITOR=vim
 export GMON_OUT_PREFIX='gprof'
 
@@ -64,9 +61,10 @@ export GMON_OUT_PREFIX='gprof'
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
+plugins=(git z virtualenv)
+source $ZSH/oh-my-zsh.sh
  #Example aliases
-alias vim="export PYTHONPATH=$HOME/src/matador:$PYTHONPATH; vim"
+alias vim="PYTHONPATH=$HOME/src/matador:$PYTHONPATH vim"
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias grephist="cat ~/.zsh_history | grep"
