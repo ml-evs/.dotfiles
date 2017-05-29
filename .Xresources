@@ -19,3 +19,18 @@ rofi.location: 2
 rofi.sidebar-mode : true
 rofi.lines: 15
 rofi.yoffset: 20
+rofi.terminal: urxvt
+
+*faceName: Input Mono Compressed Medium
+*locale: true
+*utf8 : 1
+*faceSize: 9
+*antialias : true
+*renderFont : true
+*scrollBar : false
+*saveLines: 5000
+*background : #1b181b
+
+URxvt*font: xft:Input Mono Compressed:medium:pixelsize=12,xft:Monospace:regular
+URxvt.faceSize: 9
+URxvt.loginShell : false
