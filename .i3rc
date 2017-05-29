@@ -1,4 +1,4 @@
-font pango:Input Mono Compressed Medium 8
+font pango:Input Mono Compressed Medium 9
 
 #..........
 # Look
@@ -57,7 +57,6 @@ exec --no-startup-id exec nitrogen --restore
 exec --no-startup-id exec xfce4-power-manager 
 exec --no-startup-id exec start-pulseaudio-x11
 exec --no-startup-id exec ssh-agent
-exec --no-startup-id exec xset -b
 exec --no-startup-id exec xautolock -time 5 -locker '$HOME/.bin/lock ~/.bin/lock.png'
 
 # Principal mod key (Super = Win key)
@@ -105,9 +104,10 @@ for_window [title=".*idget.*"] floating enable
 # start a terminal
 bindsym $mod+Return exec gnome-terminal
 bindsym Mod4+w exec google-chrome
+bindsym Mod4+f exec thunar
 bindsym Mod4+s exec slack
 bindsym Mod4+Shift+L exec "sh -c '$HOME/.bin/lock $HOME/.bin/lock.png'"
-bindsym $mod+d exec rofi -show run
+bindsym $mod+d exec i3-dmenu-desktop --dmenu='rofi -i -dmenu'
 #bindsym $mod+d exec i3-dmenu-desktop --dmenu="dmenu_run -i -b -nb '$background' -fn 'Input Mono Narrow Medium:pixelsize=12'"
 
 # Layout
@@ -247,6 +247,7 @@ bindsym $mod+r mode "resize"
 bar {
     #i3bar_command 
     #i3bar_command ~/.i3/lemonbar/i3_lemonbar.sh
+    tray_output LVDS-0
     status_command i3status -c ~/.i3/i3status.conf
     workspace_buttons yes
     position top
