@@ -35,15 +35,14 @@ Plugin 'bling/vim-airline'
 Plugin 'matze/vim-tex-fold'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
-Plugin 'racer-rust/vim-racer'
 Plugin 'wting/rust.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
+Plugin 'valloric/YouCompleteMe'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'junegunn/goyo.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'lervag/vimtex'
-"Plugin 'atelierbram/vim-colors_atelier-schemes'
 Plugin 'chriskempson/base16-vim'
 Plugin 'bling/vim-bufferline'
 
@@ -57,7 +56,7 @@ let g:airline_theme = 'base16'
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
 let g:jedi#popup_on_dot = 0
-let g:jedi#force_py_version = 3
+"let g:jedi#force_py_version = 3
 
 let g:vimtex_complete_close_braces = 1
 
@@ -78,9 +77,8 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:racer_cmd = "$HOME/.cargo/bin/racer"
-let $RUST_SRC_PATH="$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-let g:racer_experimental_completer = 1
+let g:ycm_rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
+let g:rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 
 
 
@@ -317,6 +315,8 @@ set viminfo^=%
 set laststatus=2
 
 " YCM
+let g:ycm_filetype_whitelist = { '*': 1}
+"let g:ycm_filetype_blacklist = { 'python': 1 }
 "nnoremap <Leader>d :YcmCompleter GetDoc<CR>
 " toggle Syntastic
 nnoremap <Leader>s :SyntasticToggleMode<CR>
