@@ -12,19 +12,19 @@ export PYTHONPATH=""
 #export PYTHONPATH="$PYTHONPATH:$HOME/matador/src"
 #export PYTHONPATH="$HOME/src/matador_doctest/:$PYTHONPATH"
 #export PYTHONPATH="$HOME/.local/lib/python3.5/site-packages/spglib-1.9.5-py3.5-linux-x86_64"
-export PYTHONPATH="$HOME/src/ajm_group_voronoi_code:$PYTHONPATH"
+export PYTHONPATH="$HOME/src/ajm_group_voronoi_code:$HOME/src/pyairss:$PYTHONPATH"
 export PATH=""
+export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/bin"
+export PATH="$PATH:$HOME/src/CASTEP-17.2/bin/linux_x86_64_ifort17-TCM/"
+export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/conda/bin"
 export PATH="$PATH:$HOME/shared/bin"
-export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/shared/bin/aisp_bin"
-export PATH="$PATH:$HOME/matador/bin"
-export PATH="$PATH:$HOME/crysdb-bacon/bin"
-export PATH="$PATH:$HOME/matador_testing/bin"
 export PATH="$PATH:/u/fs1/me388/bin/Linux:/u/fs1/me388/bin:/usr/local/bin:/usr/local/shared/bin64:/usr/local/shared/bin:/bin:/usr/bin:/sbin:/usr/sbin"
 export PATH="$PATH:$HOME/matador/scripts"
 export PATH="$PATH:$HOME/shared/bin/cteprouts"
+
 export LD_LIBRARY_PATH="/rscratch/compilers/mkl/lib:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="/usr/local/shared/intel/composerxe-2015.1.133/mkl/lib/intel64:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
@@ -35,9 +35,9 @@ DISABLE_AUTO_UPDATE="true"
 DISABLE_AUTO_TITLE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git z virtualenv)
-export CASTEP_COMMAND="$HOME/CASTEPY/bin/linux_x86_64_gfortran4.8/castep.serial"
-alias vim="PYTHONPATH=$HOME/src/matador-devel:$PYTHONPATH vim"
-alias zshrc="vim $HOME/.zshrc"
+alias vim="PYTHONPATH=$HOME/src/matador-devel:$PYTHONPATH $HOME/.local/bin/vim -X"
+alias zshrc="vim -X $HOME/.zshrc"
+alias vimrc="vim -X $HOME/.vimrc"
 alias mt="~/src/matador-devel/bin/matador"
 alias wat="tail -n 50 -f"
 alias oj="oddjob"
@@ -46,9 +46,18 @@ alias pup="pip install --upgrade ."
 lr() {
     if [ -z "$1" ]
     then
-        ls | grep .res | wc -l
+        ls | grep \.res | wc -l
     else
-        ls $1 | grep .res | wc -l
+        ls $1 | grep \.res | wc -l
+    fi
+    return
+}
+lc() {
+    if [ -z "$1" ]
+    then
+        ls | grep \.cell | wc -l
+    else
+        ls $1 | grep \.cell | wc -l
     fi
     return
 }

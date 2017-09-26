@@ -29,40 +29,47 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'airblade/vim-gitgutter.git'
-Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
-Plugin 'wting/rust.vim'
+"Plugin 'wting/rust.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
+Plugin 'valloric/YouCompleteMe'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'junegunn/goyo.vim'
 Plugin 'tmhedberg/SimpylFold'
-Plugin 'lervag/vimtex'
-Plugin 'atelierbram/vim-colors_atelier-schemes'
+"Plugin 'lervag/vimtex'
+Plugin 'chriskempson/base16-vim'
 Plugin 'bling/vim-bufferline'
+Plugin 'easymotion/vim-easymotion'
 
-let g:startify_custom_header =
-    \ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val')
 
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
-"let g:airline_theme = 'term'
 
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
 autocmd FileType rst :SyntasticToggleMode
 let g:jedi#popup_on_dot = 0
-let g:jedi#force_py_version = 3
+"let g:jedi#force_py_version = 3
 
 let g:vimtex_complete_close_braces = 1
 
 let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_tabs = 0
+let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:goyo_width = 99
 let g:SimpylFold_fold_docstring=0
 let g:SimpylFold_fold_import=0
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+"autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+"autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 let g:SimpylFold_docstring_preview=1
+"let g:ycm_rust_src_path="/home/users/me388/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/"
+"let g:rust_src_path="/home/users/me388/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/"
+
 
 let g:syntastic_mode_map = {
             \ "mode": "active",
@@ -72,8 +79,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
 call vundle#end()            " required
+
 filetype plugin indent on    " required
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -177,11 +184,10 @@ syntax enable
 set background=dark
 let base16colorspace=256  " Access colors present in 256 colorspace
 "colorscheme jellybeans
-"colorscheme base16-atelierheath
-colorscheme base16-atelierforest
+colorscheme base16-atelier-heath
 
 "hi SignColumn ctermbg=233
-hi Search cterm=NONE ctermbg=grey ctermfg=blue
+hi Search cterm=NONE ctermfg=black
 
 
 " Set utf8 as standard encoding and en_US as the standard language
