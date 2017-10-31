@@ -61,6 +61,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_section_x = '%-0.15{getcwd()}'
 let g:goyo_width = 99
 let g:SimpylFold_fold_docstring=0
 let g:SimpylFold_fold_import=0
