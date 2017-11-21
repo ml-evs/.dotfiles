@@ -27,34 +27,45 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 export PATH=/home/matthew/.local/conda/bin:$PATH
 # add locally installed programs and scripts, e.g. latest vim, gcc
-export PATH=$PATH:/usr/lib64/mpi/gcc/openmpi/bin
-# add CASTEP to path, choosing CASTEP 16.1 for MPI and scripts
-export PATH=$HOME/.local/bin:$PATH:$HOME/.bin
+export PATH=$PATH:/opt/bin
+export PATH=$HOME/.local/bin:$HOME/.bin:$HOME/.local/opt/bin:$PATH
 #export PATH=$PATH:$HOME/.local/opt/ase/tools
-export PATH=$PATH:$HOME/src/CASTEP-8.0/bin/linux_x86_64_gfortran4.8
-export PATH=$PATH:$HOME/src/aisp/bin
 #export PATH=$HOME/src/matador/bin:$PATH
 export PATH=$HOME/src/matador/scripts:$PATH
 export PATH=$PATH:$HOME/.cargo/bin
+export XCRYSDEN_TOPDIR="$HOME/.local/opt/xcrysden-1.5.60-bin-semishared"
+
+export F90=ifort
+export F77=ifort
+export CC=icc
+export OMPI_FC=ifort
+export OMPI_CC=icc
+export MPIF90=mpifort
+export MPICC=mpicc
 
 export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 
 # add cuda and atlas to library path
+export MKLROOT=/opt/intel/mkl
+export LD_LIBRARY_PATH=/opt/intel/mkl/lib/intel64
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/X11R6/lib:/usr/X11R6/lib64
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib64:/usr/local/lib64
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/mpi/gcc/openmpi/lib64
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.conda/lib
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.conda/lib
 # set python path to include locally installed packages and CASTEP 7 scripts
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib64/python2.7/site-packages
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib/python2.7/site-packages
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/opt/ase
 export PYTHONPATH=$HOME/src/pyairss
 export CASTEP_COMMAND=castep.mpi
+
+export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
+
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 
 
-export EDITOR=vim
+export EDITOR="$HOME/.local/bin/vim -X"
 export GMON_OUT_PREFIX='gprof'
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -64,7 +75,8 @@ export GMON_OUT_PREFIX='gprof'
 plugins=(git z virtualenv)
 source $ZSH/oh-my-zsh.sh
  #Example aliases
-alias vim="PYTHONPATH=$HOME/src/matador:$PYTHONPATH vim"
+alias vim="PYTHONPATH=$HOME/src/matador:$PYTHONPATH vim --servername VIM"
+alias open="xdg-open"
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias grephist="cat ~/.zsh_history | grep"
@@ -100,9 +112,30 @@ cavis () {
     ca -l -r -t $1 | awk '{print $1".res"}' | xargs $HOME/.local/bin/VESTA
 }
 
-vimtex () {
-    gvim -v "$@" --servername VIM
+weather () {
+    if [ -z "$1" ]
+    then
+        curl "http://wttr.in/\~Cambridge";
+    else
+        curl "http://wttr.in/$1";
+    fi
+    return
 }
+
+nf () {
+    if [ -z "$1" ]; then
+        echo "Enter a port!"
+    elif [ -z "$2" ]; then
+        ssh -N -f -L localhost:"$1":localhost:$1 noggin
+    else
+        ssh -N -f -L localhost:"$1":localhost:$2 noggin
+    fi
+}
+
+#vimtex () {
+    #vim --servername VIM
+    ##vim -v "$@" --servername VIM
+#}
 
 DIRSTACKSIZE=9
 DIRSTACKFILE=~/.zdirs

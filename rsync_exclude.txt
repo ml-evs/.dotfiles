@@ -1,6 +1,4 @@
-*.check
 *.cst_esp
-*.bands
 *.castep_bin
 *.check_bin
 *.dome_bin
@@ -13,3 +11,4 @@
 *dyn*
 *a2Fq2r*
 */tmp/*
+*bad_castep*

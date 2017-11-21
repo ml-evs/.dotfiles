@@ -1,4 +1,4 @@
-font pango:Input Mono Compressed Medium 9
+font pango: Input Mono Compressed Medium 9
 
 #..........
 # Look
@@ -8,10 +8,9 @@ for_window [class="^.*"] border pixel 2
 gaps inner 20
 gaps outer 20
 bindsym $mod+g gaps inner current set 0 
-bindsym Mod4+g gaps outer current set 20 gaps inner current set 20
+bindsym Mod4+g gaps outer current set 50 gaps inner current set 50
 
-# Harmonic 
-# set $back               #121212
+# Harmonic # set $back               #121212
 # set $background         #0b1c2c
 # set $border             #56bf8b
 # set $black              #282A2E
@@ -53,10 +52,10 @@ exec --no-startup-id exec kcminit_startup
 exec --no-startup-id exec compton
 exec --no-startup-id exec kwalletd5
 exec --no-startup-id exec nitrogen --restore
-#exec --no-startup-id exec nm-applet 
 exec --no-startup-id exec xfce4-power-manager 
+exec --no-startup-id exec nm-applet 
 exec --no-startup-id exec start-pulseaudio-x11
-exec --no-startup-id exec ssh-agent
+#exec --no-startup-id exec ssh-agent
 exec --no-startup-id exec xautolock -time 5 -locker '$HOME/.bin/lock ~/.bin/lock.png'
 
 # Principal mod key (Super = Win key)
@@ -118,29 +117,19 @@ bindsym $mod+k focus up
 bindsym $mod+l focus right
 bindsym $mod+h focus left
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Left focus left
-bindsym $mod+Down focus down
-bindsym $mod+Up focus up
-bindsym $mod+Right focus right
-
 # move focused window
 bindsym $mod+Shift+J move down
 bindsym $mod+Shift+K move up
 bindsym $mod+Shift+L move right
 bindsym $mod+Shift+H move left
 
-# alternatively, you can use the cursor keys:
-bindsym $mod+Shift+Left move left
-bindsym $mod+Shift+Down move down
-bindsym $mod+Shift+Up move up
-bindsym $mod+Shift+Right move right
-
 # split in horizontal orientation
-#bindsym $mod+= split h
+bindsym $mod+Left split h
+bindsym $mod+Right split h
 
 # split in vertical orientation
-bindsym $mod+- split v
+bindsym $mod+Up split v
+bindsym $mod+Down split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
@@ -157,7 +146,7 @@ bindsym $mod+Shift+space floating toggle
 bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $mod+a focus parent
+#bindsym $mod+a focus parent
 
 #...........
 # Keybinds i3
@@ -249,6 +238,7 @@ bar {
     #i3bar_command ~/.i3/lemonbar/i3_lemonbar.sh
     tray_output LVDS-0
     status_command i3status -c ~/.i3/i3status.conf
+    #status_command i3status -c ~/i3status.conf_
     workspace_buttons yes
     position top
     colors {
