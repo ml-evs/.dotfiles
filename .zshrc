@@ -81,6 +81,15 @@ myps() {
     fi
     return
 }
+shame() {
+    if [ -z "$1" ]
+    then
+        ls -d /u/fs1/* | xargs -L 1 -I ! zsh -c '{ find ! -type f \( -name "*.check" -o -name "*.cst_esp" \) -printf "%s+" 2&>/dev/null; echo 0; } | bc | numfmt --to=si | xargs -I % printf "%\t: !\n"' | sort -h -r
+    else
+        ls -d /u/fs1/$1 | xargs -L 1 -I ! zsh -c '{ find ! -type f \( -name "*.check" -o -name "*.cst_esp" -o -size +1G \) -printf "%s+" 2&>/dev/null; echo 0; } | bc | numfmt --to=si | xargs -I % printf "%\t: !\n"'
+    fi
+    return
+}
 DIRSTACKSIZE=9
 DIRSTACKFILE=~/.zdirs
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
