@@ -31,7 +31,6 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'airblade/vim-gitgutter.git'
 Plugin 'suan/vim-instant-markdown'
-Plugin 'matze/vim-tex-fold'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
@@ -46,6 +45,7 @@ Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'junegunn/goyo.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'lervag/vimtex'
+Plugin 'matze/vim-tex-fold'
 Plugin 'chriskempson/base16-vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'easymotion/vim-easymotion'
@@ -59,12 +59,18 @@ let g:airline_theme = 'base16'
 
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
+autocmd FileType rst :SyntasticToggleMode
 let g:jedi#popup_on_dot = 0
 "let g:jedi#force_py_version = 3
 
 let g:vimtex_complete_close_braces = 1
 
 let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_buffers = 1
+let g:airline#extensions#tabline#show_tabs = 0
+let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_section_x = '%-0.15{getcwd()}'
 let g:goyo_width = 99
 let g:SimpylFold_fold_docstring=0
 let g:SimpylFold_fold_import=0
@@ -83,11 +89,8 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
 let g:syntastic_fortran_compiler = "gfortran"
-
 let g:ycm_rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 let g:rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-
-
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -111,8 +114,6 @@ let mapleader = ","
 let g:mapleader = ","
 let maplocalleader = "."
 
-nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
-nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -138,7 +139,7 @@ set relativenumber
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
+set so=10
 
 " Turn on the WiLd menu
 set wildmenu
@@ -213,7 +214,8 @@ set ffs=unix,dos,mac
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
+set backup
+set backupdir=$HOME/.backup
 set nowb
 set noswapfile
 
@@ -243,16 +245,16 @@ set incsearch
 au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 noautoindent
 
 
-"nnoremap <leader><space> :call HighlightNearCursor()<CR>
-"function HighlightNearCursor()
-  "if !exists("s:highlightcursor")
-    "match Todo /\k*\%#\k*/
-    "let s:highlightcursor=1
-  "else
-    "match None
-    "unlet s:highlightcursor
-  "endif
-"endfunction
+nnoremap <leader><space> :call HighlightNearCursor()<CR>
+function HighlightNearCursor()
+  if !exists("s:highlightcursor")
+    match Todo /\k*\%#\k*/
+    let s:highlightcursor=1
+  else
+    match None
+    unlet s:highlightcursor
+  endif
+endfunction
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
@@ -328,6 +330,8 @@ let g:ycm_filetype_whitelist = { '*': 1}
 " toggle Syntastic
 nnoremap <Leader>s :SyntasticToggleMode<CR>
 nnoremap <Leader>l :lnext<CR>
+nnoremap <Leader>ll :ll<CR>
+nnoremap <Leader>lp :lp<CR>
 nnoremap <Leader>gc :Gcommit % <CR>
 nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gb :Gblame<CR>
@@ -356,8 +360,6 @@ func! DeleteTrailingWS()
 endfunc
 nnoremap <Leader>p :call DeleteTrailingWS()
 autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *rc :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
