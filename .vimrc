@@ -27,26 +27,35 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
+Plugin 'kien/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'airblade/vim-gitgutter.git'
+"Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
 "Plugin 'wting/rust.vim'
+Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'scrooloose/syntastic'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'junegunn/goyo.vim'
 Plugin 'tmhedberg/SimpylFold'
 "Plugin 'lervag/vimtex'
+"Plugin 'matze/vim-tex-fold'
 Plugin 'chriskempson/base16-vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'easymotion/vim-easymotion'
 
+"let g:startify_custom_header =
+    "\ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val')
 
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
+let g:airline_theme = 'base16'
 
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
@@ -68,9 +77,7 @@ let g:SimpylFold_fold_import=0
 "autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
 "autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 let g:SimpylFold_docstring_preview=1
-"let g:ycm_rust_src_path="/home/users/me388/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/"
-"let g:rust_src_path="/home/users/me388/.rustup/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src/"
-
+let g:fortran_fold = 1
 
 let g:syntastic_mode_map = {
             \ "mode": "active",
@@ -80,8 +87,12 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-call vundle#end()            " required
 
+"let g:syntastic_fortran_compiler = "gfortran"
+"let g:ycm_rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
+"let g:rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
+
+call vundle#end()            " required
 filetype plugin indent on    " required
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -101,6 +112,8 @@ set autoread
 " like <leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
+let maplocalleader = "."
+
 
 " Fast saving
 nmap <leader>w :w!<cr>
@@ -184,11 +197,10 @@ set tm=500
 syntax enable
 set background=dark
 let base16colorspace=256  " Access colors present in 256 colorspace
-"colorscheme jellybeans
 colorscheme base16-atelier-heath
 
 "hi SignColumn ctermbg=233
-hi Search cterm=NONE ctermfg=black
+hi Search cterm=NONE ctermbg=grey ctermfg=blue
 
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -228,6 +240,7 @@ set tw=500
 set ai "Auto indent
 set si "Smart indent
 set nowrap "Wrap lines
+set incsearch
 
 au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 noautoindent
 
@@ -310,6 +323,10 @@ set viminfo^=%
 " Always show the status line
 set laststatus=2
 
+" YCM
+let g:ycm_filetype_whitelist = { '*': 1}
+"let g:ycm_filetype_blacklist = { 'python': 1 }
+"nnoremap <Leader>d :YcmCompleter GetDoc<CR>
 " toggle Syntastic
 nnoremap <Leader>s :SyntasticToggleMode<CR>
 nnoremap <Leader>l :lnext<CR>
@@ -388,6 +405,8 @@ map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
+map <leader>rr :NERDTreeToggle<CR>
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
