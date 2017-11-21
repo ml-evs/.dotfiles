@@ -31,13 +31,15 @@ Plugin 'kien/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'airblade/vim-gitgutter.git'
 Plugin 'suan/vim-instant-markdown'
-Plugin 'bling/vim-airline'
 Plugin 'matze/vim-tex-fold'
+Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
 Plugin 'wting/rust.vim'
 Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'scrooloose/syntastic'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
@@ -46,6 +48,7 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'lervag/vimtex'
 Plugin 'chriskempson/base16-vim'
 Plugin 'bling/vim-bufferline'
+Plugin 'easymotion/vim-easymotion'
 
 let g:startify_custom_header =
     \ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val')
@@ -370,7 +373,7 @@ map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 "map <leader><space> :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
 
 " When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
+"vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
 
 " Do :help cope if you are unsure what cope is. It's super useful!
 "
@@ -400,6 +403,8 @@ map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
+map <leader>rr :NERDTreeToggle<CR>
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
