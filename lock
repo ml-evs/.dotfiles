@@ -1,0 +1,40 @@
+#!/bin/sh
+
+B='#1b181bff'  # bg
+C='#cbd6e2ff'  # clear ish
+D='#ffffffff'  # default
+T='#cbd6e2cc'  # text
+W='#880000ff'  # wrong
+V='#bb00bbff'  # verifying
+
+$HOME/.local/opt/bin/i3lock              \
+--insidevercolor=$B   \
+--ringvercolor=$B   \
+\
+--insidewrongcolor=$B \
+--ringwrongcolor=$B   \
+\
+--insidecolor=$B      \
+--ringcolor=$B        \
+--linecolor=$B        \
+--separatorcolor=$T   \
+\
+--textcolor=$T        \
+--timecolor=$T        \
+--datecolor=$T        \
+--keyhlcolor=$T       \
+--bshlcolor=$T        \
+-c "#1b181b" \
+--screen 0            \
+--clock               \
+--indicator           \
+--timestr="%H:%M:%S"  \
+--datestr="%A, %m %Y" \
+--wrongtext="!" \
+--veriftext="..." \
+--textsize=14 \
+--modsize=14 \
+--timefont="Input Mono Compressed" \
+--blur 10              \
+--datefont="Input Mono Compressed"
+# etc

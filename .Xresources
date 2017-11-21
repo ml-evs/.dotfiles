@@ -1,8 +1,14 @@
+Xft.dpi: 96
+Xft.antialias: true
+Xft.rgba: rgb
+Xft.hinting: true
+Xft.hintstyle: hintslight
+
 ! ------------------------------------------------------------------------------
 ! ROFI Color theme
 ! ------------------------------------------------------------------------------
 ! Use extended color scheme
-rofi.font : input mono compressed medium 8
+rofi.font : input mono compressed medium 10
 ! Use extended color scheme
 rofi.color-enabled:                  true
 ! Color scheme for normal row
@@ -21,16 +27,11 @@ rofi.lines: 15
 rofi.yoffset: 20
 rofi.terminal: urxvt
 
-*faceName: Input Mono Compressed Medium
-*locale: true
-*utf8 : 1
-*faceSize: 9
-*antialias : true
-*renderFont : true
-*scrollBar : false
-*saveLines: 5000
-*background : #1b181b
+URxvt.faceSize: 20
+URxvt.loginShell : true
+URxvt.lineSpace: 0
+URxvt.saveLines: 10000
 
-URxvt*font: xft:Input Mono Compressed:medium:pixelsize=12,xft:Monospace:regular
-URxvt.faceSize: 9
-URxvt.loginShell : false
+URxvt*font: xft:Input Mono:pixelsize=15
+URxvt*letterSpace: 0
+URxvt*scrollBar : false

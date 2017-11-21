@@ -36,6 +36,7 @@ Plugin 'matze/vim-tex-fold'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
 Plugin 'wting/rust.vim'
+Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/syntastic'
 Plugin 'valloric/YouCompleteMe'
@@ -64,9 +65,10 @@ let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-f
 let g:goyo_width = 99
 let g:SimpylFold_fold_docstring=0
 let g:SimpylFold_fold_import=0
-autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
+"autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
+"autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 let g:SimpylFold_docstring_preview=1
+let g:fortran_fold = 1
 
 let g:syntastic_mode_map = {
             \ "mode": "active",
@@ -76,6 +78,8 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+let g:syntastic_fortran_compiler = "gfortran"
 
 let g:ycm_rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 let g:rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
