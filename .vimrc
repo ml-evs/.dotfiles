@@ -36,6 +36,9 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
 "Plugin 'wting/rust.vim'
 Plugin 'ludovicchabant/vim-lawrencium'
+Plugin 'jceb/vim-orgmode'
+Plugin 'tpope/vim-speeddating'
+Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
@@ -49,9 +52,6 @@ Plugin 'tmhedberg/SimpylFold'
 Plugin 'chriskempson/base16-vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'easymotion/vim-easymotion'
-
-"let g:startify_custom_header =
-    "\ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val')
 
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
@@ -83,6 +83,8 @@ let g:syntastic_mode_map = {
             \ "mode": "active",
             \ "passive_filetypes": ["tex"] }
 
+
+let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -117,6 +119,8 @@ let maplocalleader = "."
 
 " Fast saving
 nmap <leader>w :w!<cr>
+
+map <leader>q :TagbarOpenAutoClose<CR>
 
 " fast commenting
 map cc <leader>c<space>
@@ -199,7 +203,7 @@ set background=dark
 let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-atelier-heath
 
-"hi SignColumn ctermbg=233
+hi SignColumn ctermbg=233
 hi Search cterm=NONE ctermbg=grey ctermfg=blue
 
 

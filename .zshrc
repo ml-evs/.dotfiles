@@ -7,6 +7,36 @@ else
     ZSH_THEME="agnoster_host"
 fi
 
+# -- Improved X11 forwarding through GNU Screen (or tmux) from http://alexteichman.com/octo/blog/2014/01/01/x11-forwarding-and-terminal-multiplexers/
+# If not in screen or tmux, update the DISPLAY cache.
+# If we are, update the value of DISPLAY to be that in the cache.
+function update-x11-forwarding
+{
+    if [ -z "$STY" -a -z "$TMUX" ]; then
+        echo $DISPLAY > ~/.display.txt
+    else
+        export DISPLAY=`cat ~/.display.txt`
+    fi
+}
+
+# This is run before every command.
+preexec() {
+    # Don't cause a preexec for PROMPT_COMMAND.
+    # Beware!  This fails if PROMPT_COMMAND is a string containing more than one command.
+    [ "$BASH_COMMAND" = "$PROMPT_COMMAND" ] && return 
+
+    echo $DISPLAY
+    update-x11-forwarding
+    echo $DISPLAY
+
+    # Debugging.
+    #echo DISPLAY = $DISPLAY, display.txt = `cat ~/.display.txt`, STY = $STY, TMUX = $TMUX  
+}
+#trap 'preexec' DEBUG
+
+export EDITOR=$HOME/.local/bin/vim
+
+export TCM_INTEL_VER=17.0.2
 #export PYTHONPATH="/u/fs1/me388/.local/lib64/python2.7/site-packages
 export PYTHONPATH=""
 #export PYTHONPATH="$PYTHONPATH:$HOME/matador/src"
@@ -46,18 +76,18 @@ alias pup="pip install --upgrade ."
 lr() {
     if [ -z "$1" ]
     then
-        ls | grep \.res | wc -l
+        ls | grep \.res$ | wc -l
     else
-        ls $1 | grep \.res | wc -l
+        ls $1 | grep \.res$ | wc -l
     fi
     return
 }
 lc() {
     if [ -z "$1" ]
     then
-        ls | grep \.cell | wc -l
+        ls | grep \.cell$ | wc -l
     else
-        ls $1 | grep \.cell | wc -l
+        ls $1 | grep \.cell$ | wc -l
     fi
     return
 }
@@ -84,7 +114,7 @@ myps() {
 shame() {
     if [ -z "$1" ]
     then
-        ls -d /u/fs1/* | xargs -L 1 -I ! zsh -c '{ find ! -type f \( -name "*.check" -o -name "*.cst_esp" \) -printf "%s+" 2&>/dev/null; echo 0; } | bc | numfmt --to=si | xargs -I % printf "%\t: !\n"' | sort -h -r
+        ls -d /u/fs1/* | xargs -L 1 -I ! zsh -c '{ find ! -type f \( -name "*.check" -o -name "*.cst_esp" -o -size +1G \) -printf "%s+" 2&>/dev/null; echo 0; } | bc | numfmt --to=si | xargs -I % printf "%\t: !\n"' | sort -h -r
     else
         ls -d /u/fs1/$1 | xargs -L 1 -I ! zsh -c '{ find ! -type f \( -name "*.check" -o -name "*.cst_esp" -o -size +1G \) -printf "%s+" 2&>/dev/null; echo 0; } | bc | numfmt --to=si | xargs -I % printf "%\t: !\n"'
     fi
