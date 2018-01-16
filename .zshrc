@@ -48,9 +48,10 @@ export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu
 # add cuda and atlas to library path
 export MKLROOT=/opt/intel/mkl
 export LD_LIBRARY_PATH=/opt/intel/mkl/lib/intel64
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/intel/impi/2017.3.196/lib64
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/X11R6/lib:/usr/X11R6/lib64
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib64:/usr/local/lib64
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/mpi/gcc/openmpi/lib64
+#export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib64/mpi/gcc/openmpi/lib64
 #export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.conda/lib
 # set python path to include locally installed packages and CASTEP 7 scripts
 #export PYTHONPATH=$PYTHONPATH:$HOME/.local/lib64/python2.7/site-packages
@@ -101,7 +102,7 @@ alias alert_helper='history|tail -n1|sed -e "s/^\s*[0-9]\+\s*//" -e "s/;\s*alert
 alias alert='notify-send "[$?] $(alert_helper)"'
 
 ng () {
-    ssh -X -t noggin tmux attach
+    ssh -X -t noggin tmux attach -t status
 }
 
 rbusy () {
@@ -132,11 +133,6 @@ nf () {
     fi
 }
 
-#vimtex () {
-    #vim --servername VIM
-    ##vim -v "$@" --servername VIM
-#}
-
 DIRSTACKSIZE=9
 DIRSTACKFILE=~/.zdirs
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
@@ -146,3 +142,12 @@ fi
 chpwd() {
   print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
 }
+
+work () {
+    if [ "$(tmux ls | grep -c org)" -eq "1" ]; then
+        tmux attach -t org
+    else
+        tmux new-session -s org \; send-keys 'ng' C-m \; split-window -h -p 20 \; send-keys 'vim ~/documents/org/to-do.org' C-m \,
+    fi
+}
+

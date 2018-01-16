@@ -34,6 +34,9 @@ Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
+Plugin 'jceb/vim-orgmode'
+Plugin 'tpope/vim-speeddating'
+Plugin 'majutsushi/tagbar'
 Plugin 'wting/rust.vim'
 Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'scrooloose/nerdcommenter'
@@ -50,12 +53,10 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'easymotion/vim-easymotion'
 
-let g:startify_custom_header =
-    \ map(split(system('fortune | cowsay'), '\n'), '"   ". v:val')
-
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 let g:airline_theme = 'base16'
+
 
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
@@ -71,7 +72,7 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_x = '%-0.15{getcwd()}'
-let g:goyo_width = 99
+let g:goyo_width = 120
 let g:SimpylFold_fold_docstring=0
 let g:SimpylFold_fold_import=0
 "autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
@@ -83,10 +84,11 @@ let g:syntastic_mode_map = {
             \ "mode": "active",
             \ "passive_filetypes": ["tex"] }
 
+
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+let g:syntastic_check_on_open = 0
+let g:syntastic_check_on_wq = 1
 
 let g:syntastic_fortran_compiler = "gfortran"
 let g:ycm_rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
@@ -117,6 +119,8 @@ let maplocalleader = "."
 
 " Fast saving
 nmap <leader>w :w!<cr>
+
+nmap <leader>q :TagbarOpenAutoClose<CR>
 
 " fast commenting
 map cc <leader>c<space>
