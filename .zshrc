@@ -59,5 +59,6 @@ export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
 
 export EDITOR="$HOME/.local/bin/vim -X"
 export GMON_OUT_PREFIX='gprof'
+alias vim="PYTHONPATH=$HOME/src/matador:$PYTHONPATH vim --servername VIM"
 
 source $HOME/.dotfiles/zshrc.global

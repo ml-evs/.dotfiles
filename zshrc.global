@@ -3,7 +3,6 @@ DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git z virtualenv)
 source $ZSH/oh-my-zsh.sh
 # Example aliases
-alias vim="PYTHONPATH=$HOME/src/matador:$PYTHONPATH vim --servername VIM"
 alias open="xdg-open"
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
