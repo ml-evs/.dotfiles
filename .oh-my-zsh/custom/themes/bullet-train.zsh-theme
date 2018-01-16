@@ -13,7 +13,7 @@
 # The default configuration, that can be overwrite in your .zshrc file
 # ------------------------------------------------------------------------------
 
-VIRTUAL_ENV_DISABLE_PROMPT=false
+VIRTUAL_ENV_DISABLE_PROMPT=true
 
 # Define order and content of prompt
 if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
@@ -94,7 +94,7 @@ if [ ! -n "${BULLETTRAIN_VIRTUALENV_FG+1}" ]; then
   BULLETTRAIN_VIRTUALENV_FG=black
 fi
 if [ ! -n "${BULLETTRAIN_VIRTUALENV_PREFIX+1}" ]; then
-  BULLETTRAIN_VIRTUALENV_PREFIX=🐍
+  BULLETTRAIN_VIRTUALENV_PREFIX=§
 fi
 
 # NVM
@@ -203,7 +203,7 @@ fi
 
 # CONTEXT
 if [ ! -n "${BULLETTRAIN_CONTEXT_SHOW+1}" ]; then
-  BULLETTRAIN_CONTEXT_SHOW=false
+  BULLETTRAIN_CONTEXT_SHOW=true
 fi
 if [ ! -n "${BULLETTRAIN_CONTEXT_BG+1}" ]; then
   BULLETTRAIN_CONTEXT_BG=black
@@ -212,7 +212,7 @@ if [ ! -n "${BULLETTRAIN_CONTEXT_FG+1}" ]; then
   BULLETTRAIN_CONTEXT_FG=default
 fi
 if [ ! -n "${BULLETTRAIN_CONTEXT_HOSTNAME+1}" ]; then
-  BULLETTRAIN_CONTEXT_HOSTNAME=%m
+  BULLETTRAIN_CONTEXT_HOSTNAME=matador
 fi
 
 # GIT PROMPT
@@ -532,8 +532,22 @@ prompt_go() {
   fi
 }
 
-# Virtualenv: current working virtualenv
+# from pull_request by niechen
 prompt_virtualenv() {
+  if [[ -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
+    local virtualenv_path="$VIRTUAL_ENV"
+    if [[ -n $CONDA_DEFAULT_ENV ]]; then
+      prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $CONDA_DEFAULT_ENV"
+    elif [[ -n $virtualenv_path ]]; then
+      prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(basename $virtualenv_path)"
+    elif which pyenv &> /dev/null; then
+      prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(pyenv version | sed -e 's/ (set.*$//' | tr '\n' ' ' | sed 's/.$//')"
+    fi
+  fi
+}
+
+# Virtualenv: current working virtualenv
+prompt_virtualenv_old() {
   if [[ $BULLETTRAIN_VIRTUALENV_SHOW == false ]]; then
     return
   fi
@@ -649,4 +663,4 @@ PROMPT="$PROMPT"'%{%f%b%k%}$(build_prompt)'
 [[ $BULLETTRAIN_PROMPT_SEPARATE_LINE == true ]] && PROMPT="$PROMPT$NEWLINE"
 PROMPT="$PROMPT"'%{${fg_bold[default]}%}'
 [[ $BULLETTRAIN_PROMPT_SEPARATE_LINE == false ]] && PROMPT="$PROMPT "
-PROMPT="$PROMPT"'$(prompt_char) %{$reset_color%}'
+pROMPT="$PROMPT"'$(prompt_char) %{$reset_color%}'
