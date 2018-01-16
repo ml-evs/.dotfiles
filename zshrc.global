@@ -1,0 +1,63 @@
+HYPHEN_INSENSITIVE="true"
+DISABLE_UNTRACKED_FILES_DIRTY="true"
+plugins=(git z virtualenv)
+source $ZSH/oh-my-zsh.sh
+# Example aliases
+alias vim="PYTHONPATH=$HOME/src/matador:$PYTHONPATH vim --servername VIM"
+alias open="xdg-open"
+alias zshrc="vim ~/.zshrc"
+alias vimrc="vim ~/.vimrc"
+alias i3rc="vim ~/.i3/config"
+alias lx="ls -X"
+alias zypper='sudo zypper'
+alias zyp='sudo zypper'
+
+ng () {
+    ssh -X -t noggin tmux attach -t status
+}
+
+rbusy () {
+    ssh -t noggin rbusy $1 $2 $3
+}
+
+cavis () {
+    ca -l -r -t $1 | awk '{print $1".res"}' | xargs $HOME/.local/bin/VESTA
+}
+
+weather () {
+    if [ -z "$1" ]
+    then
+        curl "http://wttr.in/\~Cambridge";
+    else
+        curl "http://wttr.in/$1";
+    fi
+    return
+}
+
+nf () {
+    if [ -z "$1" ]; then
+        echo "Enter a port!"
+    elif [ -z "$2" ]; then
+        ssh -N -f -L localhost:"$1":localhost:$1 noggin
+    else
+        ssh -N -f -L localhost:"$1":localhost:$2 noggin
+    fi
+}
+
+DIRSTACKSIZE=9
+DIRSTACKFILE=~/.zdirs
+if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
+  dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
+    [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
+fi
+chpwd() {
+  print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
+}
+
+work () {
+    if [ "$(tmux ls | grep -c org)" -eq "1" ]; then
+        tmux attach -t org
+    else
+        tmux new-session -s org \; send-keys 'ng' C-m \; split-window -h -p 20 \; send-keys 'vim ~/documents/org/to-do.org' C-m \,
+    fi
+}
