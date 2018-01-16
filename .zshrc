@@ -3,13 +3,13 @@ export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 ZSH_THEME="bullet-train"
 # Default user; displays host if !=
-export DEFAULT_USER=matthew
+export DEFAULT_USER=me388
 #export KDEWM='/home/matthew/.local/bin/i3'
 # Fixes tmux colours
 export TERM="xterm-256color"
 echo -e -n "\x1b[\x35 q" # changes to blinking bar
 
-BASE16_SHELL=$HOME/.config/base16-shell/
+BASE16_SHELL=$HOME/.dotfiles/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 
@@ -25,7 +25,7 @@ PROMPT_COMMAND='pwd > "${HOME}/.cwd"'
 export LS_COLORS='fi=0;34:rs=0:di=0;35:ln=01;33:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33:cd=40;33:or=40;31:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=01;34:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.gz=0;35:*.bz2=01;31:*.bz=01;31:*.tbz2=01;31:*.tz=01;31:*.sh=01;35:*.f90=0;34:*.py=0;34:*.cpp=0;35:*.o=0;37:*.mod=0;37:*.pyc=0;37'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-export PATH=/home/matthew/.local/conda/bin:$PATH
+export PATH=$HOME/.local/conda/bin:$PATH
 # add locally installed programs and scripts, e.g. latest vim, gcc
 export PATH=$PATH:/opt/bin
 export PATH=$HOME/.local/bin:$HOME/.bin:$HOME/.local/opt/bin:$PATH
@@ -34,6 +34,8 @@ export PATH=$HOME/.local/bin:$HOME/.bin:$HOME/.local/opt/bin:$PATH
 export PATH=$HOME/src/matador/scripts:$PATH
 export PATH=$PATH:$HOME/.cargo/bin
 export XCRYSDEN_TOPDIR="$HOME/.local/opt/xcrysden-1.5.60-bin-semishared"
+
+export VIRTUAL_ENV_DISABLE_PROMPT=true
 
 export F90=ifort
 export F77=ifort
@@ -57,7 +59,8 @@ export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
 
 
 
-export EDITOR="$HOME/.local/bin/vim -X"
+EDITOR="vim"
+VISUAL="$EDITOR"
 export GMON_OUT_PREFIX='gprof'
 
 source $HOME/.dotfiles/zshrc.global
