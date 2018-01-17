@@ -212,7 +212,7 @@ if [ ! -n "${BULLETTRAIN_CONTEXT_FG+1}" ]; then
   BULLETTRAIN_CONTEXT_FG=default
 fi
 if [ ! -n "${BULLETTRAIN_CONTEXT_HOSTNAME+1}" ]; then
-  BULLETTRAIN_CONTEXT_HOSTNAME=matador
+  BULLETTRAIN_CONTEXT_HOSTNAME=%m
 fi
 
 # GIT PROMPT
@@ -663,4 +663,4 @@ PROMPT="$PROMPT"'%{%f%b%k%}$(build_prompt)'
 [[ $BULLETTRAIN_PROMPT_SEPARATE_LINE == true ]] && PROMPT="$PROMPT$NEWLINE"
 PROMPT="$PROMPT"'%{${fg_bold[default]}%}'
 [[ $BULLETTRAIN_PROMPT_SEPARATE_LINE == false ]] && PROMPT="$PROMPT "
-pROMPT="$PROMPT"'$(prompt_char) %{$reset_color%}'
+PROMPT="$PROMPT"'$(prompt_char) %{$reset_color%}'
