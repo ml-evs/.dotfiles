@@ -20,7 +20,7 @@ rbusy () {
 }
 
 cavis () {
-    ca -l -r -t $1 | awk '{print $1".res"}' | xargs $HOME/.local/bin/VESTA
+    ca -l -r -t $1 | awk '{print $1".res"}' | xargs vesta
 }
 
 weather () {
@@ -59,4 +59,12 @@ work () {
     else
         tmux new-session -s org \; send-keys 'ng' C-m \; split-window -h -p 20 \; send-keys 'vim ~/documents/org/to-do.org' C-m \,
     fi
+}
+
+unplug () {
+    xrandr --output VGA-0 --off && xrandr --output DP-0 --off
+}
+
+plugin () {
+    xrandr --output DP-0 --mode 1920x1080 --right-of LVDS-0 && xrandr --output VGA-0 --mode 1920x1080 --right-of DP-0
 }
