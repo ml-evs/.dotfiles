@@ -27,9 +27,8 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 export PATH=/home/matthew/.local/conda/bin:$PATH
 # add locally installed programs and scripts, e.g. latest vim, gcc
-# MOVED TO .PROFILE
-#export PATH=$PATH:/opt/bin
-#export PATH=$HOME/.local/bin:$HOME/.bin:$HOME/.local/opt/bin:$PATH
+export PATH=$PATH:/opt/bin
+export PATH=$HOME/.local/bin:$HOME/.bin:$HOME/.local/opt/bin:$PATH
 #export PATH=$PATH:$HOME/.local/opt/ase/tools
 #export PATH=$HOME/src/matador/bin:$PATH
 export PATH=$HOME/src/matador/scripts:$PATH
