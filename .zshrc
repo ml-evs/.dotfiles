@@ -69,6 +69,7 @@ export LD_LIBRARY_PATH="/rscratch/compilers/mkl/lib:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="/usr/local/shared/intel/composerxe-2015.1.133/mkl/lib/intel64:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
-alias vim="PYTHONPATH=$HOME/src/matador-devel:$PYTHONPATH $HOME/.local/bin/vim -X"
+#alias vim="PYTHONPATH=$HOME/src/matador-devel:$PYTHONPATH $HOME/.local/bin/vim -X"
 
 source $HOME/.dotfiles/zshrc.global
+source activate dev
