@@ -1,0 +1,19 @@
+{
+  "load_extensions": {
+    "nglview-js-widgets/extension": true,
+    "nbextensions_configurator/config_menu/main": true,
+    "jupyter-js-widgets/extension": true,
+    "collapsible_headings/main": true,
+    "vim_binding/vim_binding": true,
+    "contrib_nbextensions_help_item/main": true,
+    "comment-uncomment/main": true,
+    "code_prettify/autopep8": false,
+    "codefolding/main": true,
+    "livemdpreview/livemdpreview": true,
+    "snippets/main": true
+  },
+  "Notebook": {
+    "Header": true,
+    "Toolbar": false
+  }
+}
