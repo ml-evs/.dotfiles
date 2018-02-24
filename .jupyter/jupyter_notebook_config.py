@@ -4,15 +4,20 @@ c = get_config()
 import os
 from subprocess import check_call
 
-# def post_save(model, os_path, contents_manager):
-    # """post-save hook for converting notebooks to .py scripts"""
-    # if model['type'] != 'notebook':
-        # return # only do this for notebooks
-    # d, fname = os.path.split(os_path)
-    # check_call(['jupyter', 'nbconvert', '--to', 'script', fname], cwd=d)
-    # check_call(['jupyter', 'nbconvert', '--to', 'html', fname], cwd=d)
+def post_save(model, os_path, contents_manager):
+    """post-save hook for converting notebooks to .py scripts"""
+    if model['type'] != 'notebook':
+        return # only do this for notebooks
+    workdir, filename = os.path.split(os_path)
+    if filename.startswith('Scratch') or filename.startswith('Untitled'):
+        return # skip scratch and untitled notebooks
+    # now do git add / git commit / git push
+    check_call(split('git add {}'.format(filename)), cwd=workdir)
+    check_call(['git', 'commit', fname, "-m 'Updated jupyter notebook; automatic commit'"], cwd=d)
+    check_call(split('git push'), cwd=workdir)
 
-# c.FileContentsManager.post_save_hook = post_save
+
+c.FileContentsManager.post_save_hook = post_save
 # # Configuration file for jupyter-notebook.
 
 #------------------------------------------------------------------------------

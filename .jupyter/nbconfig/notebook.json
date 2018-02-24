@@ -10,10 +10,13 @@
     "code_prettify/autopep8": false,
     "codefolding/main": true,
     "livemdpreview/livemdpreview": true,
-    "snippets/main": true
+    "snippets/main": true,
+    "autosavetime/main": true
   },
   "Notebook": {
     "Header": true,
     "Toolbar": false
-  }
+  },
+  "autosavetime_set_starting_interval": true,
+  "autosavetime_starting_interval": "100000000000000"
 }

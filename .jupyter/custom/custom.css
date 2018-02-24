@@ -384,13 +384,13 @@ div#notebook {
  background-color: #ffffff;
  min-height: 0px;
  box-shadow: none;
- width: 80%;
+ width: 88%;
  max-width: 1000px;
  margin-right: auto;
  margin-left: auto;
 }
 div#ipython-main-app.container {
- width: 80%;
+ width: 88%;
  max-width: 1000px;
  margin-right: auto;
  margin-left: auto;
@@ -398,18 +398,18 @@ div#ipython-main-app.container {
  margin-left: auto;
 }
 .container {
- width: 80%;
+ width: 88%;
  max-width: 1000px;
  margin-right: auto;
  margin-left: auto;
 }
 div#menubar-container {
  width: 100%;
- width: 80%;
+ width: 88%;
  max-width: 1000px;
 }
 div#header-container {
- width: 80%;
+ width: 88%;
  max-width: 1000px;
 }
 .notebook_app #header,
@@ -1713,10 +1713,10 @@ div.text_cell_render pre {
  color: #353535;
  background: #ffffff;
  background-color: #ffffff;
- max-width: 80%;
+ max-width: 88%;
  border-radius: 0px;
  border-left: 3px solid rgba(240,147,43,.50);
- max-width: 80%;
+ max-width: 88%;
  border-radius: 0px;
  padding-left: 5px;
  margin-left: 6px;
