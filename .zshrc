@@ -35,13 +35,13 @@ export PATH=$HOME/src/matador/scripts:$PATH
 export PATH=$PATH:$HOME/.cargo/bin
 export XCRYSDEN_TOPDIR="$HOME/.local/opt/xcrysden-1.5.60-bin-semishared"
 
-export F90=ifort
-export F77=ifort
-export CC=icc
-export OMPI_FC=ifort
-export OMPI_CC=icc
-export MPIF90=mpifort
-export MPICC=mpicc
+#export F90=ifort
+#export F77=ifort
+#export CC=icc
+#export OMPI_FC=ifort
+#export OMPI_CC=icc
+#export MPIF90=mpifort
+#export MPICC=mpicc
 
 export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 

@@ -1,4 +1,4 @@
-font pango: Iosevka Term Medium 7
+font pango: Iosevka Term Medium 10
 
 #..........
 # Look
@@ -102,7 +102,7 @@ for_window [title=".*idget.*"] floating enable
 
 # start a terminal
 bindsym $mod+Return exec gnome-terminal
-bindsym Mod4+w exec google-chrome
+bindsym Mod4+w exec $HOME/.local/bin/firefox
 bindsym Mod4+f exec thunar
 bindsym Mod4+s exec slack
 bindsym Mod4+Shift+L exec "sh -c '$HOME/.bin/lock $HOME/.bin/lock.png'"
@@ -183,7 +183,6 @@ assign [class=".*jmol.*"] 8:vis
 assign [title=".*PyMOL.*"] 8:vis
 assign [class=".*Gimp*."] 8:vis
 assign [class="XMGrace"] 8:vis
-assign [class="Vlc"] 9:mus
 
 bindsym Mod4+Left move workspace to output left
 bindsym Mod4+h move workspace to output left

@@ -8,7 +8,7 @@ Xft.hintstyle: hintslight
 ! ROFI Color theme
 ! ------------------------------------------------------------------------------
 ! Use extended color scheme
-rofi.font : input mono compressed medium 10
+rofi.font : iosevka term medium 10
 ! Use extended color scheme
 rofi.color-enabled:                  true
 ! Color scheme for normal row
