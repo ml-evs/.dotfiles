@@ -9,6 +9,7 @@ alias vimrc="vim -X $HOME/.vimrc"
 alias wat="tail -n 50 -f"
 alias oj="oddjob"
 alias lt="ls -altr"
+alias lt="ls -X"
 alias pup="pip install --upgrade ."
 lr() {
     if [ -z "$1" ]
@@ -49,11 +50,16 @@ myps() {
     return
 }
 shame() {
+    echo $1
+    echo $2
     if [ -z "$1" ]
     then
         ls -d /u/fs1/* | xargs -L 1 -I ! zsh -c '{ find ! -type f \( -name "*.check" -o -name "*.cst_esp" -o -size +1G \) -printf "%s+" 2&>/dev/null; echo 0; } | bc | numfmt --to=si | xargs -I % printf "%\t: !\n"' | sort -h -r
-    else
+    elif [ -z "$2" ]
+    then
         ls -d /u/fs1/$1 | xargs -L 1 -I ! zsh -c '{ find ! -type f \( -name "*.check" -o -name "*.cst_esp" -o -size +1G \) -printf "%s+" 2&>/dev/null; echo 0; } | bc | numfmt --to=si | xargs -I % printf "%\t: !\n"'
+    else
+        ls -d /u/fs1/$1 | xargs -L 1 -I ! zsh -c '{ find ! -type f \( '$2' \) -printf "%s+" 2&>/dev/null; echo 0; } | bc | numfmt --to=si | xargs -I % printf "%\t: !\n"'
     fi
     return
 }

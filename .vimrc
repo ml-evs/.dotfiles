@@ -81,7 +81,7 @@ let g:fortran_fold = 1
 
 let g:syntastic_mode_map = {
             \ "mode": "active",
-            \ "passive_filetypes": ["tex"] }
+            \ "passive_filetypes": ["tex", "f90"] }
 
 
 let g:syntastic_python_checkers = ['flake8']
@@ -93,7 +93,7 @@ let g:syntastic_debug = 0
 let g:syntastic_error_symbol = "\u2717"
 let g:syntastic_warning_symbol = "\u26A0"
 
-"let g:syntastic_fortran_compiler = "gfortran"
+
 "let g:ycm_rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 "let g:rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 

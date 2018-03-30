@@ -10,13 +10,21 @@
     "code_prettify/autopep8": false,
     "codefolding/main": true,
     "livemdpreview/livemdpreview": true,
-    "snippets/main": true,
-    "autosavetime/main": true
+    "snippets/main": false,
+    "autosavetime/main": false
   },
   "Notebook": {
     "Header": true,
     "Toolbar": false
   },
   "autosavetime_set_starting_interval": true,
-  "autosavetime_starting_interval": "100000000000000"
+  "autosavetime_starting_interval": "3600",
+  "collapsible_headings": {
+    "add_button": false
+  },
+  "Cell": {
+    "cm_config": {
+      "lineWrapping": true
+    }
+  }
 }
