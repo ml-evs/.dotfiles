@@ -94,9 +94,6 @@ let g:syntastic_error_symbol = "\u2717"
 let g:syntastic_warning_symbol = "\u26A0"
 
 
-"let g:ycm_rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-"let g:rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-
 call vundle#end()            " required
 filetype plugin indent on    " required
 
