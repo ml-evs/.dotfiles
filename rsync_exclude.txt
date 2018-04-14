@@ -1,6 +1,8 @@
 *.cst_esp
 *.castep_bin
-*.check_bin
+*.check_bak
+*.fd_wvfn
+*.fd_den
 *.dome_bin
 *.ome_bin
 *.orbitals
