@@ -4,6 +4,7 @@ DISABLE_AUTO_TITLE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
 plugins=(git z virtualenv)
 source $ZSH/oh-my-zsh.sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 alias zshrc="vim -X $HOME/.zshrc"
 alias vimrc="vim -X $HOME/.vimrc"
 alias wat="tail -n 50 -f"

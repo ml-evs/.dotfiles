@@ -20,6 +20,7 @@
 set nocompatible
 filetype off
 " set the runtime path to include Vundle and initialize
+set rtp+=~/.fzf
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 
@@ -34,15 +35,15 @@ Plugin 'airblade/vim-gitgutter.git'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
+Plugin 'w0rp/ale'
 "Plugin 'wting/rust.vim'
 Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'jceb/vim-orgmode'
-Plugin 'tpope/vim-speeddating'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'junegunn/goyo.vim'
@@ -65,6 +66,7 @@ let g:jedi#popup_on_dot = 0
 
 let g:vimtex_complete_close_braces = 1
 
+let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
@@ -83,6 +85,13 @@ let g:syntastic_mode_map = {
             \ "mode": "active",
             \ "passive_filetypes": ["tex", "f90"] }
 
+let g:ale_linters = { 'python': ['flake8'] }
+let g:ale_sign_column_always = 1
+let g:ale_set_loclist = 1
+let g:ale_open_list = 1
+let g:ale_echo_cursor = 0
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_text_changed = 'normal'
 
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_always_populate_loc_list = 1
@@ -120,10 +129,14 @@ let maplocalleader = "."
 " Fast saving
 nmap <leader>w :w!<cr>
 
+
 map <leader>q :TagbarOpenAutoClose<CR>
 
 " fast commenting
 map cc <leader>c<space>
+
+" Fzf
+nmap <leader>f :FZF<cr>
 
 " Use 256 colours (Use this setting only if your terminal supports 256 colours)
 set t_Co=256
