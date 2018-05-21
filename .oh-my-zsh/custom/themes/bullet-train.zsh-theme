@@ -85,7 +85,7 @@ fi
 
 # VIRTUALENV
 if [ ! -n "${BULLETTRAIN_VIRTUALENV_SHOW+1}" ]; then
-  BULLETTRAIN_VIRTUALENV_SHOW=true
+  BULLETTRAIN_VIRTUALENV_SHOW=false
 fi
 if [ ! -n "${BULLETTRAIN_VIRTUALENV_BG+1}" ]; then
   BULLETTRAIN_VIRTUALENV_BG=yellow
@@ -94,7 +94,7 @@ if [ ! -n "${BULLETTRAIN_VIRTUALENV_FG+1}" ]; then
   BULLETTRAIN_VIRTUALENV_FG=black
 fi
 if [ ! -n "${BULLETTRAIN_VIRTUALENV_PREFIX+1}" ]; then
-  BULLETTRAIN_VIRTUALENV_PREFIX=🐍
+  BULLETTRAIN_VIRTUALENV_PREFIX=§
 fi
 
 # NVM
@@ -203,7 +203,7 @@ fi
 
 # CONTEXT
 if [ ! -n "${BULLETTRAIN_CONTEXT_SHOW+1}" ]; then
-  BULLETTRAIN_CONTEXT_SHOW=false
+  BULLETTRAIN_CONTEXT_SHOW=true
 fi
 if [ ! -n "${BULLETTRAIN_CONTEXT_BG+1}" ]; then
   BULLETTRAIN_CONTEXT_BG=black
@@ -341,7 +341,8 @@ prompt_end() {
 # Context: user@hostname (who am I and where am I)
 context() {
   local user="$(whoami)"
-  [[ "$user" != "$BULLETTRAIN_CONTEXT_DEFAULT_USER" || -n "$BULLETTRAIN_IS_SSH_CLIENT" ]] && echo -n "${user}@$BULLETTRAIN_CONTEXT_HOSTNAME"
+  #[[ "$user" != "$BULLETTRAIN_CONTEXT_DEFAULT_USER" || -n "$BULLETTRAIN_IS_SSH_CLIENT" ]] && echo -n "${user}@$BULLETTRAIN_CONTEXT_HOSTNAME"
+  [[ "$user" != "$BULLETTRAIN_CONTEXT_DEFAULT_USER" || -n "$BULLETTRAIN_IS_SSH_CLIENT" ]] && echo -n "$BULLETTRAIN_CONTEXT_HOSTNAME"
 }
 prompt_context() {
   [[ $BULLETTRAIN_CONTEXT_SHOW == false ]] && return
@@ -539,7 +540,9 @@ prompt_virtualenv() {
   fi
 
   local virtualenv_path="$VIRTUAL_ENV"
-  if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
+  if [[ -n $CONDA_DEFAULT_ENV ]]; then
+    prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $CONDA_DEFAULT_ENV"
+  elif [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
     prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(basename $virtualenv_path)"
   elif which pyenv &> /dev/null; then
     prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(pyenv version | sed -e 's/ (set.*$//' | tr '\n' ' ' | sed 's/.$//')"
