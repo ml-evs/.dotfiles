@@ -29,7 +29,7 @@ $HOME/.local/opt/bin/i3lock              \
 --clock               \
 --indicator           \
 --timestr="%H:%M:%S"  \
---datestr="%A, %m %Y" \
+--datestr="%A, %d.%m.%Y" \
 --wrongtext="!" \
 --veriftext="..." \
 --textsize=14 \

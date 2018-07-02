@@ -34,15 +34,14 @@ Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
-Plugin 'jceb/vim-orgmode'
-Plugin 'tpope/vim-speeddating'
+Plugin 'w0rp/ale'
 Plugin 'majutsushi/tagbar'
 Plugin 'wting/rust.vim'
-Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'scrooloose/syntastic'
+Plugin 'ludovicchabant/vim-lawrencium'
+"Plugin 'scrooloose/syntastic'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'junegunn/goyo.vim'
@@ -66,6 +65,7 @@ let g:jedi#popup_on_dot = 0
 
 let g:vimtex_complete_close_braces = 1
 
+"let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
@@ -99,6 +99,15 @@ let g:ycm_semantic_triggers.tex = [
       \ 're!\\includestandalone(\s*\[[^]]*\])?\s*\{[^}]*',
       \]
 autocmd BufRead,BufNewFile *.tex let g:ycm_auto_trigger = 0
+
+let g:ale_linters = { 'python': ['flake8'] }
+let g:ale_sign_column_always = 1
+let g:ale_set_loclist = 1
+let g:ale_open_list = 1
+let g:ale_echo_cursor = 0
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_text_changed = 'normal'
+
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1

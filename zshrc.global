@@ -1,7 +1,8 @@
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-plugins=(git z virtualenv)
+plugins=(git z virtualenv docker)
 source $ZSH/oh-my-zsh.sh
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Example aliases
 alias open="xdg-open"
 alias zshrc="vim ~/.zshrc"
