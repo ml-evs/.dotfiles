@@ -44,7 +44,8 @@ preexec() {
 }
 #trap 'preexec' DEBUG
 
-export EDITOR=$HOME/.local/bin/vim
+export EDITOR=vi
+# HOME/.local/bin/vim
 
 export TCM_INTEL_VER=17.0.2
 #export PYTHONPATH="/u/fs1/me388/.local/lib64/python2.7/site-packages
@@ -56,21 +57,30 @@ export PYTHONPATH="$HOME/src/ajm_group_voronoi_code:$HOME/src/pyairss:$PYTHONPAT
 export PATH=""
 export PATH="$PATH:$HOME/.local/bin"
 export PATH="$PATH:$HOME/bin"
-export PATH="$PATH:$HOME/src/CASTEP-17.2/bin/linux_x86_64_ifort17-TCM/"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/conda/bin"
 export PATH="$PATH:$HOME/shared/bin"
 export PATH="$PATH:$HOME/shared/bin/aisp_bin"
 export PATH="$PATH:/u/fs1/me388/bin/Linux:/u/fs1/me388/bin:/usr/local/bin:/usr/local/shared/bin64:/usr/local/shared/bin:/bin:/usr/bin:/sbin:/usr/sbin"
 export PATH="$PATH:$HOME/matador/scripts"
-export PATH="$PATH:$HOME/shared/bin/cteprouts"
+#export PATH="$PATH:$HOME/shared/bin/cteprouts"
 
+export LD_LIBRARY_PATH=""
 export LD_LIBRARY_PATH="/rscratch/compilers/mkl/lib:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="/usr/local/shared/intel/composerxe-2015.1.133/mkl/lib/intel64:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/:/usr/lib64"
 # export MANPATH="/usr/local/man:$MANPATH"
 #alias vim="PYTHONPATH=$HOME/src/matador-devel:$PYTHONPATH $HOME/.local/bin/vim -X"
 
 source $HOME/.dotfiles/zshrc.global
 source activate dev
 source $ZSH/oh-my-zsh.sh
+
+
+vesta() {
+    scp $@ nb9:~/tmp > /dev/null 2>&1
+    ssh nb9 "cd ~/tmp; VESTA $@" 2&>/dev/null
+}
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

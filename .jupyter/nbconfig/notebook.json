@@ -15,7 +15,7 @@
   },
   "Notebook": {
     "Header": true,
-    "Toolbar": false
+    "Toolbar": true
   },
   "autosavetime_set_starting_interval": true,
   "autosavetime_starting_interval": "3600",
@@ -24,7 +24,7 @@
   },
   "Cell": {
     "cm_config": {
-      "lineWrapping": true
+      "lineWrapping": false
     }
   }
 }

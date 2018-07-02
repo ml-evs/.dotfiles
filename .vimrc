@@ -36,9 +36,9 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
 Plugin 'w0rp/ale'
+"Plugin 'jceb/vim-orgmode'
+Plugin 'tpope/vim-speeddating'
 "Plugin 'wting/rust.vim'
-Plugin 'ludovicchabant/vim-lawrencium'
-Plugin 'jceb/vim-orgmode'
 Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
@@ -60,38 +60,57 @@ let g:airline_theme = 'base16'
 
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
-autocmd FileType rst :SyntasticToggleMode
+"autocmd FileType rst :SyntasticToggleMode
 let g:jedi#popup_on_dot = 0
-"let g:jedi#force_py_version = 3
+let g:jedi#force_py_version = 3
 
 let g:vimtex_complete_close_braces = 1
 
-let g:airline#extensions#ale#enabled = 1
+"let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_x = '%-0.15{getcwd()}'
+
+"call airline#parts#define_function('ALE', 'ALEGetStatusLine')
+"call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
+"let g:airline_section_error = airline#section#create_right(['ALE'])
+
 let g:goyo_width = 99
-let g:SimpylFold_fold_docstring=0
-let g:SimpylFold_fold_import=0
+let g:SimpylFold_fold_docstring=1
+let g:SimpylFold_docstring_preview=1
+let g:SimpylFold_fold_import=1
 "autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
 "autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
-let g:SimpylFold_docstring_preview=1
+"let g:SimpylFold_docstring_preview=1
 let g:fortran_fold = 1
 
 let g:syntastic_mode_map = {
             \ "mode": "active",
             \ "passive_filetypes": ["tex", "f90"] }
 
-let g:ale_linters = { 'python': ['flake8'] }
+let g:ale_linters = { 'python': ['flake8', 'pylint'] }
+let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace'] }
 let g:ale_sign_column_always = 1
 let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0
+let g:ale_fix_on_save = 1
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %code%: %s [%severity%]'
+let g:ale_statusline_format = ['✖ %d', '⚠ %d', '']
+
 let g:ale_open_list = 1
-let g:ale_echo_cursor = 0
+"let g:ale_echo_cursor = 0
+let g:ale_lint_on_enter = 0
+let g:ale_list_window_size = 10
+"let g:ale_lint_on_save = 1
 let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_delay = 1000
 let g:ale_lint_on_text_changed = 'normal'
+
 
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_always_populate_loc_list = 1
@@ -129,6 +148,9 @@ let maplocalleader = "."
 " Fast saving
 nmap <leader>w :w!<cr>
 
+" Turn of number incrementing when I press my tmux prefix...
+map <C-a> <Nop>
+
 
 map <leader>q :TagbarOpenAutoClose<CR>
 
@@ -155,7 +177,7 @@ set relativenumber
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set 7 lines to the cursor - when moving vertically using j/k
+" Set 10 lines to the cursor - when moving vertically using j/k
 set so=10
 
 " Turn on the WiLd menu
@@ -262,16 +284,6 @@ set incsearch
 au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 noautoindent
 
 
-nnoremap <leader><space> :call HighlightNearCursor()<CR>
-function HighlightNearCursor()
-  if !exists("s:highlightcursor")
-    match Todo /\k*\%#\k*/
-    let s:highlightcursor=1
-  else
-    match None
-    unlet s:highlightcursor
-  endif
-endfunction
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
@@ -339,13 +351,14 @@ set viminfo^=%
 """"""""""""""""""""""""""""""
 " Always show the status line
 set laststatus=2
+set ttimeoutlen=50
 
 " YCM
 let g:ycm_filetype_whitelist = { '*': 1}
 "let g:ycm_filetype_blacklist = { 'python': 1 }
 "nnoremap <Leader>d :YcmCompleter GetDoc<CR>
 " toggle Syntastic
-nnoremap <Leader>s :SyntasticToggleMode<CR>
+"nnoremap <Leader>s :SyntasticToggleMode<CR>
 nnoremap <Leader>l :lnext<CR>
 nnoremap <Leader>ll :ll<CR>
 nnoremap <Leader>lp :lp<CR>
@@ -368,16 +381,6 @@ nmap <M-j> mz:m+<cr>`z
 nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
- "Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-nnoremap <Leader>p :call DeleteTrailingWS()
-autocmd BufWrite *.py :call DeleteTrailingWS()
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vimgrep searching and cope displaying
