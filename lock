@@ -9,10 +9,10 @@ V='#bb00bbff'  # verifying
 
 $HOME/.local/opt/bin/i3lock              \
 --insidevercolor=$B   \
---ringvercolor=$B   \
+--ringvercolor=$V   \
 \
---insidewrongcolor=$B \
---ringwrongcolor=$B   \
+--insidewrongcolor=$W \
+--ringwrongcolor=$W   \
 \
 --insidecolor=$B      \
 --ringcolor=$B        \
@@ -25,16 +25,17 @@ $HOME/.local/opt/bin/i3lock              \
 --keyhlcolor=$T       \
 --bshlcolor=$T        \
 -c "#1b181b" \
---screen 0            \
+--screen 1            \
 --clock               \
 --indicator           \
 --timestr="%H:%M:%S"  \
 --datestr="%A, %d.%m.%Y" \
 --wrongtext="!" \
 --veriftext="..." \
---textsize=14 \
---modsize=14 \
+--timesize=32 \
+--datesize=14 \
+--radius=120  \
+--blur 0 \
 --timefont="Input Mono Compressed" \
---blur 10              \
 --datefont="Input Mono Compressed"
 # etc

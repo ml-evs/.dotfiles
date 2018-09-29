@@ -1,6 +1,7 @@
 *.cst_esp
 *.castep_bin
 *.check_bak
+*.check
 *.fd_wvfn
 *.fd_den
 *.dome_bin

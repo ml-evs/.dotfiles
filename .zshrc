@@ -34,6 +34,7 @@ export PATH=$HOME/.local/bin:$HOME/.bin:$HOME/.local/opt/bin:$PATH
 export PATH=$HOME/src/matador/scripts:$PATH
 export PATH=$PATH:$HOME/.cargo/bin
 export XCRYSDEN_TOPDIR="$HOME/.local/opt/xcrysden-1.5.60-bin-semishared"
+unset SSH_ASKPASS
 
 #export F90=ifort
 #export F77=ifort

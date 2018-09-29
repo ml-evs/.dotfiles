@@ -1,4 +1,4 @@
-font pango: Iosevka Term Medium 10
+font pango: Iosevka Term Medium 12
 
 #..........
 # Look
@@ -85,6 +85,7 @@ for_window [class=".*Steam.*"] floating enable
 for_window [class=".*Wine.*"] floating enable
 for_window [class=".*plasmashell.*"] floating enable
 for_window [title=".*Mendeley.*"] move container to workspace 5:doc
+for_window [title=".*Zotero.*"] move container to workspace 5:doc
 for_window [title=".*Figure.*"] floating enable
 for_window [class="Ase-gui"] floating enable
 for_window [class="XMGrace"] floating enable
@@ -108,7 +109,7 @@ bindsym Mod4+w exec $HOME/.local/bin/firefox
 bindsym Mod4+f exec thunar
 bindsym Mod4+s exec slack
 bindsym Mod4+Shift+L exec "sh -c '$HOME/.bin/lock $HOME/.bin/lock.png'"
-bindsym $mod+d exec i3-dmenu-desktop --dmenu='rofi -i -dmenu'
+bindsym $mod+d exec i3-dmenu-desktop --dmenu='rofi -i -dmenu -show run' --entry-type=command
 #bindsym $mod+d exec i3-dmenu-desktop --dmenu="dmenu_run -i -b -nb '$background' -fn 'Input Mono Narrow Medium:pixelsize=12'"
 
 # Layout
