@@ -1,4 +1,4 @@
-font pango: Iosevka Term Medium 12
+font pango: Iosevka Term Medium 10
 
 #..........
 # Look
@@ -47,16 +47,12 @@ client.background       $background
 # Applications
 #..........
 
-#exec_always --no-startup-id xrandr --output VGA1 --left-of eDP1 --mode 1920x100
-exec --no-startup-id exec kcminit_startup
-exec --no-startup-id exec compton
-exec --no-startup-id exec kwalletd5
+#exec --no-startup-id exec compton
 exec --no-startup-id exec nitrogen --restore
 exec --no-startup-id exec xfce4-power-manager 
 exec --no-startup-id exec nm-applet 
-exec --no-startup-id exec start-pulseaudio-x11
-#exec --no-startup-id exec ssh-agent
-exec --no-startup-id exec xautolock -time 5 -locker '$HOME/.bin/lock ~/.bin/lock.png'
+exec --no-startup-id exec xautolock -time 5 -locker ~/.bin/lock ~/.bin/lock.png
+exec --no-startup-id exec dunst -conf ~/.dunstrc
 
 # Principal mod key (Super = Win key)
 # mod1 = Alt (xmodmap to show)
@@ -72,10 +68,6 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute 0 toggle # mute s
 bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
 
-# Touchpad controls
-#bindsym XF86TouchpadToggle exec /some/path/toggletouchpad.sh # toggle touchpad
-
-
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -83,9 +75,6 @@ bindsym $mod+Shift+Q kill
 
 for_window [class=".*Steam.*"] floating enable
 for_window [class=".*Wine.*"] floating enable
-for_window [class=".*plasmashell.*"] floating enable
-for_window [title=".*Mendeley.*"] move container to workspace 5:doc
-for_window [title=".*Zotero.*"] move container to workspace 5:doc
 for_window [title=".*Figure.*"] floating enable
 for_window [class="Ase-gui"] floating enable
 for_window [class="XMGrace"] floating enable
@@ -105,8 +94,8 @@ for_window [title=".*idget.*"] floating enable
 
 # start a terminal
 bindsym $mod+Return exec gnome-terminal
-bindsym Mod4+w exec $HOME/.local/bin/firefox
-bindsym Mod4+f exec thunar
+bindsym Mod4+w exec firefox
+bindsym Mod4+f exec pcmanfm
 bindsym Mod4+s exec slack
 bindsym Mod4+Shift+L exec "sh -c '$HOME/.bin/lock $HOME/.bin/lock.png'"
 bindsym $mod+d exec i3-dmenu-desktop --dmenu='rofi -i -dmenu -show run' --entry-type=command
@@ -179,19 +168,18 @@ bindsym $mod+Shift+7 move workspace 7:scr
 bindsym $mod+Shift+8 move workspace 8:vis
 bindsym $mod+Shift+9 move workspace 9:mus
 
-assign [title=".*VMD.*"] 8:vis
-assign [title="bar"] 1:dev
-assign [class="VESTA"] 8:vis
-assign [class=".*jmol.*"] 8:vis
-assign [title=".*PyMOL.*"] 8:vis
-assign [class=".*Gimp*."] 8:vis
-assign [class="XMGrace"] 8:vis
+#assign [title=".*VMD.*"] 8:vis
+#assign [title="bar"] 1:dev
+#assign [class="VESTA"] 8:vis
+#assign [class=".*jmol.*"] 8:vis
+#assign [title=".*PyMOL.*"] 8:vis
+#assign [class=".*Gimp*."] 8:vis
+#assign [class="XMGrace"] 8:vis
 
 bindsym Mod4+Left move workspace to output left
 bindsym Mod4+h move workspace to output left
 bindsym Mod4+Right move workspace to output right
 bindsym Mod4+l move workspace to output right
-
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+R restart
@@ -199,12 +187,12 @@ bindsym $mod+Shift+R restart
 # exit i3 (logs you out of your X session)
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id $HOME/.bin/i3exit lock, mode "default"
-    bindsym e exec --no-startup-id $HOME/.bin/i3exit logout, mode "default"
-    bindsym s exec --no-startup-id $HOME/.bin/i3exit suspend, mode "default"
-    bindsym h exec --no-startup-id $HOME/.bin/i3exit hibernate, mode "default"
-    bindsym r exec --no-startup-id $HOME/.bin/i3exit reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id $HOME/.bin/i3exit shutdown, mode "default"
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
     # back to normal: Enter or Escape
     bindsym Return mode "default"
     bindsym Escape mode "default"
@@ -216,31 +204,28 @@ mode "resize" {
 
         # They resize the border in the direction you pressed, e.g.
         # when pressing left, the window is resized so that it has
-bindsym j resize grow down 10 px or 10 ppt
-bindsym k resize grow up 10 px or 10 ppt
-bindsym l resize grow right 10 px or 10 ppt
-bindsym h resize grow left 10 px or 10 ppt
+        bindsym j resize grow down 10 px or 10 ppt
+        bindsym k resize grow up 10 px or 10 ppt
+        bindsym l resize grow right 10 px or 10 ppt
+        bindsym h resize grow left 10 px or 10 ppt
 
-# same bindings, but for the arrow keys
-bindsym Left resize grow left 10 px or 10 ppt
-bindsym Down resize grow down 10 px or 10 ppt
-bindsym Up resize grow up 10 px or 10 ppt
-bindsym Right resize grow right 10 px or 10 ppt
+        # same bindings, but for the arrow keys
+        bindsym Left resize grow left 10 px or 10 ppt
+        bindsym Down resize grow down 10 px or 10 ppt
+        bindsym Up resize grow up 10 px or 10 ppt
+        bindsym Right resize grow right 10 px or 10 ppt
 
-# back to normal: Enter or Escape
-bindsym Return mode "default"
-bindsym Escape mode "default"
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
 }
 
 bindsym $mod+r mode "resize"
 
 # My bar
 bar {
-    #i3bar_command 
-    #i3bar_command ~/.i3/lemonbar/i3_lemonbar.sh
-    tray_output LVDS-0
+    tray_output primary
     status_command i3status -c ~/.i3/i3status.conf
-    #status_command i3status -c ~/i3status.conf_
     workspace_buttons yes
     position top
     colors {

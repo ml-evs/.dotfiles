@@ -33,7 +33,7 @@ Plugin 'airblade/vim-gitgutter.git'
 "Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'mhinz/vim-startify'
+"Plugin 'mhinz/vim-startify'
 Plugin 'w0rp/ale'
 Plugin 'majutsushi/tagbar'
 Plugin 'wting/rust.vim'
@@ -53,7 +53,7 @@ Plugin 'bling/vim-bufferline'
 Plugin 'easymotion/vim-easymotion'
 
 let g:Powerline_symbols = 'fancy'
-let g:airline_powerline_fonts = 1
+let g:airline_powerline_fonts = 0
 let g:airline_theme = 'base16'
 
 
@@ -75,10 +75,10 @@ let g:airline_section_x = '%-0.15{getcwd()}'
 let g:goyo_width = 120
 let g:SimpylFold_fold_docstring=0
 let g:SimpylFold_fold_import=0
+let g:SimpylFold_docstring_preview=1
 "autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
 "autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
-let g:SimpylFold_docstring_preview=1
-let g:fortran_fold = 1
+"let g:fortran_fold = 1
 
 let g:syntastic_mode_map = {
             \ "mode": "active",
@@ -100,7 +100,7 @@ let g:ycm_semantic_triggers.tex = [
       \]
 autocmd BufRead,BufNewFile *.tex let g:ycm_auto_trigger = 0
 
-let g:ale_linters = { 'python': ['flake8'] }
+let g:ale_linters = { 'python': ['flake8', 'pylint'] }
 let g:ale_sign_column_always = 1
 let g:ale_set_loclist = 1
 let g:ale_open_list = 1
@@ -114,7 +114,7 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 1
 
-let g:syntastic_fortran_compiler = "gfortran"
+"let g:syntastic_fortran_compiler = "gfortran"
 let g:ycm_rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 let g:rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 
@@ -353,7 +353,7 @@ set laststatus=2
 
 " YCM
 let g:ycm_filetype_whitelist = { '*': 1}
-"let g:ycm_filetype_blacklist = { 'python': 1 }
+"let g:ycm_filetype_blacklist = { 'fortran': 1 }
 "nnoremap <Leader>d :YcmCompleter GetDoc<CR>
 " toggle Syntastic
 nnoremap <Leader>s :SyntasticToggleMode<CR>

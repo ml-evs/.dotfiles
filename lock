@@ -5,14 +5,14 @@ C='#cbd6e2ff'  # clear ish
 D='#ffffffff'  # default
 T='#cbd6e2cc'  # text
 W='#880000ff'  # wrong
-V='#bb00bbff'  # verifying
+V='#223b54ff'  # verifying
 
 $HOME/.local/opt/bin/i3lock              \
 --insidevercolor=$B   \
 --ringvercolor=$V   \
 \
---insidewrongcolor=$W \
---ringwrongcolor=$W   \
+--insidewrongcolor=$B \
+--ringwrongcolor=$B   \
 \
 --insidecolor=$B      \
 --ringcolor=$B        \
@@ -25,7 +25,7 @@ $HOME/.local/opt/bin/i3lock              \
 --keyhlcolor=$T       \
 --bshlcolor=$T        \
 -c "#1b181b" \
---screen 1            \
+--screen 0            \
 --clock               \
 --indicator           \
 --timestr="%H:%M:%S"  \
@@ -34,8 +34,8 @@ $HOME/.local/opt/bin/i3lock              \
 --veriftext="..." \
 --timesize=32 \
 --datesize=14 \
---radius=120  \
+--radius=80  \
 --blur 0 \
---timefont="Input Mono Compressed" \
---datefont="Input Mono Compressed"
+--timefont="Iosevka" \
+--datefont="Iosevka" \
 # etc
