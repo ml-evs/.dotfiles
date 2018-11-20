@@ -2,10 +2,14 @@
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
+userprofile=$HOME/.xprofile
+sysprofile=/etc/xprofile
 sysresources=/etc/X11/xinit/.Xresources
 sysmodmap=/etc/X11/xinit/.Xmodmap
 
 # merge in defaults and keymaps
+
+[ -f $userprofile ] && . $userprofile
 
 if [ -f $sysresources ]; then
     xrdb -merge $sysresources

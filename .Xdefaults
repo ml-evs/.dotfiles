@@ -7,16 +7,6 @@ xterm*savelines: 16384
 xterm*ScrollBar: false
 xterm*faceName: Input 
 xterm*faceSize: 10
-urxvt*borderWidth: 0
-urxvt*loginshell: true
-urxvt*backarrowKey: false
-urxvt*locale: true
-urxvt*utf8: 1
-urxvt*savelines: 16384
-urxvt*ScrollBar: false
-urxvt*faceName: Input 
-urxvt*faceSize: 10
-urxvt*font: xft:Input Mono:pixelsize=10
 
 ! Base16 Harmonic16 Dark
 ! Scheme: Jannik Siebert (https://github.com/janniks)
@@ -35,13 +25,17 @@ urxvt*font: xft:Input Mono:pixelsize=10
 #define base0B #56bf8b
 #define base0C #568bbf
 #define base0D #8b56bf
-#define base0E #bf568b #define base0F #bf5656 
+#define base0E #bf568b 
+#define base0F #bf5656 
+
 *.foreground:   base05
+
 #ifdef background_opacity
-*.background:   [background_opacity]base00
+*.background:   base00
 #else
 *.background:   base00
 #endif
+
 *.cursorColor:  base05
 
 *.color0:       base00
@@ -61,3 +55,5 @@ urxvt*font: xft:Input Mono:pixelsize=10
 *.color13:      base06
 *.color14:      base0F
 *.color15:      base07
+
+Xcursor.theme: Maia-Cursor

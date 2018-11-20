@@ -14,7 +14,7 @@ alias zypper='sudo zypper'
 alias zyp='sudo zypper'
 
 ng () {
-    ssh -X -t noggin tmux attach -t status
+    ssh -X -t noggin tmux attach 
 }
 
 rbusy () {

@@ -27,8 +27,9 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 #export PATH=/home/matthew/.local/conda/bin:$PATH
 # add locally installed programs and scripts, e.g. latest vim, gcc
-export PATH=$PATH:/opt/bin
-export PATH=$HOME/.local/bin:$HOME/.bin:$HOME/.local/opt/bin:$PATH
+#export PATH=$PATH:/opt/bin
+#export PATH=$HOME/.local/bin:$HOME/.bin:$HOME/.local/opt/bin:$PATH
+# this now moved to .profile
 
 #export PATH=$PATH:$HOME/.local/opt/ase/tools
 #export PATH=$HOME/src/matador/bin:$PATH
@@ -62,11 +63,16 @@ source activate dev
 
 load_intel() {
     if [ -z "$1" ]; then
-        export PATH=$PATH:$HOME/.local/opt/intel18/bin
+        export PATH=$HOME/.local/opt/intel18/bin:$PATH
         export MKLROOT=$HOME/.local/opt/intel18/mkl
     else
-        export PATH=$PATH:$HOME/.local/opt/intel$1/bin
-        export MKLROOT=$HOME/.local/opt/intel$1/mkl
+        DIRECTORY="${HOME}/.local/opt/intel${1}/bin"
+        if [ -d "$DIRECTORY" ]; then
+            export PATH="$DIRECTORY:$PATH"
+            export MKLROOT="$DIRECTORY/../mkl"
+        else
+            echo "$DIRECTORY not found... exiting"
+        fi
     fi
 }
 

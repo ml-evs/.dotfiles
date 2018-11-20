@@ -26,8 +26,3 @@ test -z "$PROFILEREAD" && . /etc/profile || true
 #    /usr/bin/fortune
 #    echo
 #fi
-
-xmodmap $HOME/.Xmodmap
-# add locally installed programs and scripts, e.g. latest vim, gcc
-export PATH=$HOME/.local/bin:$HOME/.bin:$HOME/.local/opt/bin:$PATH
-export PATH=$PATH:/opt/bin

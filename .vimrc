@@ -59,13 +59,12 @@ let g:airline_theme = 'base16'
 
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
-autocmd FileType rst :SyntasticToggleMode
 let g:jedi#popup_on_dot = 0
 "let g:jedi#force_py_version = 3
 
 let g:vimtex_complete_close_braces = 1
 
-"let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
@@ -79,10 +78,6 @@ let g:SimpylFold_docstring_preview=1
 "autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
 "autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 "let g:fortran_fold = 1
-
-let g:syntastic_mode_map = {
-            \ "mode": "active",
-            \ "passive_filetypes": ["tex"] }
 
 " YCM Latex config from https://samsudar.com/code/vim_and_latex/
 if !exists('g:ycm_semantic_triggers')
@@ -101,22 +96,25 @@ let g:ycm_semantic_triggers.tex = [
 autocmd BufRead,BufNewFile *.tex let g:ycm_auto_trigger = 0
 
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
+let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace']}
 let g:ale_sign_column_always = 1
 let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0
+let g:ale_fix_on_save = 1
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %code%: %s [%severity%]'
+let g:ale_statusline_format = ['✖ %d', '⚠ %d', '']
+
 let g:ale_open_list = 1
-let g:ale_echo_cursor = 0
+"let g:ale_echo_cursor = 0
+let g:ale_lint_on_enter = 0
+let g:ale_list_window_size = 10
+"let g:ale_lint_on_save = 1
 let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_delay = 1000
 let g:ale_lint_on_text_changed = 'normal'
 
-
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
-let g:syntastic_check_on_wq = 1
-
-"let g:syntastic_fortran_compiler = "gfortran"
-let g:ycm_rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
-let g:rust_src_path="/home/matthew/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src"
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -388,6 +386,7 @@ func! DeleteTrailingWS()
 endfunc
 nnoremap <Leader>p :call DeleteTrailingWS()
 autocmd BufWrite *.py :call DeleteTrailingWS()
+"autocmd BufWrite *.f90 :call DeleteTrailingWS()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
