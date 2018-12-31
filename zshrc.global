@@ -9,7 +9,8 @@ alias vimrc="vim -X $HOME/.vimrc"
 alias wat="tail -n 50 -f"
 alias oj="oddjob"
 alias lt="ls -altr"
-alias lt="ls -X"
+alias lx="ls -X"
+alias sshadd='eval $(ssh-agent); ssh-add'
 alias pup="pip install --upgrade ."
 lr() {
     if [ -z "$1" ]

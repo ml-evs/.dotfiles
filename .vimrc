@@ -43,7 +43,6 @@ Plugin 'majutsushi/tagbar'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-"Plugin 'scrooloose/syntastic'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'junegunn/goyo.vim'
@@ -54,45 +53,33 @@ Plugin 'chriskempson/base16-vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'easymotion/vim-easymotion'
 
-let g:Powerline_symbols = 'fancy'
-let g:airline_powerline_fonts = 1
+"let g:Powerline_symbols = 'fancy'
+"let g:airline_powerline_fonts = 1
 let g:airline_theme = 'base16'
 
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
-"autocmd FileType rst :SyntasticToggleMode
 let g:jedi#popup_on_dot = 0
-let g:jedi#force_py_version = 3
+let g:jedi#show_call_signatures = "2"
 
 let g:vimtex_complete_close_braces = 1
 
-"let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
+let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline_section_x = '%-0.15{getcwd()}'
-
-"call airline#parts#define_function('ALE', 'ALEGetStatusLine')
-"call airline#parts#define_condition('ALE', 'exists("*ALEGetStatusLine")')
-"let g:airline_section_error = airline#section#create_right(['ALE'])
+let g:airline_section_c = '%t'
 
 let g:goyo_width = 99
 let g:SimpylFold_fold_docstring=1
 let g:SimpylFold_docstring_preview=1
 let g:SimpylFold_fold_import=1
-"autocmd BufWinEnter *.py setlocal foldexpr=SimpylFold(v:lnum) foldmethod=expr
-"autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
-"let g:SimpylFold_docstring_preview=1
 let g:fortran_fold = 1
 
-let g:syntastic_mode_map = {
-            \ "mode": "active",
-            \ "passive_filetypes": ["tex", "f90"] }
-
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
-let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace'] }
+let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace']}
 let g:ale_sign_column_always = 1
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
@@ -110,17 +97,6 @@ let g:ale_list_window_size = 10
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_delay = 1000
 let g:ale_lint_on_text_changed = 'normal'
-
-
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_debug = 0
-let g:syntastic_error_symbol = "\u2717"
-let g:syntastic_warning_symbol = "\u26A0"
-
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -281,7 +257,7 @@ set si "Smart indent
 set nowrap "Wrap lines
 set incsearch
 
-au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 noautoindent
+au BufRead,BufNewFile *.txt,*.tex,*.rst,*.md set wrap linebreak nolist textwidth=80 wrapmargin=0 noautoindent
 
 
 """"""""""""""""""""""""""""""

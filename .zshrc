@@ -7,7 +7,7 @@ else
     ZSH_THEME="agnoster_host"
 fi
 
-DIRSTACKSIZE=9
+DIRSTACKSIZE=19
 DIRSTACKFILE=~/.zdirs
 if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
   dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
@@ -47,7 +47,7 @@ preexec() {
 export EDITOR=vi
 # HOME/.local/bin/vim
 
-export TCM_INTEL_VER=17.0.2
+#export TCM_INTEL_VER=17.0.2
 #export PYTHONPATH="/u/fs1/me388/.local/lib64/python2.7/site-packages
 export PYTHONPATH=""
 #export PYTHONPATH="$PYTHONPATH:$HOME/matador/src"
@@ -56,6 +56,7 @@ export PYTHONPATH=""
 export PYTHONPATH="$HOME/src/ajm_group_voronoi_code:$HOME/src/pyairss:$PYTHONPATH"
 export PATH=""
 export PATH="$PATH:$HOME/.local/bin"
+export PATH="$PATH:$HOME/.local/opt/bin"
 export PATH="$PATH:$HOME/bin"
 export PATH="$PATH:$HOME/.cargo/bin"
 export PATH="$PATH:$HOME/.local/conda/bin"
@@ -67,8 +68,9 @@ export PATH="$PATH:$HOME/matador/scripts"
 
 export LD_LIBRARY_PATH=""
 export LD_LIBRARY_PATH="/rscratch/compilers/mkl/lib:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH="/usr/local/shared/intel/composerxe-2015.1.133/mkl/lib/intel64:$LD_LIBRARY_PATH"
+#export LD_LIBRARY_PATH="/usr/local/shared/intel/composerxe-2015.1.133/mkl/lib/intel64:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH="$HOME/.local/opt/lib:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/:/usr/lib64"
 # export MANPATH="/usr/local/man:$MANPATH"
 #alias vim="PYTHONPATH=$HOME/src/matador-devel:$PYTHONPATH $HOME/.local/bin/vim -X"
@@ -76,7 +78,6 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/:/usr/lib64"
 source $HOME/.dotfiles/zshrc.global
 source activate dev
 source $ZSH/oh-my-zsh.sh
-
 
 vesta() {
     scp $@ nb9:~/tmp > /dev/null 2>&1
