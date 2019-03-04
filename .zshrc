@@ -66,12 +66,12 @@ export PATH="$PATH:/u/fs1/me388/bin/Linux:/u/fs1/me388/bin:/usr/local/bin:/usr/l
 export PATH="$PATH:$HOME/matador/scripts"
 #export PATH="$PATH:$HOME/shared/bin/cteprouts"
 
-export LD_LIBRARY_PATH=""
+#export LD_LIBRARY_PATH=""
 export LD_LIBRARY_PATH="/rscratch/compilers/mkl/lib:$LD_LIBRARY_PATH"
 #export LD_LIBRARY_PATH="/usr/local/shared/intel/composerxe-2015.1.133/mkl/lib/intel64:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH="$HOME/.local/opt/lib:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/:/usr/lib64"
+#export LD_LIBRARY_PATH="$HOME/.local/lib:$LD_LIBRARY_PATH"
+#export LD_LIBRARY_PATH="$HOME/.local/opt/lib:$LD_LIBRARY_PATH"
+#export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/:/usr/lib64"
 # export MANPATH="/usr/local/man:$MANPATH"
 #alias vim="PYTHONPATH=$HOME/src/matador-devel:$PYTHONPATH $HOME/.local/bin/vim -X"
 

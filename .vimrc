@@ -72,6 +72,8 @@ let g:airline#extensions#tabline#show_tabs = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_c = '%t'
 
+let g:ctrlp_working_path_mode='ra'
+
 let g:goyo_width = 99
 let g:SimpylFold_fold_docstring=1
 let g:SimpylFold_docstring_preview=1
@@ -88,14 +90,23 @@ let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %code%: %s [%severity%]'
 let g:ale_statusline_format = ['✖ %d', '⚠ %d', '']
+let g:ale_list_window_size_max = 5
+autocmd User ALELintPost call s:ale_loclist_limit()
+function! s:ale_loclist_limit()
+    if exists("b:ale_list_window_size_max")
+        let b:ale_list_window_size = min([len(ale#engine#GetLoclist(bufnr('%'))), b:ale_list_window_size_max])
+    elseif exists("g:ale_list_window_size_max")
+        let b:ale_list_window_size = min([len(ale#engine#GetLoclist(bufnr('%'))), g:ale_list_window_size_max])
+    endif
+endfunction
 
 let g:ale_open_list = 1
-"let g:ale_echo_cursor = 0
+let g:ale_echo_cursor = 1
 let g:ale_lint_on_enter = 0
 let g:ale_list_window_size = 10
 "let g:ale_lint_on_save = 1
 let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_delay = 1000
+let g:ale_lint_delay = 5000
 let g:ale_lint_on_text_changed = 'normal'
 
 call vundle#end()            " required
