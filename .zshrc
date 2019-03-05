@@ -33,9 +33,11 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 #export PATH=$PATH:$HOME/.local/opt/ase/tools
 #export PATH=$HOME/src/matador/bin:$PATH
-export PATH=$HOME/src/matador/scripts:$PATH
-export PATH=$HOME/.local/opt/Wolfram/bin:$PATH
-export PATH=$PATH:$HOME/.cargo/bin
+#export PATH=$HOME/src/matador/scripts:$PATH
+export PATH=$HOME/.local/bin:$PATH
+#export PATH=$HOME/.local/conda/bin:$PATH
+#export PATH=$HOME/.local/opt/Wolfram/bin:$PATH
+#export PATH=$PATH:$HOME/.cargo/bin
 export XCRYSDEN_TOPDIR="$HOME/.local/opt/xcrysden-1.5.60-bin-semishared"
 unset SSH_ASKPASS
 
@@ -59,7 +61,6 @@ export GMON_OUT_PREFIX='gprof'
 alias pacman="sudo pacman"
 
 source $HOME/.dotfiles/zshrc.global
-source activate dev
 
 load_intel() {
     if [ -z "$1" ]; then
@@ -76,7 +77,7 @@ load_intel() {
     fi
 }
 
-eval $(keychain --eval --quiet ~/.ssh/id_rsa)
+#eval $(keychain --eval --quiet ~/.ssh/id_rsa)
 
 #fzf colour scheme
 _gen_fzf_default_opts() {
@@ -107,3 +108,19 @@ export FZF_DEFAULT_OPTS="
 }
 
 _gen_fzf_default_opts
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/Users/mevans/.local/conda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/Users/mevans/.local/conda/etc/profile.d/conda.sh" ]; then
+        . "/Users/mevans/.local/conda/etc/profile.d/conda.sh"
+    else
+        export PATH="/Users/mevans/.local/conda/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+conda deactivate
+# <<< conda initialize <<<

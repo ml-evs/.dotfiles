@@ -33,7 +33,7 @@ Plugin 'airblade/vim-gitgutter.git'
 "Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'mhinz/vim-startify'
+Plugin 'mhinz/vim-startify'
 Plugin 'w0rp/ale'
 Plugin 'majutsushi/tagbar'
 Plugin 'wting/rust.vim'
@@ -48,7 +48,8 @@ Plugin 'junegunn/goyo.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'lervag/vimtex'
 Plugin 'matze/vim-tex-fold'
-Plugin 'chriskempson/base16-vim'
+Plugin 'danielwe/base16-vim'
+"Plugin 'chriskempton/base16-vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'easymotion/vim-easymotion'
 
@@ -96,7 +97,7 @@ let g:ycm_semantic_triggers.tex = [
 autocmd BufRead,BufNewFile *.tex let g:ycm_auto_trigger = 0
 
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
-let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black']}
 let g:ale_sign_column_always = 1
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
@@ -223,7 +224,7 @@ set tm=500
 syntax enable
 set background=dark
 let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-atelier-heath
+colorscheme base16-gruvbox-light-soft
 
 "hi SignColumn ctermbg=233
 hi Search cterm=NONE ctermbg=grey ctermfg=blue
