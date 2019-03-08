@@ -223,7 +223,8 @@ set tm=500
 syntax enable
 set background=dark
 let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-atelier-heath
+colorscheme base16-default-light
+
 
 "hi SignColumn ctermbg=233
 hi Search cterm=NONE ctermbg=grey ctermfg=blue
@@ -386,6 +387,7 @@ func! DeleteTrailingWS()
 endfunc
 nnoremap <Leader>p :call DeleteTrailingWS()
 autocmd BufWrite *.py :call DeleteTrailingWS()
+autocmd BufWrite *.sh :call DeleteTrailingWS()
 "autocmd BufWrite *.f90 :call DeleteTrailingWS()
 
 
