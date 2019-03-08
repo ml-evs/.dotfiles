@@ -97,7 +97,8 @@ let g:ycm_semantic_triggers.tex = [
 autocmd BufRead,BufNewFile *.tex let g:ycm_auto_trigger = 0
 
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
-let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black']}
+"let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black']}
+let b:ale_fixers = ['black']
 let g:ale_sign_column_always = 1
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
@@ -227,7 +228,7 @@ let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-gruvbox-light-soft
 
 "hi SignColumn ctermbg=233
-hi Search cterm=NONE ctermbg=grey ctermfg=blue
+"hi Search cterm=NONE ctermbg=grey ctermfg=blue
 
 
 " Set utf8 as standard encoding and en_US as the standard language
