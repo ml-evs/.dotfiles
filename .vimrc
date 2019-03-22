@@ -1,22 +1,3 @@
-" Sections:
-"    -> Vundle "    -> General
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Status line
-"    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
-"    -> Misc
-"    -> Helper functions
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vundle
-"
-"
 set nocompatible
 filetype off
 " set the runtime path to include Vundle and initialize
@@ -41,7 +22,6 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'ludovicchabant/vim-lawrencium'
-"Plugin 'scrooloose/syntastic'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'junegunn/goyo.vim'
@@ -57,11 +37,10 @@ let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 0
 let g:airline_theme = 'base16'
 
-
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
 let g:jedi#popup_on_dot = 0
-"let g:jedi#force_py_version = 3
+let g:jedi#completions = 1
 
 let g:vimtex_complete_close_braces = 1
 
@@ -72,7 +51,9 @@ let g:airline#extensions#tabline#show_buffers = 1
 let g:airline#extensions#tabline#show_tabs = 0
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_x = '%-0.15{getcwd()}'
+
 let g:goyo_width = 120
+
 let g:SimpylFold_fold_docstring=0
 let g:SimpylFold_fold_import=0
 let g:SimpylFold_docstring_preview=1
@@ -80,7 +61,8 @@ let g:SimpylFold_docstring_preview=1
 "autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 "let g:fortran_fold = 1
 
-" YCM Latex config from https://samsudar.com/code/vim_and_latex/
+" YCM
+" Latex config from https://samsudar.com/code/vim_and_latex/
 if !exists('g:ycm_semantic_triggers')
   let g:ycm_semantic_triggers = {}
 endif
@@ -95,10 +77,17 @@ let g:ycm_semantic_triggers.tex = [
       \ 're!\\includestandalone(\s*\[[^]]*\])?\s*\{[^}]*',
       \]
 autocmd BufRead,BufNewFile *.tex let g:ycm_auto_trigger = 0
+" YCM
+let g:ycm_filetype_whitelist = { '*': 1}
+"let g:ycm_filetype_blacklist = { 'fortran': 1 }
+"nnoremap <Leader>d :YcmCompleter GetDoc<CR>
 
+
+" ALE
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
-"let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black']}
-let b:ale_fixers = ['black']
+let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace']} ", 'black'] }
+"let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black'] }
+"let b:ale_fixers = ['black']
 let g:ale_sign_column_always = 1
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
@@ -112,7 +101,7 @@ let g:ale_open_list = 1
 "let g:ale_echo_cursor = 0
 let g:ale_lint_on_enter = 0
 let g:ale_list_window_size = 10
-"let g:ale_lint_on_save = 1
+let g:ale_lint_on_save = 0
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_delay = 1000
 let g:ale_lint_on_text_changed = 'normal'
@@ -211,7 +200,7 @@ set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
-" No annoying sound on errors
+" No annoying sound onronkrrors
 set noerrorbells
 set novisualbell
 set t_vb=
@@ -225,7 +214,7 @@ set tm=500
 syntax enable
 set background=dark
 let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-gruvbox-light-soft
+colorscheme base16-gruvbox-dark-pale
 
 "hi SignColumn ctermbg=233
 "hi Search cterm=NONE ctermbg=grey ctermfg=blue
@@ -299,10 +288,6 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 map j gj
 map k gk
 
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
-
 " Smart way to move between windows
 map <C-j> <C-W>j
 map <C-k> <C-W>k
@@ -316,11 +301,6 @@ map <leader>bd :Bclose<cr>
 map <leader>ba :1,1000 bd!<cr>
 
 map <leader><Tab> : bn<cr>
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
@@ -343,20 +323,8 @@ autocmd BufReadPost *
      \ endif
 " Remember info about open buffers on close
 set viminfo^=%
-
-
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-" Always show the status line
 set laststatus=2
 
-" YCM
-let g:ycm_filetype_whitelist = { '*': 1}
-"let g:ycm_filetype_blacklist = { 'fortran': 1 }
-"nnoremap <Leader>d :YcmCompleter GetDoc<CR>
-" toggle Syntastic
-nnoremap <Leader>s :SyntasticToggleMode<CR>
 nnoremap <Leader>l :lnext<CR>
 nnoremap <Leader>ll :ll<CR>
 nnoremap <Leader>lp :lp<CR>
@@ -366,13 +334,18 @@ nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>o :noh<CR>
 
+" get rid of number incrementing in normal mode
+nnoremap . <NOP>
+nnoremap <C-a> <NOP>
+nnoremap <C-x> <NOP>
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap VIM 0 to first non-blank character
-map 0 ^
+"map 0 ^
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z
@@ -434,7 +407,7 @@ map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
-map <leader>rr :NERDTreeToggle<CR>
+map <leader>t :NERDTreeToggle<CR>
 
 
 
