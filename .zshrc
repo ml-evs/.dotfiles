@@ -53,13 +53,13 @@ export MKLROOT=$HOME/.local/opt/intel/mkl
 export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
 export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
 
-export EDITOR="$HOME/.local/bin/vim -X"
+export EDITOR=vim
 export GMON_OUT_PREFIX='gprof'
 #alias vim="PYTHONPATH=$HOME/src/matador:$PYTHONPATH vim --servername VIM"
 alias pacman="sudo pacman"
 
 source $HOME/.dotfiles/zshrc.global
-source activate dev
+#source activate dev
 
 load_intel() {
     if [ -z "$1" ]; then
@@ -76,7 +76,7 @@ load_intel() {
     fi
 }
 
-eval $(keychain --eval --quiet ~/.ssh/id_rsa)
+#eval $(keychain --eval --quiet ~/.ssh/id_rsa)
 
 #fzf colour scheme
 _gen_fzf_default_opts() {
