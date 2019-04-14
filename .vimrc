@@ -30,7 +30,7 @@ Plugin 'L9'
 Plugin 'kien/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'airblade/vim-gitgutter.git'
-"Plugin 'suan/vim-instant-markdown'
+Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 "Plugin 'mhinz/vim-startify'
@@ -61,6 +61,8 @@ let g:airline_theme = 'base16'
 autocmd FileType python setlocal completeopt-=preview
 let g:jedi#popup_on_dot = 0
 "let g:jedi#force_py_version = 3
+"
+let g:instant_markdown_autostart = 0
 
 let g:vimtex_complete_close_braces = 1
 
@@ -269,7 +271,7 @@ set si "Smart indent
 set nowrap "Wrap lines
 set incsearch
 
-au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 noautoindent
+au BufRead,BufNewFile *.txt,*.tex,*.md set wrap linebreak nolist textwidth=80 wrapmargin=0 noautoindent
 
 
 nnoremap <leader><space> :call HighlightNearCursor()<CR>
