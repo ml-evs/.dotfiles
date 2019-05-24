@@ -7,8 +7,6 @@ font pango: Iosevka Term Medium 10
 for_window [class="^.*"] border pixel 2
 gaps inner 20
 gaps outer 20
-bindsym $mod+g gaps inner current set 0 
-bindsym Mod4+g gaps outer current set 50 gaps inner current set 50
 
 # Heath
 set $back               #121212
@@ -46,6 +44,10 @@ exec --no-startup-id exec dunst -conf ~/.dunstrc
 # mod4 = Winkey (xmodmap to show)
 set $mod Mod1
 
+bindsym $mod+g gaps inner current set 0
+bindsym Mod4+g gaps outer current set 50 gaps inner current set 50
+bindsym Mod4+Shift+g gaps outer current set 20 gaps inner current set 20
+
 # Pulse Audio controls
 bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume 0 +5% #increase sound volume
 bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume 0 -5% #decrease sound volume
@@ -68,7 +70,7 @@ for_window [class="XMGrace"] floating enable
 for_window [class="krunner"] floating enable
 for_window [class="Gnuplot_qt"] floating enable
 for_window [title="Terminator Preferences"] floating enable
-for_window [title=".*VMD.*"] floating enable
+#for_window [title=".*VMD.*"] floating enable
 for_window [title=".*PyMOL.*"] floating enable
 for_window [class="vlc"] floating enable
 for_window [class=".*tilda.*"] floating enable
@@ -84,7 +86,7 @@ bindsym $mod+Return exec gnome-terminal
 bindsym Mod4+w exec firefox
 bindsym Mod4+f exec pcmanfm
 #bindsym Mod4+s exec slack
-bindsym Mod4+Shift+L exec "sh -c '$HOME/.bin/lock $HOME/.bin/lock.png'"
+bindsym Mod4+Shift+L exec "sh -c '$HOME/.bin/lock'"
 bindsym $mod+d exec rofi -i -show run
 #bindsym $mod+d exec i3-dmenu-desktop --dmenu="dmenu_run -i -b -nb '$background' -fn 'Input Mono Narrow Medium:pixelsize=12'"
 

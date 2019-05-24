@@ -25,7 +25,7 @@ PROMPT_COMMAND='pwd > "${HOME}/.cwd"'
 export LS_COLORS='fi=0;34:rs=0:di=0;35:ln=01;33:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33:cd=40;33:or=40;31:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=01;34:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.gz=0;35:*.bz2=01;31:*.bz=01;31:*.tbz2=01;31:*.tz=01;31:*.sh=01;35:*.f90=0;34:*.py=0;34:*.cpp=0;35:*.o=0;37:*.mod=0;37:*.pyc=0;37'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-#export PATH=/home/matthew/.local/conda/bin:$PATH
+export PATH=$PATH:/home/matthew/.local/conda/bin:$PATH
 # add locally installed programs and scripts, e.g. latest vim, gcc
 #export PATH=$PATH:/opt/bin
 #export PATH=$HOME/.local/bin:$HOME/.bin:$HOME/.local/opt/bin:$PATH
@@ -53,9 +53,8 @@ export LD_LIBRARY_PATH=/usr/lib
 #
 export MKLROOT=$HOME/.local/opt/intel/mkl
 export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu/lib/rustlib/src/rust/src
-export STEAM_RUNTIME_PREFER_HOST_LIBRARIES=0
 
-export EDITOR="$HOME/.local/bin/vim -X"
+export EDITOR=vim
 export GMON_OUT_PREFIX='gprof'
 #alias vim="PYTHONPATH=$HOME/src/matador:$PYTHONPATH vim --servername VIM"
 alias pacman="sudo pacman"
@@ -68,6 +67,14 @@ load_intel() {
         export MKLROOT=$HOME/.local/opt/intel18/mkl
     else
         DIRECTORY="${HOME}/.local/opt/intel${1}/bin"
+        export CC='gcc'
+        export CXX='gcc'
+        export FC='ifort'
+        export F90='ifort'
+        export MPIF90='ifort'
+        export MPICC='gcc'
+        export OMPI_CC='gcc'
+        export OMPI_FC='ifort'
         if [ -d "$DIRECTORY" ]; then
             export PATH="$DIRECTORY:$PATH"
             export MKLROOT="$DIRECTORY/../mkl"
@@ -111,14 +118,14 @@ _gen_fzf_default_opts
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/mevans/.local/conda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('$HOME/.local/conda/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/Users/mevans/.local/conda/etc/profile.d/conda.sh" ]; then
-        . "/Users/mevans/.local/conda/etc/profile.d/conda.sh"
+    if [ -f "$HOME/.local/conda/etc/profile.d/conda.sh" ]; then
+        . "$HOME/.local/conda/etc/profile.d/conda.sh"
     else
-        export PATH="/Users/mevans/.local/conda/bin:$PATH"
+        export PATH="$HOME/.local/conda/bin:$PATH"
     fi
 fi
 unset __conda_setup
