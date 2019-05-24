@@ -66,6 +66,14 @@ load_intel() {
         export MKLROOT=$HOME/.local/opt/intel18/mkl
     else
         DIRECTORY="${HOME}/.local/opt/intel${1}/bin"
+        export CC='gcc'
+        export CXX='gcc'
+        export FC='ifort'
+        export F90='ifort'
+        export MPIF90='ifort'
+        export MPICC='gcc'
+        export OMPI_CC='gcc'
+        export OMPI_FC='ifort'
         if [ -d "$DIRECTORY" ]; then
             export PATH="$DIRECTORY:$PATH"
             export MKLROOT="$DIRECTORY/../mkl"
