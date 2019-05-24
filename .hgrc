@@ -1,0 +1,8 @@
+[ui]
+username = Matthew Evans <me388@cam.ac.uk>
+
+[extensions]
+mq =
+graphlog =
+evolve =
+rebase =
