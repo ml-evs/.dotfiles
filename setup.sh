@@ -92,8 +92,14 @@ else
 		echo "Installing misc config files..."
 		ln -s $HOME/.dotfiles/.dunstrc $HOME/.dunstrc
 		ln -s $HOME/.dotfiles/.tmux.conf $HOME/.tmux.conf
+    ln -s $HOME/.dotfiles/.condarc $HOME/.condarc
 		ln -s $HOME/.dotfiles/.profile $HOME/.profile
 		ln -s $HOME/.dotfiles/.xinitrc $HOME/.xinitrc
 		ln -s $HOME/.dotfiles/.Xresources $HOME/.Xresources
+
+    ln -s $HOME/.dotfiles/.config/flake8 ~/.config/flake8
+    ln -s $HOME/.dotfiles/.pylintrc ~/.pylintrc
+    ln -s $HOME/.dotfiles/.hgrc ~/.hgrc
+    ln -s $HOME/.dotfiles/.gitconfig ~/.gitconfig
 
 fi

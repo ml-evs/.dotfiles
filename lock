@@ -7,7 +7,7 @@ T='#cbd6e2cc'  # text
 W='#880000ff'  # wrong
 V='#223b54ff'  # verifying
 
-$HOME/.local/opt/bin/i3lock              \
+i3lock              \
 --insidevercolor=$B   \
 --ringvercolor=$V   \
 \

@@ -36,7 +36,7 @@ client.background       $background
 exec --no-startup-id exec nitrogen --restore
 exec --no-startup-id exec xfce4-power-manager 
 exec --no-startup-id exec nm-applet 
-exec --no-startup-id exec xautolock -time 5 -locker ~/.bin/lock
+exec --no-startup-id exec xautolock -time 5 -locker ~/.dotfiles/lock
 exec --no-startup-id exec dunst -conf ~/.dunstrc
 
 # Principal mod key (Super = Win key)
@@ -86,7 +86,7 @@ bindsym $mod+Return exec gnome-terminal
 bindsym Mod4+w exec firefox
 bindsym Mod4+f exec pcmanfm
 #bindsym Mod4+s exec slack
-bindsym Mod4+Shift+L exec "sh -c '$HOME/.bin/lock'"
+bindsym Mod4+Shift+L exec "sh -c '$HOME/.dotfiles/lock'"
 bindsym $mod+d exec rofi -i -show run
 #bindsym $mod+d exec i3-dmenu-desktop --dmenu="dmenu_run -i -b -nb '$background' -fn 'Input Mono Narrow Medium:pixelsize=12'"
 

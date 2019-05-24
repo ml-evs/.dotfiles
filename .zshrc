@@ -84,7 +84,7 @@ load_intel() {
     fi
 }
 
-#eval $(keychain --eval --quiet ~/.ssh/id_rsa)
+eval $(keychain --eval --quiet ~/.ssh/id_rsa)
 
 #fzf colour scheme
 _gen_fzf_default_opts() {
