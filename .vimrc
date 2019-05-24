@@ -1,39 +1,19 @@
-" Sections:
-"    -> Vundle "    -> General
-"    -> VIM user interface
-"    -> Colors and Fonts
-"    -> Files and backups
-"    -> Text, tab and indent related
-"    -> Visual mode related
-"    -> Moving around, tabs and buffers
-"    -> Status line
-"    -> Editing mappings
-"    -> vimgrep searching and cope displaying
-"    -> Spell checking
-"    -> Misc
-"    -> Helper functions
-"
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Vundle
-"
-"
 set nocompatible
 filetype off
+
 " set the runtime path to include Vundle and initialize
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
-
-
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
-Plugin 'kien/ctrlp.vim'
+Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'airblade/vim-gitgutter.git'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-"Plugin 'mhinz/vim-startify'
+Plugin 'mhinz/vim-startify'
 Plugin 'w0rp/ale'
 Plugin 'majutsushi/tagbar'
 Plugin 'wting/rust.vim'
@@ -41,39 +21,46 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'ludovicchabant/vim-lawrencium'
-"Plugin 'scrooloose/syntastic'
 Plugin 'valloric/YouCompleteMe'
 Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'junegunn/goyo.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'lervag/vimtex'
 Plugin 'matze/vim-tex-fold'
-Plugin 'chriskempson/base16-vim'
+Plugin 'danielwe/base16-vim'
+"Plugin 'chriskempton/base16-vim'
 Plugin 'bling/vim-bufferline'
 Plugin 'easymotion/vim-easymotion'
+call vundle#end()
 
-let g:Powerline_symbols = 'fancy'
-let g:airline_powerline_fonts = 0
-let g:airline_theme = 'base16'
+let g:ctrlp_working_path_mode = 'ra'
 
-
+" JEDI 
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
 let g:jedi#popup_on_dot = 0
-"let g:jedi#force_py_version = 3
-"
-let g:instant_markdown_autostart = 0
+let g:jedi#completions = 1
 
+" VIMTEX
 let g:vimtex_complete_close_braces = 1
 
+" AIRLINE 
+let g:Powerline_symbols = 'fancy'
+let g:airline_powerline_fonts = 0
+let g:airline_theme = 'base16'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 1
-let g:airline#extensions#tabline#show_tabs = 0
+let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_x = '%-0.15{getcwd()}'
+let g:airline_section_c = '%t'
+
+" GOYO
 let g:goyo_width = 120
+
+" SIMPYLFOLD
 let g:SimpylFold_fold_docstring=0
 let g:SimpylFold_fold_import=0
 let g:SimpylFold_docstring_preview=1
@@ -81,7 +68,8 @@ let g:SimpylFold_docstring_preview=1
 "autocmd BufWinLeave *.py setlocal foldexpr< foldmethod<
 "let g:fortran_fold = 1
 
-" YCM Latex config from https://samsudar.com/code/vim_and_latex/
+" YCM
+" Latex config from https://samsudar.com/code/vim_and_latex/
 if !exists('g:ycm_semantic_triggers')
   let g:ycm_semantic_triggers = {}
 endif
@@ -96,34 +84,46 @@ let g:ycm_semantic_triggers.tex = [
       \ 're!\\includestandalone(\s*\[[^]]*\])?\s*\{[^}]*',
       \]
 autocmd BufRead,BufNewFile *.tex let g:ycm_auto_trigger = 0
+let g:ycm_filetype_whitelist = { '*': 1}
+"let g:ycm_filetype_blacklist = { 'fortran': 1 }
+"nnoremap <Leader>d :YcmCompleter GetDoc<CR>
 
+
+" ALE
+let g:ale_linters = { 'cpp': ['gcc'] }
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
-let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fixers = { 'pyrex': ['remove_trailing_lines', 'trim_whitespace'], 'python': ['remove_trailing_lines', 'trim_whitespace']} ", 'black'] }
+"let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black'] }
+"let b:ale_fixers = ['black']
 let g:ale_sign_column_always = 1
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
 let g:ale_fix_on_save = 1
+let g:ale_lint_on_save = 0
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %code%: %s [%severity%]'
 let g:ale_statusline_format = ['✖ %d', '⚠ %d', '']
-
 let g:ale_open_list = 1
 "let g:ale_echo_cursor = 0
 let g:ale_lint_on_enter = 0
-let g:ale_list_window_size = 10
-"let g:ale_lint_on_save = 1
-let g:ale_lint_on_insert_leave = 1
+let g:ale_list_window_size = 4
+let g:ale_lint_on_insert_leave = 0
 let g:ale_lint_delay = 1000
-let g:ale_lint_on_text_changed = 'normal'
+let g:ale_lint_on_text_changed = 'always'
 
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+" prevent quickfix from being added to buflist
+augroup qf
+    autocmd!
+    autocmd FileType qf set nobuflisted
+augroup END
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" CTRL-P
+let g:ctrlp_cmd = 'CtrlPMixed'
+
+
 " Sets how many lines of history VIM has to remember
 set history=700
 
@@ -140,14 +140,34 @@ let mapleader = ","
 let g:mapleader = ","
 let maplocalleader = "."
 
-
 " Fast saving
 nmap <leader>w :w!<cr>
-
 nmap <leader>q :TagbarOpenAutoClose<CR>
 
 " fast commenting
 map cc <leader>c<space>
+
+" CtrlP keybinds
+nmap <leader>b :CtrlPBuffer<CR>
+nmap <leader>f :CtrlP<CR>
+nmap <leader>m :CtrlPMRU<CR>
+
+
+inoremap jj <Esc>
+nnoremap <Leader>l :lnext<CR>
+nnoremap <Leader>ll :ll<CR>
+nnoremap <Leader>lp :lp<CR>
+nnoremap <Leader>gc :Gcommit % <CR>
+nnoremap <Leader>gd :Gdiff<CR>
+nnoremap <Leader>gb :Gblame<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>o :noh<CR>
+
+" get rid of number incrementing in normal mode
+nnoremap . <NOP>
+nnoremap <C-a> <NOP>
+nnoremap <C-x> <NOP>
+
 
 " Use 256 colours (Use this setting only if your terminal supports 256 colours)
 set t_Co=256
@@ -157,16 +177,7 @@ set relativenumber
 :au FocusLost   *  :set number
 :au FocusGained *  :set relativenumber
 
-":autocmd InsertEnter * :set number
-":autocmd InsertEnter * :hi SpellBad ctermbg=233
-":autocmd InsertLeave * :hi SpellBad ctermbg=242
-":autocmd InsertEnter * :hi SpellCap ctermbg=233
-":autocmd InsertLeave * :hi SpellCap ctermbg=242
-":autocmd InsertLeave * :set relativenumber
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set 7 lines to the cursor - when moving vertically using j/k
+" Set 10 lines to the cursor - when moving vertically using j/k
 set so=10
 
 " Turn on the WiLd menu
@@ -201,7 +212,7 @@ set hlsearch
 set incsearch
 
 " Don't redraw while executing macros (good performance config)
-"set lazyredraw
+set lazyredraw
 
 " For regular expressions turn magic on
 set magic
@@ -211,7 +222,7 @@ set showmatch
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
-" No annoying sound on errors
+" No annoying sound onronkrrors
 set noerrorbells
 set novisualbell
 set t_vb=
@@ -225,11 +236,7 @@ set tm=500
 syntax enable
 set background=dark
 let base16colorspace=256  " Access colors present in 256 colorspace
-colorscheme base16-default-light
-
-
-"hi SignColumn ctermbg=233
-hi Search cterm=NONE ctermbg=grey ctermfg=blue
+colorscheme base16-gruvbox-dark-pale
 
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -237,7 +244,6 @@ set encoding=utf8
 
 " Use Unix as the standard file type
 set ffs=unix,dos,mac
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
@@ -247,7 +253,6 @@ set backup
 set backupdir=$HOME/.backup
 set nowb
 set noswapfile
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -271,27 +276,8 @@ set si "Smart indent
 set nowrap "Wrap lines
 set incsearch
 
-au BufRead,BufNewFile *.txt,*.tex,*.md set wrap linebreak nolist textwidth=80 wrapmargin=0 noautoindent
-
-
-nnoremap <leader><space> :call HighlightNearCursor()<CR>
-function HighlightNearCursor()
-  if !exists("s:highlightcursor")
-    match Todo /\k*\%#\k*/
-    let s:highlightcursor=1
-  else
-    match None
-    unlet s:highlightcursor
-  endif
-endfunction
-""""""""""""""""""""""""""""""
-" => Visual mode related
-""""""""""""""""""""""""""""""
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :call VisualSelection('f')<CR>
-vnoremap <silent> # :call VisualSelection('b')<CR>
-
+au BufRead,BufNewFile *.txt,*.tex set wrap linebreak nolist textwidth=0 wrapmargin=0 noautoindent
+au BufRead,BufNewFile *.md,*.rst set wrap linebreak nolist textwidth=80 wrapmargin=0 noautoindent
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -299,10 +285,6 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 " Treat long lines as break lines (useful when moving around in them)
 map j gj
 map k gk
-
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
 
 " Smart way to move between windows
 map <C-j> <C-W>j
@@ -316,19 +298,12 @@ map <leader>bd :Bclose<cr>
 " Close all the buffers
 map <leader>ba :1,1000 bd!<cr>
 
-map <leader><Tab> : bn<cr>
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
+map <leader><Tab> :bn<cr>
+map <localleader><Tab> :tabnext<cr>
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
 map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers
 try
@@ -344,54 +319,19 @@ autocmd BufReadPost *
      \ endif
 " Remember info about open buffers on close
 set viminfo^=%
-
-
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-" Always show the status line
 set laststatus=2
-
-" YCM
-let g:ycm_filetype_whitelist = { '*': 1}
-"let g:ycm_filetype_blacklist = { 'fortran': 1 }
-"nnoremap <Leader>d :YcmCompleter GetDoc<CR>
-" toggle Syntastic
-nnoremap <Leader>s :SyntasticToggleMode<CR>
-nnoremap <Leader>l :lnext<CR>
-nnoremap <Leader>ll :ll<CR>
-nnoremap <Leader>lp :lp<CR>
-nnoremap <Leader>gc :Gcommit % <CR>
-nnoremap <Leader>gd :Gdiff<CR>
-nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gs :Gstatus<CR>
-nnoremap <Leader>o :noh<CR>
-
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remap VIM 0 to first non-blank character
-map 0 ^
+"map 0 ^
 
 " Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
 nmap <M-j> mz:m+<cr>`z
 nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
- "Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-nnoremap <Leader>p :call DeleteTrailingWS()
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.sh :call DeleteTrailingWS()
-"autocmd BufWrite *.f90 :call DeleteTrailingWS()
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => vimgrep searching and cope displaying
@@ -411,7 +351,7 @@ map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 " Do :help cope if you are unsure what cope is. It's super useful!
 "
 " When you search with vimgrep, display your results in cope by doing:
-"   <leader>cc
+   "<leader>cc
 "
 " To go to the next search result do:
 "   <leader>n
@@ -436,15 +376,13 @@ map <leader>sn ]s
 map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
-map <leader>rr :NERDTreeToggle<CR>
+map <leader>t :NERDTreeToggle<CR>
 
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
@@ -510,3 +448,9 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
+ 
+" From help:ale_open_list, close loclist when buffer closes
+augroup CloseLoclistWindowGroup
+    autocmd!
+    autocmd QuitPre * if empty(&buftype) | lclose | endif
+augroup END

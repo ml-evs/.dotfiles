@@ -5,13 +5,14 @@ setopt extendedglob
 source $ZSH/oh-my-zsh.sh
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Example aliases
-alias open="xdg-open"
+#alias open="xdg-open"
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias i3rc="vim ~/.i3/config"
 alias lx="ls -X"
 alias zypper='sudo zypper'
 alias zyp='sudo zypper'
+alias disco='python -m unittest discover'
 
 ng () {
     ssh -X -t noggin tmux attach 

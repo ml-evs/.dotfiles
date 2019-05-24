@@ -14,11 +14,14 @@
 # ------------------------------------------------------------------------------
 
 VIRTUAL_ENV_DISABLE_PROMPT=true
+BULLETTRAIN_TIME_SHOW=false
+BULLETTRAIN_CONTEXT_SHOW=true
+BULLETTRAIN_CUSTOM_MSG=🍎
+BULLETTRAIN_CONTEXT_DEFAULT_USER='mevans'
 
 # Define order and content of prompt
 if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
   BULLETTRAIN_PROMPT_ORDER=(
-    status
     custom
     context
     dir
@@ -26,12 +29,14 @@ if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
     nvm
     git
     hg
-    cmd_exec_time
     time
+    cmd_exec_time
+    status
   )
 fi
 
 # PROMPT
+#
 if [ ! -n "${BULLETTRAIN_PROMPT_CHAR+1}" ]; then BULLETTRAIN_PROMPT_CHAR="\$"
 fi
 if [ ! -n "${BULLETTRAIN_PROMPT_ROOT+1}" ]; then
@@ -52,13 +57,13 @@ if [ ! -n "${BULLETTRAIN_STATUS_EXIT_SHOW+1}" ]; then
   BULLETTRAIN_STATUS_EXIT_SHOW=true
 fi
 if [ ! -n "${BULLETTRAIN_STATUS_BG+1}" ]; then
-  BULLETTRAIN_STATUS_BG=cyan
+  BULLETTRAIN_STATUS_BG=white
 fi
 if [ ! -n "${BULLETTRAIN_STATUS_ERROR_BG+1}" ]; then
-  BULLETTRAIN_STATUS_ERROR_BG=red
+  BULLETTRAIN_STATUS_ERROR_BG=black
 fi
 if [ ! -n "${BULLETTRAIN_STATUS_FG+1}" ]; then
-  BULLETTRAIN_STATUS_FG=black
+  BULLETTRAIN_STATUS_FG=white
 fi
 
 # TIME
@@ -94,7 +99,7 @@ if [ ! -n "${BULLETTRAIN_VIRTUALENV_FG+1}" ]; then
   BULLETTRAIN_VIRTUALENV_FG=black
 fi
 if [ ! -n "${BULLETTRAIN_VIRTUALENV_PREFIX+1}" ]; then
-  BULLETTRAIN_VIRTUALENV_PREFIX=§
+  BULLETTRAIN_VIRTUALENV_PREFIX=🐍
 fi
 
 # NVM
@@ -153,7 +158,7 @@ if [ ! -n "${BULLETTRAIN_DIR_CONTEXT_SHOW+1}" ]; then
   BULLETTRAIN_DIR_CONTEXT_SHOW=false
 fi
 if [ ! -n "${BULLETTRAIN_DIR_EXTENDED+1}" ]; then
-  BULLETTRAIN_DIR_EXTENDED=1
+  BULLETTRAIN_DIR_EXTENDED=0
 fi
 
 # GIT

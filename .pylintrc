@@ -29,7 +29,7 @@ reports=no
 max-nested-blocks=6
 
 # Maximum number of characters on a single line.
-max-line-length=200
+max-line-length=110
 
 # Maximum number of lines in a module
 max-module-lines=1500
@@ -89,7 +89,7 @@ variable-rgx=[a-z_][a-z0-9_]{1,30}$
 inlinevar-rgx=[A-Za-z_][A-Za-z0-9_]*$
 
 # Good variable names which should always be accepted, separated by a comma
-good-names=i,j,k,ex,_,x,y,z,db,tmp,f,fp,a,b,c,s,gr,dr,B,C,E_0,V_0,V,E
+good-names=i,j,k,ex,_,x,y,z,db,tmp,f,fp,a,b,c,s,gr,dr,B,C,E_0,V_0,V,E,log,d,p,r
 
 # Bad variable names which should always be refused, separated by a comma
 bad-names=foo,bar,baz,toto,tutu,tata
@@ -106,7 +106,7 @@ init-import=no
 
 # A regular expression matching the beginning of the name of dummy variables
 # (i.e. not used).
-dummy-variables-rgx=_|dummy
+dummy-variables-rgx=_|dummy|tmp
 
 # List of additional names supposed to be defined in builtins. Remember that
 # you should avoid to define new builtins when possible.
