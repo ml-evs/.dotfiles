@@ -46,8 +46,10 @@ preexec() {
 
 export EDITOR=vi
 # HOME/.local/bin/vim
+# e
+export TMUX_TMPDIR=$HOME/.tmux
 
-#export TCM_INTEL_VER=17.0.2
+export TCM_INTEL_VER=17.0.2
 #export PYTHONPATH="/u/fs1/me388/.local/lib64/python2.7/site-packages
 export PYTHONPATH=""
 #export PYTHONPATH="$PYTHONPATH:$HOME/matador/src"
