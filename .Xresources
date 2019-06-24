@@ -28,22 +28,22 @@ rofi.yoffset: 20
 rofi.terminal: gnome-terminal
 rofi.combi-modi: drun
 
-!URxvt.faceSize: 20
-!URxvt.loginShell : true
-!URxvt.lineSpace: 0
-!URxvt.saveLines: 10000
+URxvt.faceSize: 20
+URxvt.loginShell : true
+URxvt.lineSpace: 0
+URxvt.saveLines: 10000
 
-!URxvt*font: xft:Input Mono:pixelsize=15
-!URxvt*letterSpace: 0
-!URxvt*scrollBar : false
+URxvt*font: xft:Input Mono:pixelsize=15
+URxvt*letterSpace: 0
+URxvt*scrollBar : false
 
-!URxvt*borderWidth: 0
-!URxvt*loginshell: true
-!URxvt*backarrowKey: false
-!URxvt*locale: true
-!URxvt*utf8: 1
-!URxvt*savelines: 16384
-!URxvt*ScrollBar: false
-!URxvt*faceName: Input 
-!URxvt*faceSize: 10
-!URxvt*font: xft:Input Mono:pixelsize=10
+URxvt*borderWidth: 0
+URxvt*loginshell: true
+URxvt*backarrowKey: false
+URxvt*locale: true
+URxvt*utf8: 1
+URxvt*savelines: 16384
+URxvt*ScrollBar: false
+URxvt*faceName: Input 
+URxvt*faceSize: 10
+URxvt*font: xft:Input Mono:pixelsize=10

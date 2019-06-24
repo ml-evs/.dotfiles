@@ -16,13 +16,11 @@
 VIRTUAL_ENV_DISABLE_PROMPT=true
 BULLETTRAIN_TIME_SHOW=false
 BULLETTRAIN_CONTEXT_SHOW=true
-BULLETTRAIN_CUSTOM_MSG=
 BULLETTRAIN_CONTEXT_DEFAULT_USER='matthew'
 
 # Define order and content of prompt
 if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
   BULLETTRAIN_PROMPT_ORDER=(
-    custom
     context
     dir
     virtualenv

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 B='#1b181bff'  # bg
 C='#cbd6e2ff'  # clear ish
@@ -36,6 +36,6 @@ i3lock              \
 --datesize=14 \
 --radius=80  \
 --blur 0 \
---timefont="Iosevka" \
---datefont="Iosevka" \
+--timefont="Iosevka Term" \
+--datefont="Iosevka Term" \
 # etc

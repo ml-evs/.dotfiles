@@ -12,6 +12,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'airblade/vim-gitgutter.git'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-airline/vim-airline'
+"Plugin 'szymonmaszke/vimpyter'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
 Plugin 'w0rp/ale'
@@ -47,7 +48,7 @@ let g:vimtex_complete_close_braces = 1
 " AIRLINE 
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 0
-let g:airline_theme = 'base16'
+"let g:airline_theme = 'base16'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
 let g:airline#extensions#tabline#enabled = 1
@@ -92,7 +93,7 @@ let g:ycm_filetype_whitelist = { '*': 1}
 " ALE
 let g:ale_linters = { 'cpp': ['gcc'] }
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
-let g:ale_fixers = { 'pyrex': ['remove_trailing_lines', 'trim_whitespace'], 'python': ['remove_trailing_lines', 'trim_whitespace']} ", 'black'] }
+let g:ale_fixers = { 'pyrex': ['remove_trailing_lines', 'trim_whitespace'], 'python': ['remove_trailing_lines', 'trim_whitespace', 'black'] }
 "let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black'] }
 "let b:ale_fixers = ['black']
 let g:ale_sign_column_always = 1
