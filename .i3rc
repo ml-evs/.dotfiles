@@ -4,10 +4,10 @@ font pango: Iosevka Term Regular 12
 # Look
 #..........
 
-for_window [class="^.*"] border pixel 3
+for_window [class="^.*"] border pixel 1
 gaps inner 20
 gaps outer 20
-#smart_borders off
+smart_borders on
 
 # Heath
 set $back               #282828
@@ -21,11 +21,12 @@ set $yellow             #fabd2f
 set $red                #fb4934
 set $darkred            #A54242
 set $green              #b8bb26
+set $darkgreen              #b8bb26
 
 #class                  border      backgr.     text        split
-client.focused          $red $red $black
-client.focused_inactive $red $lightgrey $lightgrey  
-client.unfocused        $lightgrey $lightgrey $lightgrey  
+client.focused          $green $green $black
+client.focused_inactive $red $lightgrey $black
+client.unfocused        $black $grey $black
 client.urgent           $red        $red        $black      
 client.background       $background $grey $lightgrey
 
@@ -39,6 +40,7 @@ exec --no-startup-id exec nitrogen --restore
 exec --no-startup-id exec xfce4-power-manager 
 exec --no-startup-id exec nm-applet 
 exec --no-startup-id exec xautolock -time 5 -locker ~/.local/bin/lock
+exec_always --no-startup-id ~/.i3/polybar.sh
 exec --no-startup-id exec dunst -conf ~/.dunstrc
 
 # Principal mod key (Super = Win key)
@@ -51,14 +53,19 @@ bindsym $mod+Shift+g gaps outer current set 100
 bindsym Mod4+g gaps outer current set 50 gaps inner current set 50
 bindsym Mod4+Shift+g gaps outer current set 20 gaps inner current set 20
 
-# Pulse Audio controls
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume $(pactl list sinks short | grep -i running | awk {'print $1'}) +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume $(pactl list sinks short | grep -i running | awk {'print $1'}) -5% #decrease sound volume
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute $(pactl list sinks short | grep -i running | awk {'print $1'}) toggle # mute sound
+# Media keys
+
+# Pulseaudio volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 10 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 10 # decrease screen brightness
+bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
+bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+
+# Misc
+bindsym XF86Display exec --no-startup-id arandr
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -191,16 +198,18 @@ bindsym $mod+r mode "resize"
 # My bar
 bar {
     tray_output primary
-    status_command i3status -c ~/.i3/i3status.conf
-    workspace_buttons yes
+    #status_command i3status -c ~/.i3/i3status.conf
+    i3bar_command polybar
+    #workspace_buttons yes
     position top
-    colors {
-          background $background
-          statusline $white
-          separator  $white
-          focused_workspace  $red $background $white
-          active_workspace   $background $yellow $black
-          inactive_workspace $background $background $lightgrey
-          urgent_workspace   $white $yellow $black
-          }
+    #colors {
+          ##background 1 1 1 0 
+          #background $background
+          #statusline $white
+          #separator  $white
+          #focused_workspace  $red $background $white
+          #active_workspace   $background $yellow $black
+          #inactive_workspace $background $background $lightgrey
+          #urgent_workspace   $white $yellow $black
+          #}
 }
