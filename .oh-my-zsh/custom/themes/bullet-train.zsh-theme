@@ -14,9 +14,9 @@
 # ------------------------------------------------------------------------------
 
 VIRTUAL_ENV_DISABLE_PROMPT=true
-BULLETTRAIN_TIME_SHOW=false
+BULLETTRAIN_TIME_SHOW=true
 BULLETTRAIN_CONTEXT_SHOW=true
-BULLETTRAIN_CONTEXT_DEFAULT_USER='matthew'
+BULLETTRAIN_CONTEXT_DEFAULT_USER='mevans'
 
 # Define order and content of prompt
 if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
@@ -26,7 +26,7 @@ if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
     virtualenv
     nvm
     git
-    hg
+    #hg
     time
     cmd_exec_time
     status
@@ -305,6 +305,7 @@ fi
 # A few functions to make it easy and re-usable to draw segmented prompts
 # ------------------------------------------------------------------------------
 
+#CURRENT_BG='NONE'
 CURRENT_BG='NONE'
 SEGMENT_SEPARATOR=''
 

@@ -63,6 +63,12 @@ else
 				mv $HOME/.i3/i3status.conf $HOME/.i3/i3status.conf_backup
 		fi
 
+    mkdir -p $HOME/.config/polybar
+    ln -s $HOME/.dotfiles/.config/polybar/config $HOME/.config/polybar/config
+    
+    mkdir -p $HOME/.config/alacritty
+    ln -s $HOME/.dotfiles/.config/alacritty/alacritty.yml $HOME/.config/alacritty/alacritty.yml
+
 		ln -s $HOME/.dotfiles/.i3rc $HOME/.i3/config
 		ln -s $HOME/.dotfiles/.i3/i3status.conf $HOME/.i3/i3status.conf
 

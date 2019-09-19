@@ -1,19 +1,20 @@
-font pango: Iosevka Term Regular 12
+font pango: Iosevka Term Regular 10
 
 #..........
 # Look
 #..........
 
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 3
 gaps inner 20
 gaps outer 20
-smart_borders on
+# smart_borders off
 
 # Heath
 set $back               #282828
 set $background         #282828
 #set $border            #56bf8b
 set $black              #181b18
+set $magenta            #BA8BAF
 set $grey               #373B41
 set $lightgrey          #665c54
 set $white              #d5c4a1
@@ -24,9 +25,9 @@ set $green              #b8bb26
 set $darkgreen              #b8bb26
 
 #class                  border      backgr.     text        split
-client.focused          $green $green $black
+client.focused          $magenta $magenta $black
 client.focused_inactive $red $lightgrey $black
-client.unfocused        $black $grey $black
+client.unfocused        $magenta $grey $white
 client.urgent           $red        $red        $black      
 client.background       $background $grey $lightgrey
 
@@ -154,6 +155,11 @@ bindsym Mod4+h move workspace to output left
 bindsym Mod4+Right move workspace to output right
 bindsym Mod4+l move workspace to output right
 
+bindsym Mod4+Up move workspace to output up
+bindsym Mod4+k move workspace to output up 
+bindsym Mod4+Down move workspace to output up
+bindsym Mod4+j move workspace to output up
+
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+R restart
 
@@ -199,7 +205,7 @@ bindsym $mod+r mode "resize"
 bar {
     tray_output primary
     #status_command i3status -c ~/.i3/i3status.conf
-    i3bar_command polybar
+    i3bar_command polybar mine
     #workspace_buttons yes
     position top
     #colors {

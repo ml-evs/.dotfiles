@@ -9,7 +9,8 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'L9'
 Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
-Plugin 'airblade/vim-gitgutter.git'
+"Plugin 'airblade/vim-gitgutter.git'
+Plugin 'mhinz/vim-signify'
 Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-airline/vim-airline'
 "Plugin 'szymonmaszke/vimpyter'
@@ -17,16 +18,17 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
 Plugin 'w0rp/ale'
 Plugin 'majutsushi/tagbar'
-Plugin 'wting/rust.vim'
+"Plugin 'wting/rust.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'ludovicchabant/vim-lawrencium'
+"Plugin 'ludovicchabant/vim-lawrencium'
 Plugin 'valloric/YouCompleteMe'
-Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
+"Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'junegunn/goyo.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'lervag/vimtex'
+Plugin 'alfredodeza/pytest.vim'
 Plugin 'matze/vim-tex-fold'
 Plugin 'danielwe/base16-vim'
 "Plugin 'chriskempton/base16-vim'
@@ -47,7 +49,7 @@ let g:vimtex_complete_close_braces = 1
 
 " AIRLINE 
 let g:Powerline_symbols = 'fancy'
-let g:airline_powerline_fonts = 0
+let g:airline_powerline_fonts = 1
 "let g:airline_theme = 'base16'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
@@ -57,6 +59,10 @@ let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_x = '%-0.15{getcwd()}'
 let g:airline_section_c = '%t'
+
+hi StatusLine ctermbg=0 cterm=NONE
+hi Normal ctermbg=0 cterm=NONE
+hi CursorLine ctermbg=0 cterm=NONE
 
 " GOYO
 let g:goyo_width = 120
@@ -94,7 +100,8 @@ let g:ycm_filetype_whitelist = { '*': 1}
 let g:ale_linters = { 'cpp': ['gcc'] }
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
 let g:ale_fixers = { 'pyrex': ['remove_trailing_lines', 'trim_whitespace'], 'python': ['remove_trailing_lines', 'trim_whitespace', 'black'] }
-"let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black'] }
+let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace']}
+", 'black'] }
 "let b:ale_fixers = ['black']
 let g:ale_sign_column_always = 1
 let g:ale_set_loclist = 1
@@ -235,7 +242,7 @@ set tm=500
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
-set background=dark
+"set background=dark
 let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-gruvbox-dark-pale
 
