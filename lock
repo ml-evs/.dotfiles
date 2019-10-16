@@ -7,6 +7,9 @@ T='#cbd6e2cc'  # text
 W='#880000ff'  # wrong
 V='#223b54ff'  # verifying
 
+grim /tmp/lock.png
+convert /tmp/lock.png -blur 18,5 /tmp/lock.png
+
 i3lock              \
 --insidevercolor=$B   \
 --ringvercolor=$V   \
@@ -24,7 +27,8 @@ i3lock              \
 --datecolor=$T        \
 --keyhlcolor=$T       \
 --bshlcolor=$T        \
--c "#1b181b" \
+-c "#1b181b"          \
+-i /tmp/lock.png      \
 --screen 0            \
 --clock               \
 --indicator           \

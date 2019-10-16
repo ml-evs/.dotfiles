@@ -40,9 +40,11 @@ nf () {
     if [ -z "$1" ]; then
         echo "Enter a port!"
     elif [ -z "$2" ]; then
-        ssh -N -f -L localhost:"$1":localhost:$1 noggin
-    else
+        ssh -N -f -L localhost:"$1":localhost:$1 noggin 
+    elif [ -z "$3" ]; then
         ssh -N -f -L localhost:"$1":localhost:$2 noggin
+    else
+        ssh -N -f -L localhost:"$1":localhost:$2 $3 
     fi
 }
 
@@ -69,5 +71,5 @@ unplug () {
 }
 
 plugin () {
-    xrandr --output HDMI1 --mode 1920x1200 --above eDP1 && nitrogen --restore
+    xrandr --output eDP1 --primary && xrandr --output DP1 --primary --mode 1920x1080 --right-of eDP1 && xrandr --output HDMI2 --mode 1920x1080 --right-of DP1 && nitrogen --restore
 }

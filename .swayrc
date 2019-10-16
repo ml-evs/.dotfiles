@@ -1,0 +1,255 @@
+font pango: Iosevka Term Regular 10
+
+#..........
+# Look
+#..........
+
+#for_window [class="^.*"] border pixel 3
+gaps inner 20
+gaps outer 20
+
+default_border pixel 2
+default_floating_border pixel 2
+smart_borders off
+
+set $term alacritty
+
+output eDP-1 pos 0 0 res 1920x1080
+output DP-1 pos 1920 0 res 1920x1080
+output HDMI-A-2 pos 3840 0 res 1920x1080
+output * bg /usr/share/backgrounds/spirited.jpg fill
+
+input * {
+    xkb_layout gb
+}
+
+input 1130:72:Das_Keyboard {
+    xkb_layout gb
+}
+
+
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    tap enabled
+    natural_scroll enabled
+}
+
+input "2:10:TPPS/2_Elan_TrackPoint" {
+    #LIBINPUT_ATTR_TRACKPOINT_RANGE=50
+}
+
+
+# Heath
+set $back               #28282800
+set $background         #282828
+#set $border            #56bf8b
+set $black              #181b18
+set $magenta            #BA8BAF
+set $grey               #373B41
+set $lightgrey          #665c54
+set $white              #d5c4a1
+set $yellow             #fabd2f
+set $red                #fb4934
+set $blue               #7CAFC2
+set $darkred            #A54242
+set $green              #b8bb26
+set $darkgreen              #b8bb26
+
+#class                  border      backgr.     text        split
+client.focused          $magenta $magenta $magenta $magenta $magenta
+client.focused_inactive $red $lightgrey $black $magenta $lightgrey
+client.unfocused        $magenta $grey $white $magenta $grey
+client.urgent           $red        $red        $black      $red $red
+client.background       $background 
+
+#..........
+# Applications
+#..........
+#
+
+# exec --no-startup-id exec compton
+# exec --no-startup-id exec nitrogen --restore
+# exec --no-startup-id exec xfce4-power-manager 
+exec --no-startup-id exec nm-applet 
+exec --no-startup-id exec xautolock -time 5 -locker ~/.local/bin/lock
+# exec_always --no-startup-id ~/.i3/polybar.sh
+exec --no-startup-id exec dunst -conf ~/.dunstrc
+
+# Principal mod key (Super = Win key)
+# mod1 = Alt (xmodmap to show)
+# mod4 = Winkey (xmodmap to show)
+set $mod Mod1
+
+bindsym $mod+g gaps inner current set 0
+bindsym $mod+Shift+g gaps outer current set 100
+bindsym Mod4+g gaps outer current set 50; gaps inner current set 50
+bindsym Mod4+Shift+g gaps outer current set 20 gaps; inner current set 20
+
+# Media keys
+
+# Pulseaudio volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
+
+# Sreen brightness controls
+bindsym XF86MonBrightnessUp exec brightnessctl set 5%- # increase screen brightness
+bindsym XF86MonBrightnessDown exec brightnessctl +5% # decrease screen brightness
+
+# Misc
+bindsym XF86Display exec --no-startup-id arandr
+
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+bindsym $mod+Shift+Q kill
+
+for_window [title=".*Figure.*"] floating enable
+
+# start a terminal
+bindsym $mod+Return exec alacritty
+bindsym Mod4+w exec firefox
+bindsym Mod4+f exec pcmanfm
+bindsym Mod4+s exec slack
+bindsym Mod4+Shift+l exec $HOME/.local/bin/lock
+bindsym $mod+d exec rofi -i -show run
+
+# Layout
+
+# change focus
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+h focus left
+
+# move focused window
+bindsym $mod+Shift+J move down
+bindsym $mod+Shift+K move up
+bindsym $mod+Shift+L move right
+bindsym $mod+Shift+H move left
+
+# split in horizontal orientation
+bindsym $mod+Left split h
+bindsym $mod+Right split h
+
+# split in vertical orientation
+bindsym $mod+Up split v
+bindsym $mod+Down split v
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f fullscreen
+
+# change container layout (stacked, tabbed, default)
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout default
+
+# toggle tiling / floating
+bindsym $mod+Shift+space floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space focus mode_toggle
+
+# focus the parent container
+#bindsym $mod+a focus parent
+
+#...........
+# Keybinds i3
+#...........
+
+
+# switch to workspace
+bindsym $mod+1 workspace 1:dev
+bindsym $mod+2 workspace 2:rem
+bindsym $mod+3 workspace 3:www
+bindsym $mod+4 workspace 4:wri
+bindsym $mod+5 workspace 5:doc
+bindsym $mod+6 workspace 6:com
+bindsym $mod+7 workspace 7:scr
+bindsym $mod+8 workspace 8:vis
+bindsym $mod+9 workspace 9:mus
+
+
+# move focused container to workspace
+bindsym $mod+Shift+1 move workspace 1:dev
+bindsym $mod+Shift+2 move workspace 2:rem
+bindsym $mod+Shift+3 move workspace 3:www
+bindsym $mod+Shift+4 move workspace 4:wri
+bindsym $mod+Shift+5 move workspace 5:doc
+bindsym $mod+Shift+6 move workspace 6:com
+bindsym $mod+Shift+7 move workspace 7:scr
+bindsym $mod+Shift+8 move workspace 8:vis
+bindsym $mod+Shift+9 move workspace 9:mus
+
+bindsym Mod4+Left move workspace to output left
+bindsym Mod4+h move workspace to output left
+bindsym Mod4+Right move workspace to output right
+bindsym Mod4+l move workspace to output right
+
+bindsym Mod4+Up move workspace to output up
+bindsym Mod4+k move workspace to output up 
+bindsym Mod4+Down move workspace to output up
+bindsym Mod4+j move workspace to output up
+
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r reload
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -b 'Yes, exit sway' 'swaymsg exit'
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id i3exit lock, mode "default"
+    bindsym e exec --no-startup-id i3exit logout, mode "default"
+    bindsym s exec --no-startup-id i3exit suspend, mode "default"
+    bindsym h exec --no-startup-id i3exit hibernate, mode "default"
+    bindsym r exec --no-startup-id i3exit reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id i3exit shutdown, mode "default"
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym Ctrl+$mod+Delete mode "$mode_system"
+
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # They resize the border in the direction you pressed, e.g.
+        # when pressing left, the window is resized so that it has
+        bindsym j resize grow down 10 px or 10 ppt
+        bindsym k resize grow up 10 px or 10 ppt
+        bindsym l resize grow right 10 px or 10 ppt
+        bindsym h resize grow left 10 px or 10 ppt
+
+        # same bindings, but for the arrow keys
+        bindsym Left resize grow left 10 px or 10 ppt
+        bindsym Down resize grow down 10 px or 10 ppt
+        bindsym Up resize grow up 10 px or 10 ppt
+        bindsym Right resize grow right 10 px or 10 ppt
+
+        # back to normal: Enter or Escape
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+}
+
+bindsym $mod+r mode "resize"
+
+# My bar
+
+bar {
+    position top
+
+    # When the status_command prints a new line to stdout, swaybar updates.
+    # The default just shows the current date and time.
+    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+    tray_output primary
+
+    colors {
+        statusline #ffffff
+        background $back
+        inactive_workspace $back $back #5c5c5c
+        active_workspace   $blue $back $white
+        focused_workspace  $magenta $back $white
+        urgent_workspace   $red $red $black
+    }
+}
+
+include /etc/sway/config.d/*

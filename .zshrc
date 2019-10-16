@@ -57,28 +57,31 @@ export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu
 export EDITOR=vim
 export GMON_OUT_PREFIX='gprof'
 #alias vim="PYTHONPATH=$HOME/src/matador:$PYTHONPATH vim --servername VIM"
-#alias pacman="sudo pacman"
+alias pacman="sudo pacman"
 alias please="sudo"
+alias grep='grep --color=auto'
 
 source $HOME/.dotfiles/zshrc.global
 
 load_intel() {
+    export CC='gcc'
+    export CXX='gcc'
+    export FC='ifort'
+    export F90='ifort'
+    export MPIF90='ifort'
+    export MPICC='gcc'
+    export OMPI_CC='gcc'
+    export OMPI_FC='ifort'
     if [ -z "$1" ]; then
-        export PATH=$HOME/.local/opt/intel18/bin:$PATH
-        export MKLROOT=$HOME/.local/opt/intel18/mkl
+        export PATH=$HOME/.local/opt/intel19/bin:$PATH
+        export MKLROOT=$HOME/.local/opt/intel19/mkl
+        export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/opt/intel19/mkl
     else
         DIRECTORY="${HOME}/.local/opt/intel${1}/bin"
-        export CC='gcc'
-        export CXX='gcc'
-        export FC='ifort'
-        export F90='ifort'
-        export MPIF90='ifort'
-        export MPICC='gcc'
-        export OMPI_CC='gcc'
-        export OMPI_FC='ifort'
         if [ -d "$DIRECTORY" ]; then
             export PATH="$DIRECTORY:$PATH"
             export MKLROOT="$DIRECTORY/../mkl"
+            export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/.local/opt/intel19/lib/intel64
         else
             echo "$DIRECTORY not found... exiting"
         fi
