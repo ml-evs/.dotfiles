@@ -14,10 +14,16 @@ smart_borders off
 
 set $term alacritty
 
+
+bindswitch lid:on exec $HOME/.local/bin/closed.sh 
+bindswitch lid:off output eDP-1 enable
+
 output eDP-1 pos 0 0 res 1920x1080
 output DP-1 pos 1920 0 res 1920x1080
 output HDMI-A-2 pos 3840 0 res 1920x1080
 output * bg /usr/share/backgrounds/spirited.jpg fill
+
+exec export XDG_CURRENT_DESKTOP='Unity'
 
 input * {
     xkb_layout gb
@@ -25,12 +31,13 @@ input * {
 
 input 1130:72:Das_Keyboard {
     xkb_layout gb
+    xkb_layout "gb-pipe"
 }
 
 
 input "2:7:SynPS/2_Synaptics_TouchPad" {
     tap enabled
-    natural_scroll enabled
+    natural_scroll disabled
 }
 
 input "2:10:TPPS/2_Elan_TrackPoint" {
@@ -69,10 +76,13 @@ client.background       $background
 # exec --no-startup-id exec compton
 # exec --no-startup-id exec nitrogen --restore
 # exec --no-startup-id exec xfce4-power-manager 
-exec --no-startup-id exec nm-applet 
-exec --no-startup-id exec xautolock -time 5 -locker ~/.local/bin/lock
 # exec_always --no-startup-id ~/.i3/polybar.sh
+exec --no-startup-id exec nm-applet 
 exec --no-startup-id exec dunst -conf ~/.dunstrc
+exec --no-startup-id swayidle -w timeout 150 '~/.local/bin/blurlock'
+exec --no-startup-id swayidle -w timeout 300 'swaymsg "output * dpms off"'
+exec --no-startup-id swayidle -w resume 'swaymsg "output * dpms on"'
+exec --no-startup-id swayidle before-sleep 'dunstify -u low "Going to sleep..."'
 
 # Principal mod key (Super = Win key)
 # mod1 = Alt (xmodmap to show)
@@ -110,7 +120,7 @@ bindsym $mod+Return exec alacritty
 bindsym Mod4+w exec firefox
 bindsym Mod4+f exec pcmanfm
 bindsym Mod4+s exec slack
-bindsym Mod4+Shift+l exec $HOME/.local/bin/lock
+bindsym Mod4+Shift+l exec $HOME/.local/bin/blurlock
 bindsym $mod+d exec rofi -i -show run
 
 # Layout
@@ -239,7 +249,7 @@ bar {
 
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
-    status_command while date +'%Y-%m-%d %l:%M:%S %p'; do sleep 1; done
+    swaybar_command waybar
     tray_output primary
 
     colors {
