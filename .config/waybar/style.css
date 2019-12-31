@@ -1,13 +1,14 @@
 * {
+    padding: 0 4px;
+    color: #ffffff;
     border: none;
     border-radius: 0;
     font-family: 'Iosevka Term', 'FontAwesome 5 Free Solid', monospace;
-    font-size: 13px;
-    min-height: 0;
+    font-size: 14px;
 }
 window#waybar {
-    background-color: rgba(0, 0, 0, 0.4);
-    border-bottom: 1px solid rgba(0, 0, 0, 0.8);
+    background-color: rgba(38, 38, 38, 0.4);
+    /*border-bottom: 3px solid rgba(0, 0, 0, 0.8);*/
     color: #ffffff;
     transition-property: background-color;
     transition-duration: .5s;
@@ -30,19 +31,19 @@ window#waybar.solo {
     padding: 0 5px;
     background-color: transparent;
     color: #ffffff;
-    border-bottom: 3px solid transparent;
+    border-bottom: 2px solid transparent;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button:hover {
     background: rgba(0, 0, 0, 0.2);
     box-shadow: inherit;
-    border-bottom: 3px solid #ffffff;
+    border-bottom: 2px solid #ffffff;
 }
 
 #workspaces button.focused {
     /*background-color: #64727D;*/
-    color: #BA8BAF;
+    color: #D485AD;
     border-bottom: 2px solid #BA8BAF;
 }
 
@@ -59,6 +60,7 @@ window#waybar.solo {
 #battery,
 #cpu,
 #memory,
+#disk,
 #temperature,
 #backlight,
 #network,
@@ -68,46 +70,16 @@ window#waybar.solo {
 #tray,
 #mode,
 #idle_inhibitor {
-    padding: 0 4px;
     margin: 0 4px;
-    color: #ffffff;
 }
 
-#battery:not(.charging) {
-    color: #AB4642;
-}
-#battery.charging{
-    background-color: #AFAF00;
-    color: #000000;
+#battery.full {
+    background-color: rgba(38, 38, 38, 0.4);
+    color: #FFFFFF;
 }
 
-/*#battery:.full {*/
-    /*color: #ff0000;*/
-/*}*/
-
-/*#battery:.discharging{*/
-    /*color: #ff0000;*/
-/*}*/
-
-#network.disconnected {
-    color: #000000;
-    background-color: #D65D0E;
-}
 
 #temperature.critical {
-    color: #000000;
-    background-color: #D65D0E;
-}
-
-
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #000000;
-    }
-}
-
-#battery.warning:not(.charging) {
     background-color: #f53c3c;
     color: #ffffff;
     animation-name: blink;
@@ -115,4 +87,41 @@ window#waybar.solo {
     animation-timing-function: linear;
     animation-iteration-count: infinite;
     animation-direction: alternate;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+#battery.critical:not(.charging) {
+    background-color: #f53c3c;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+#battery.warning:not(.charging) {
+    background-color: #D75F5F;
+    color: #000000;
+}
+
+#network.vpn.wifi {
+    color: #FFAF00;
+}
+
+#network.vpn.ethernet {
+    color: #FFAF00;
+}
+
+#network.vpn.disconnected {
+    color: #D75F5F;
+}
+
+#custom-spotify {
+    color: #1DB954;
 }

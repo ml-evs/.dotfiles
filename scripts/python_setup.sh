@@ -7,6 +7,6 @@
 #chmod 444 $HOME/.local/conda/lib/python3.7/site-packages
 
 yes | conda create -n dev python=3.7 --file $HOME/.dotfiles/dev_requirements.txt
-conda activate dev
+conda activate devtools
 pip install black
 conda deactivate

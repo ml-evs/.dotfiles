@@ -18,8 +18,8 @@
 
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #1818189D
-background-alt = #181b1c9D
+background = #18181800
+background-alt = #181b1c00
 foreground = #D8D8D8
 foreground-alt = #D8D8D8
 primary = #ffb52a
@@ -29,7 +29,7 @@ alert = #bd2c40
 [bar/mine]
 monitor = ${env:MONITOR:}
 width = 1920
-height = 27
+height = 24
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 1.0
@@ -50,22 +50,22 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 
-;font-0 = Iosevka Term:style=Regular:size=12:antialias=false;2
-font-0 = Unifont:fontformat=truetype:size=12:antialias=true;1
+;font-0 = Unifont:fontformat=truetype:size=12:antialias=true;1
+font-0 = Iosevka Term:style=Regular:size=11:antialias=true;2
 ;font-2 = Siji:pixelsize=10;1
 ;font-1 = Font Awesome 5 Free
 ;font-2 = Font Awesome 5 Brands
 font-1 = FontAwesome5Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
-;modules-center = 
-modules-right = spotify pulseaudio filesystem xbacklight memory cpu wlan eth temperature battery date
+modules-center = spotify
+modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature battery date
 ;powermenu
 
 tray-position = right
 tray-padding = 2
 ;tray-offset-y=2
-tray-maxsize=24
+tray-maxsize=16
 ;tray-background = #0063ff 
 ;wm-restack = bspwm
 wm-restack = i3

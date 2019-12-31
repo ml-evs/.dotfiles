@@ -23,9 +23,11 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 "Plugin 'ludovicchabant/vim-lawrencium'
-Plugin 'valloric/YouCompleteMe'
+"Plugin 'valloric/YouCompleteMe'
+Plugin 'vimwiki/vimwiki', {'pinned': 1}
+Plugin 'tbabej/taskwiki'
+Plugin 'powerman/vim-plugin-AnsiEsc'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
-Plugin 'junegunn/goyo.vim'
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'lervag/vimtex'
 Plugin 'alfredodeza/pytest.vim'
@@ -43,6 +45,9 @@ let g:ctrlp_working_path_mode = 'ra'
 autocmd FileType python setlocal completeopt-=preview
 let g:jedi#popup_on_dot = 0
 let g:jedi#completions = 1
+
+" VIMWIKI
+let g:vimwiki_list = [{'path': '~/wiki'}]
 
 " VIMTEX
 let g:vimtex_complete_close_braces = 1
@@ -92,7 +97,8 @@ let g:ycm_semantic_triggers.tex = [
       \]
 autocmd BufRead,BufNewFile *.tex let g:ycm_auto_trigger = 0
 let g:ycm_filetype_whitelist = { '*': 1}
-"let g:ycm_filetype_blacklist = { 'fortran': 1 }
+let g:ycm_filetype_blacklist = { 'fortran': 1 }
+let g:ycm_python_binary_path = '/home/mevans/.local/conda/envs/devtools/bin/python'
 "nnoremap <Leader>d :YcmCompleter GetDoc<CR>
 
 
@@ -101,6 +107,7 @@ let g:ale_linters = { 'cpp': ['gcc'] }
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
 let g:ale_fixers = { 'pyrex': ['remove_trailing_lines', 'trim_whitespace'], 'python': ['remove_trailing_lines', 'trim_whitespace', 'black'] }
 let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black']}
 ", 'black'] }
 "let b:ale_fixers = ['black']
 let g:ale_sign_column_always = 1
@@ -326,8 +333,8 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 " Remember info about open buffers on close
-set viminfo^=%
-set laststatus=2
+"set viminfo^=%
+"set laststatus=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings

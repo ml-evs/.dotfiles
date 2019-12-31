@@ -21,6 +21,8 @@ PROMPT_COMMAND='pwd > "${HOME}/.cwd"'
 # # Change to saved working dir
 #[[ -f "${HOME}/.cwd" ]] && cd "$(< ${HOME}/.cwd)"
 
+# disable bracket globs
+
 # Removes horrible backgrounds in ls colouring
 export LS_COLORS='fi=0;34:rs=0:di=0;35:ln=01;33:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33:cd=40;33:or=40;31:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=01;34:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.gz=0;35:*.bz2=01;31:*.bz=01;31:*.tbz2=01;31:*.tz=01;31:*.sh=01;35:*.f90=0;34:*.py=0;34:*.cpp=0;35:*.o=0;37:*.mod=0;37:*.pyc=0;37'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
@@ -105,3 +107,5 @@ fi
 unset __conda_setup
 conda deactivate
 # <<< conda initialize <<<
+#
+conda activate devtools

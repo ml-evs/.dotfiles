@@ -1,17 +1,24 @@
 {
     "layer": "top",
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-right": ["custom/spotify", "network#wifi", "temperature", "pulseaudio" , "memory", "cpu", "backlight", "battery", "clock", "tray"],
+    "modules-center": ["custom/spotify"],
+    "modules-right": ["network#vpn", "network#wifi", "temperature", "pulseaudio" , "disk", "memory", "cpu", "backlight", "battery", "tray", "clock"],
     "sway/workspaces": {
         "disable-scroll": false,
+        "disable-scroll-wraparound": true,
+        "enable-bar-scroll": true,
         "all-outputs": false,
-        "format": "{index} {name}: {icon}",
+        "format": "{index}: {icon}",
+        "tooltip": false,
         "format-icons": {
             "1:dev": "",
             "2:rem": "",
             "3:www": "",
             "4:wri": "",
             "5:doc": "",
+            "6:vis": "",
+            "7:scr": "",
+            "8:com": "",
             "9:mus": "",
             "focused": "",
             "default": ""
@@ -19,6 +26,7 @@
     },
     "battery": {
         "bat": "BAT0",
+        "tooltip": false,
         "interval": 60,
         "states": {
             "full": 90,
@@ -31,21 +39,25 @@
     "clock": {
         "format": "{:%a, %d. %b  %H:%M}" }, "backlight": {
         "device": "intel_backlight",
+        "tooltip": false,
         "format": "{icon} {percent}%",
         "format-icons": [""]
     },
     "cpu": {
         "interval": 10,
+        "tooltip": false,
         "format": " {:3d}%",
         "on-click": "gnome-system-monitor"
     },
     "memory": {
-        "interval": 30,
-        "format": " {used:0.1f} GB/{total:0.1f} GB",
+        "interval": 1,
+        "tooltip": false,
+        "format": " {avail:0.1f} GB",
         "on-click": "gnome-system-monitor"
     },
      "temperature": {
         "thermal-zone": 2,
+        "tooltip": false,
         "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
         "critical-threshold": 80,
         "format-critical": " {temperatureC}°C",
@@ -53,13 +65,24 @@
     },
     "network#wifi": {
         "format": "",
+        "tooltip": false,
         "interval": 1,
+        "interface": "wlp0s20f3",
         "format-wifi": " {essid} ({signalStrength}%)",
+        "format-ethernet": " @ {ipaddr}",
         "format-disconnected": "",
-        "format-ethernet": " @ {ipaddr}"
+        "on-click": "nm-connection-editor"
+    },
+    "network#vpn": {
+        "format": "",
+        "interface": "tun0",
+        "tooltip": false,
+        "interval": 1,
+        "format-disconnected": ""
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
+        "tooltip": false,
         "format-bluetooth": "{icon} {volume}%",
         "format-muted": "",
         "format-icons": {
@@ -75,12 +98,19 @@
         "on-click": "pavucontrol"
     },
     "tray": {
+        "tooltip": false,
         "spacing": 5
     },
     "custom/spotify": {
         "format": " {}",
-        "interval": 10,
+        "tooltip": false,
+        "interval": 1,
         "exec": "python /usr/share/polybar/scripts/spotify_status.py",
         "exec-if": "pgrep spotify"
+    },
+    "disk": {
+        "interval": 30,
+        "format": " {free}",
+        "tooltip": false
     }
 }

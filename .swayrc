@@ -4,7 +4,6 @@ font pango: Iosevka Term Regular 10
 # Look
 #..........
 
-#for_window [class="^.*"] border pixel 3
 gaps inner 20
 gaps outer 20
 
@@ -23,10 +22,9 @@ output DP-1 pos 1920 0 res 1920x1080
 output HDMI-A-2 pos 3840 0 res 1920x1080
 output * bg /usr/share/backgrounds/spirited.jpg fill
 
-exec export XDG_CURRENT_DESKTOP='Unity'
-
 input * {
     xkb_layout gb
+    xkb_numlock enabled
 }
 
 input 1130:72:Das_Keyboard {
@@ -42,30 +40,29 @@ input "2:7:SynPS/2_Synaptics_TouchPad" {
 
 input "2:10:TPPS/2_Elan_TrackPoint" {
     #LIBINPUT_ATTR_TRACKPOINT_RANGE=50
+    pointer_accel 0
+    scroll_factor 0.5
 }
 
 
 # Heath
 set $back               #28282800
 set $background         #282828
-#set $border            #56bf8b
-set $black              #181b18
-set $magenta            #BA8BAF
-set $grey               #373B41
-set $lightgrey          #665c54
+set $black              #262626
+set $magenta            #D485AD
+set $grey               #3A3A3A
+set $lightgrey          #949494
 set $white              #d5c4a1
-set $yellow             #fabd2f
-set $red                #fb4934
-set $blue               #7CAFC2
-set $darkred            #A54242
-set $green              #b8bb26
-set $darkgreen              #b8bb26
+set $yellow             #FFAF00
+set $red                #D75F5F
+set $blue               #83ADAD
+set $green              #AFAF00
 
 #class                  border      backgr.     text        split
-client.focused          $magenta $magenta $magenta $magenta $magenta
+client.focused          $magenta $magenta $black $magenta $magenta
 client.focused_inactive $red $lightgrey $black $magenta $lightgrey
 client.unfocused        $magenta $grey $white $magenta $grey
-client.urgent           $red        $red        $black      $red $red
+client.urgent           $red        $red        $red $red $red
 client.background       $background 
 
 #..........
@@ -78,11 +75,12 @@ client.background       $background
 # exec --no-startup-id exec xfce4-power-manager 
 # exec_always --no-startup-id ~/.i3/polybar.sh
 exec --no-startup-id exec nm-applet 
+exec --no-startup-id exec blueman-applet
 exec --no-startup-id exec dunst -conf ~/.dunstrc
-exec --no-startup-id swayidle -w timeout 150 '~/.local/bin/blurlock'
-exec --no-startup-id swayidle -w timeout 300 'swaymsg "output * dpms off"'
-exec --no-startup-id swayidle -w resume 'swaymsg "output * dpms on"'
-exec --no-startup-id swayidle before-sleep 'dunstify -u low "Going to sleep..."'
+ #exec --no-startup-id swayidle -w timeout 150 '~/.local/bin/blurlock'
+ #exec --no-startup-id swayidle -w timeout 300 'swaymsg "output * dpms off"'
+#exec --no-startup-id swayidle resume 'swaymsg "output eDP1 dpms enable"'
+#exec --no-startup-id swayidle before-sleep '~/.local/bin/blurlock'
 
 # Principal mod key (Super = Win key)
 # mod1 = Alt (xmodmap to show)
@@ -106,7 +104,7 @@ bindsym XF86MonBrightnessUp exec brightnessctl set 5%- # increase screen brightn
 bindsym XF86MonBrightnessDown exec brightnessctl +5% # decrease screen brightness
 
 # Misc
-bindsym XF86Display exec --no-startup-id arandr
+bindsym XF86Display output eDP-1 res 1280x1720 enable
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -114,6 +112,8 @@ floating_modifier $mod
 bindsym $mod+Shift+Q kill
 
 for_window [title=".*Figure.*"] floating enable
+for_window [title=".*Volume.*"] floating enable
+for_window [title=".*Connection.*"] floating enable
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -173,9 +173,9 @@ bindsym $mod+2 workspace 2:rem
 bindsym $mod+3 workspace 3:www
 bindsym $mod+4 workspace 4:wri
 bindsym $mod+5 workspace 5:doc
-bindsym $mod+6 workspace 6:com
+bindsym $mod+6 workspace 6:vis
 bindsym $mod+7 workspace 7:scr
-bindsym $mod+8 workspace 8:vis
+bindsym $mod+8 workspace 8:com
 bindsym $mod+9 workspace 9:mus
 
 
@@ -185,9 +185,9 @@ bindsym $mod+Shift+2 move workspace 2:rem
 bindsym $mod+Shift+3 move workspace 3:www
 bindsym $mod+Shift+4 move workspace 4:wri
 bindsym $mod+Shift+5 move workspace 5:doc
-bindsym $mod+Shift+6 move workspace 6:com
+bindsym $mod+Shift+6 move workspace 6:vis
 bindsym $mod+Shift+7 move workspace 7:scr
-bindsym $mod+Shift+8 move workspace 8:vis
+bindsym $mod+Shift+8 move workspace 8:com
 bindsym $mod+Shift+9 move workspace 9:mus
 
 bindsym Mod4+Left move workspace to output left
@@ -242,7 +242,14 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# My bar
+set $gnome-schema org.gnome.desktop.interface
+
+exec_always {
+    gsettings set $gnome-schema gtk-theme 'Matcha-dark-purple'
+    gsettings set $gnome-schema icon-theme 'Papirus-Dark'
+    gsettings set $gnome-schema cursor-theme 'Adwaita'
+}
+
 
 bar {
     position top
@@ -250,8 +257,6 @@ bar {
     # When the status_command prints a new line to stdout, swaybar updates.
     # The default just shows the current date and time.
     swaybar_command waybar
-    tray_output primary
-
     colors {
         statusline #ffffff
         background $back

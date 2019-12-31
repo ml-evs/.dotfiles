@@ -5,9 +5,13 @@ setopt extendedglob
 source $ZSH/oh-my-zsh.sh
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 # Example aliases
+#
+
+alias taskrc="vim ~/.taskrc"
 alias open="xdg-open"
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
+alias vw="vim -c VimwikiIndex"
 alias i3rc="vim ~/.i3/config"
 alias swayrc="vim ~/.config/sway/config"
 alias waybarc="vim ~/.config/waybar/config"
@@ -74,4 +78,8 @@ unplug () {
 
 plugin () {
     xrandr --output eDP1 --primary && xrandr --output DP1 --primary --mode 1920x1080 --right-of eDP1 && xrandr --output HDMI2 --mode 1920x1080 --right-of DP1 && nitrogen --restore
+}
+
+t () {
+    task $@
 }
