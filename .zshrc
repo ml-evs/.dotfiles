@@ -62,6 +62,7 @@ export GMON_OUT_PREFIX='gprof'
 alias pacman="sudo pacman"
 alias please="sudo"
 alias grep='grep --color=auto'
+#alias task='$HOME/.dotfiles/scripts/task-git.sh'
 
 source $HOME/.dotfiles/zshrc.global
 

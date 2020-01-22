@@ -11,21 +11,24 @@ Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 "Plugin 'airblade/vim-gitgutter.git'
 Plugin 'mhinz/vim-signify'
-Plugin 'suan/vim-instant-markdown'
+"Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-airline/vim-airline'
 "Plugin 'szymonmaszke/vimpyter'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
 Plugin 'w0rp/ale'
 Plugin 'majutsushi/tagbar'
+Plugin 'junegunn/goyo.vim'
 "Plugin 'wting/rust.vim'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 "Plugin 'ludovicchabant/vim-lawrencium'
-"Plugin 'valloric/YouCompleteMe'
+Plugin 'valloric/YouCompleteMe'
 Plugin 'vimwiki/vimwiki', {'pinned': 1}
 Plugin 'tbabej/taskwiki'
+Plugin 'vim-pandoc/vim-pandoc'
+Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'powerman/vim-plugin-AnsiEsc'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'tmhedberg/SimpylFold'
@@ -39,6 +42,7 @@ Plugin 'easymotion/vim-easymotion'
 call vundle#end()
 
 let g:ctrlp_working_path_mode = 'ra'
+let g:goyo_width = 120
 
 " JEDI 
 " prevent doc string popups
@@ -47,7 +51,11 @@ let g:jedi#popup_on_dot = 0
 let g:jedi#completions = 1
 
 " VIMWIKI
-let g:vimwiki_list = [{'path': '~/wiki'}]
+let g:vimwiki_list = [{'path': '~/wiki', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_global_ext = 0
+let g:taskwiki_markup_syntax = 'markdown'
+autocmd FileType vimwiki setlocal spell!
+au FileType vimwiki set syntax=markdown.pandoc
 
 " VIMTEX
 let g:vimtex_complete_close_braces = 1
@@ -65,12 +73,14 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_x = '%-0.15{getcwd()}'
 let g:airline_section_c = '%t'
 
+" INSTANT MARKDOWN
+let g:instant_markdown_autoscroll = 1
+let g:instant_markdown_slow = 0
+let g:instant_markdown_mathjax = 1
+
 hi StatusLine ctermbg=0 cterm=NONE
 hi Normal ctermbg=0 cterm=NONE
 hi CursorLine ctermbg=0 cterm=NONE
-
-" GOYO
-let g:goyo_width = 120
 
 " SIMPYLFOLD
 let g:SimpylFold_fold_docstring=0
@@ -85,6 +95,7 @@ let g:SimpylFold_docstring_preview=1
 if !exists('g:ycm_semantic_triggers')
   let g:ycm_semantic_triggers = {}
 endif
+"let g:ycm_semantic_triggers.pandoc = ['@']
 let g:ycm_semantic_triggers.tex = [
       \ 're!\\[A-Za-z]*cite[A-Za-z]*(\[[^]]*\]){0,2}{[^}]*',
       \ 're!\\[A-Za-z]*ref({[^}]*|range{([^,{}]*(}{)?))',
@@ -97,7 +108,7 @@ let g:ycm_semantic_triggers.tex = [
       \]
 autocmd BufRead,BufNewFile *.tex let g:ycm_auto_trigger = 0
 let g:ycm_filetype_whitelist = { '*': 1}
-let g:ycm_filetype_blacklist = { 'fortran': 1 }
+let g:ycm_filetype_blacklist = { 'fortran': 1, 'pandoc': 1 }
 let g:ycm_python_binary_path = '/home/mevans/.local/conda/envs/devtools/bin/python'
 "nnoremap <Leader>d :YcmCompleter GetDoc<CR>
 
@@ -107,7 +118,7 @@ let g:ale_linters = { 'cpp': ['gcc'] }
 let g:ale_linters = { 'python': ['flake8', 'pylint'] }
 let g:ale_fixers = { 'pyrex': ['remove_trailing_lines', 'trim_whitespace'], 'python': ['remove_trailing_lines', 'trim_whitespace', 'black'] }
 let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace']}
-let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black']}
+"let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black']}
 ", 'black'] }
 "let b:ale_fixers = ['black']
 let g:ale_sign_column_always = 1
@@ -177,6 +188,8 @@ nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>o :noh<CR>
+nmap <localleader>ww <Plug>VimwikiIndex
+nmap <localleader>www <Plug>VimwikiDiaryMakeNote
 
 " get rid of number incrementing in normal mode
 nnoremap . <NOP>
@@ -263,9 +276,10 @@ set ffs=unix,dos,mac
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
 set backup
-set backupdir=$HOME/.backup
+set backupdir=$HOME/.vim/backup
+set undofile
+set undodir=$HOME/.vim/undo
 set nowb
 set noswapfile
 
@@ -333,8 +347,8 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 " Remember info about open buffers on close
-"set viminfo^=%
-"set laststatus=2
+set viminfo^=%
+set laststatus=2
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -385,6 +399,7 @@ map <leader>p :cp<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
+let g:lexical#spelllang = ['en_gb']
 
 " Shortcuts using <leader>
 map <leader>sn ]s

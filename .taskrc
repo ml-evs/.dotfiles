@@ -13,24 +13,37 @@
 # Files
 data.location=~/.task
 
-urgency.blocking.coefficient=0.0
-urgency.blocked.coefficient=0.0
+report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description,urgency
+report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg
+report.next.filter=project.not:media status:pending limit:page
 
-# Color theme (uncomment one to use)
-#include /usr/share/doc/task/rc/light-16.theme
-#include /usr/share/doc/task/rc/light-256.theme
-#include /usr/share/doc/task/rc/dark-16.theme
+report.music.columns=id,entry.age,description,year,rating
+report.music.filter=project:media limit:page +albums
+report.music.sort=status+/,rating-/
+
+#urgency.blocking.coefficient=0.0
+#urgency.blocked.coefficient=0.0
+urgency.annotations.coefficient=0.0 # has annotations
+urgency.tags.coefficient=0.0 # has tags
+urgency.project.coefficient=0.0 # assigned to any project
+urgency.uda.priority.H.coefficient=6.0 # high Priority
+urgency.uda.priority.M.coefficient=0 # medium Priority
+urgency.uda.priority.L.coefficient=-0.1 # low Priority
+
+uda.rating.type=numeric
+uda.rating.label=/10
+uda.rating.default=-1.0
+
+uda.year.type=numeric
+uda.year.label=Release
+uda.year.default=2020
+
+uda.priority.label=Priority
+uda.priority.type=string
+uda.priority.values=H,M,,L,
+uda.priority.default=
+
 include /usr/share/doc/task/rc/dark-256.theme
-#include /usr/share/doc/task/rc/dark-red-256.theme
-#include /usr/share/doc/task/rc/dark-green-256.theme
-#include /usr/share/doc/task/rc/dark-blue-256.theme
-#include /usr/share/doc/task/rc/dark-violets-256.theme
-#include /usr/share/doc/task/rc/dark-yellow-green.theme
-#include /usr/share/doc/task/rc/dark-gray-256.theme
-#include /usr/share/doc/task/rc/dark-gray-blue-256.theme
-#include /usr/share/doc/task/rc/solarized-dark-256.theme
-#include /usr/share/doc/task/rc/solarized-light-256.theme
-#include /usr/share/doc/task/rc/no-color.theme
 
 rule.precedence.color=deleted,completed,active,keyword.,tag.,project.,overdue,scheduled,due.today,due,blocked,blocking,recurring,tagged,uda.
 
@@ -45,3 +58,7 @@ color.warning=bold red
 color.error=white on red
 color.debug=color4
 color.tagged=
+#color.uda.priority.H=
+color.uda.priority.=
+color.uda.priority.L=
+color.uda.priority.M=

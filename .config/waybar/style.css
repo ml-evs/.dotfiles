@@ -18,14 +18,12 @@ window#waybar.hidden {
     opacity: 0.2;
 }
 
-/*
 window#waybar.empty {
     background-color: transparent;
 }
 window#waybar.solo {
     background-color: #FFFFFF;
 }
-*/
 
 #workspaces button {
     padding: 0 5px;
@@ -65,6 +63,7 @@ window#waybar.solo {
 #backlight,
 #network,
 #custom-spotify,
+#custom-tw,
 #pulseaudio,
 #custom-media,
 #tray,
@@ -77,7 +76,6 @@ window#waybar.solo {
     background-color: rgba(38, 38, 38, 0.4);
     color: #FFFFFF;
 }
-
 
 #temperature.critical {
     background-color: #f53c3c;
@@ -95,6 +93,7 @@ window#waybar.solo {
         color: #000000;
     }
 }
+
 #battery.critical:not(.charging) {
     background-color: #f53c3c;
     color: #ffffff;
@@ -124,4 +123,8 @@ window#waybar.solo {
 
 #custom-spotify {
     color: #1DB954;
+}
+
+#custom-tw {
+    color: #FFAF00;
 }

@@ -1,7 +1,7 @@
 {
     "layer": "top",
     "modules-left": ["sway/workspaces", "sway/mode"],
-    "modules-center": ["custom/spotify"],
+    "modules-center": ["custom/tex", "custom/tw", "custom/spotify"],
     "modules-right": ["network#vpn", "network#wifi", "temperature", "pulseaudio" , "disk", "memory", "cpu", "backlight", "battery", "tray", "clock"],
     "sway/workspaces": {
         "disable-scroll": false,
@@ -13,8 +13,7 @@
         "format-icons": {
             "1:dev": "",
             "2:rem": "",
-            "3:www": "",
-            "4:wri": "",
+            "3:www": "", "4:wri": "",
             "5:doc": "",
             "6:vis": "",
             "7:scr": "",
@@ -67,7 +66,6 @@
         "format": "",
         "tooltip": false,
         "interval": 1,
-        "interface": "wlp0s20f3",
         "format-wifi": " {essid} ({signalStrength}%)",
         "format-ethernet": " @ {ipaddr}",
         "format-disconnected": "",
@@ -104,7 +102,7 @@
     "custom/spotify": {
         "format": " {}",
         "tooltip": false,
-        "interval": 1,
+        "interval": 5,
         "exec": "python /usr/share/polybar/scripts/spotify_status.py",
         "exec-if": "pgrep spotify"
     },
@@ -112,5 +110,17 @@
         "interval": 30,
         "format": " {free}",
         "tooltip": false
+    },
+    "custom/tw": {
+        "interval": 600,
+        "format": " {}",
+        "tooltip": false,
+        "exec": "task due.before:eow project.not:media status:pending count"
+    },
+    "custom/tex": {
+        "interval": 600,
+        "format": "WORDS: {}",
+        "tooltip": false,
+        "exec": "wc -w ~/repos/thesis/total.md | awk {'print $1'}"
     }
 }
