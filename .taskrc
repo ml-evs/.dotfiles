@@ -21,8 +21,8 @@ report.music.columns=id,entry.age,description,year,rating
 report.music.filter=project:media limit:page +albums
 report.music.sort=status+/,rating-/
 
-#urgency.blocking.coefficient=0.0
-#urgency.blocked.coefficient=0.0
+urgency.blocking.coefficient=0.0
+urgency.blocked.coefficient=0.0
 urgency.annotations.coefficient=0.0 # has annotations
 urgency.tags.coefficient=0.0 # has tags
 urgency.project.coefficient=0.0 # assigned to any project

@@ -30,6 +30,7 @@ Plugin 'tbabej/taskwiki'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'powerman/vim-plugin-AnsiEsc'
+Plugin 'psf/black'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'tmhedberg/SimpylFold'
 Plugin 'lervag/vimtex'
@@ -44,7 +45,7 @@ call vundle#end()
 let g:ctrlp_working_path_mode = 'ra'
 let g:goyo_width = 120
 
-" JEDI 
+" JEDI
 " prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
 let g:jedi#popup_on_dot = 0
@@ -60,7 +61,7 @@ au FileType vimwiki set syntax=markdown.pandoc
 " VIMTEX
 let g:vimtex_complete_close_braces = 1
 
-" AIRLINE 
+" AIRLINE
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
 "let g:airline_theme = 'base16'
@@ -114,12 +115,13 @@ let g:ycm_python_binary_path = '/home/mevans/.local/conda/envs/devtools/bin/pyth
 
 
 " ALE
-let g:ale_linters = { 'cpp': ['gcc'] }
-let g:ale_linters = { 'python': ['flake8', 'pylint'] }
-let g:ale_fixers = { 'pyrex': ['remove_trailing_lines', 'trim_whitespace'], 'python': ['remove_trailing_lines', 'trim_whitespace', 'black'] }
-let g:ale_fixers = { 'yaml': ['remove_trailing_lines', 'trim_whitespace'] }
-let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace']}
-let g:ale_fixers = { 'yaml': ['remove_trailing_lines', 'trim_whitespace'] }
+let g:ale_linters = {}
+let g:ale_linters.cpp = ['gcc']
+let g:ale_linters.python = ['flake8']
+let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+"let g:ale_fixers.python = ['remove_trailing_lines', 'trim_whitespace']
+"let g:ale_fixers.pyrex = ['remove_trailing_lines', 'trim_whitespace']
+"let g:ale_fixers = { 'yaml': ['remove_trailing_lines', 'trim_whitespace'] }
 "let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black']}
 ", 'black'] }
 "let b:ale_fixers = ['black']
@@ -134,10 +136,10 @@ let g:ale_echo_msg_format = '[%linter%] %code%: %s [%severity%]'
 let g:ale_statusline_format = ['✖ %d', '⚠ %d', '']
 let g:ale_open_list = 1
 "let g:ale_echo_cursor = 0
-let g:ale_lint_on_enter = 0
+let g:ale_lint_on_enter = 1
 let g:ale_list_window_size = 4
 let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_delay = 1000
+let g:ale_lint_delay = 0
 let g:ale_lint_on_text_changed = 'always'
 
 
@@ -190,6 +192,7 @@ nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>o :noh<CR>
+nnoremap <Leader>b :Black<CR>
 nmap <localleader>ww <Plug>VimwikiIndex
 nmap <localleader>www <Plug>VimwikiDiaryMakeNote
 
@@ -480,7 +483,7 @@ function! <SID>BufcloseCloseIt()
      execute("bdelete! ".l:currentBufNum)
    endif
 endfunction
- 
+
 " From help:ale_open_list, close loclist when buffer closes
 augroup CloseLoclistWindowGroup
     autocmd!

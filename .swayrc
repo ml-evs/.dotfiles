@@ -114,6 +114,7 @@ bindsym $mod+Shift+Q kill
 for_window [title=".*Figure.*"] floating enable
 for_window [title=".*Volume.*"] floating enable
 for_window [title=".*Connection.*"] floating enable
+for_window [app_id="alacritty"] border none
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -150,7 +151,7 @@ bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, default)
 bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed
+bindsym $mod+w layout tabbed; gaps outer current set 0;
 bindsym $mod+e layout default
 
 # toggle tiling / floating

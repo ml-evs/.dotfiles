@@ -7,6 +7,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 #
 
+alias t="$HOME/.dotfiles/scripts/task-git.sh --task-git-push"
 alias taskrc="vim ~/.taskrc"
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
@@ -15,9 +16,9 @@ alias i3rc="vim ~/.i3/config"
 alias swayrc="vim ~/.config/sway/config"
 alias waybarc="vim ~/.config/waybar/config"
 alias lx="ls -X"
-alias zypper='sudo zypper'
-alias zyp='sudo zypper'
 alias disco='python -m unittest discover'
+alias grep='grep --color=auto'
+alias dc="docker-compose"
 
 ng () {
     ssh -X -t noggin 'tmux attach'
@@ -45,11 +46,11 @@ nf () {
     if [ -z "$1" ]; then
         echo "Enter a port!"
     elif [ -z "$2" ]; then
-        ssh -N -f -L localhost:"$1":localhost:$1 noggin 
+        ssh -N -f -L localhost:"$1":localhost:$1 noggin
     elif [ -z "$3" ]; then
         ssh -N -f -L localhost:"$1":localhost:$2 noggin
     else
-        ssh -N -f -L localhost:"$1":localhost:$2 $3 
+        ssh -N -f -L localhost:"$1":localhost:$2 $3
     fi
 }
 
