@@ -11,7 +11,8 @@
     "codefolding/main": true,
     "livemdpreview/livemdpreview": true,
     "snippets/main": false,
-    "autosavetime/main": false
+    "autosavetime/main": false,
+    "jupyter-black-master/jupyter-black": true
   },
   "Notebook": {
     "Header": true,
@@ -24,7 +25,22 @@
   },
   "Cell": {
     "cm_config": {
-      "lineWrapping": false
+      "lineWrapping": false,
+      "lineNumbers": false
     }
+  },
+  "keys": {
+    "command": {
+      "unbind": [
+        "0,0"
+      ],
+      "bind": {
+        "0,0": "jupyter-notebook:restart-kernel",
+        "shift-p": "jupyter-notebook:show-command-palette"
+      }
+    }
+  },
+  "jupyter-black": {
+    "show_alerts_for_not_supported_kernel": true
   }
 }
