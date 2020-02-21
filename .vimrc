@@ -43,7 +43,9 @@ Plugin 'easymotion/vim-easymotion'
 call vundle#end()
 
 let g:ctrlp_working_path_mode = 'ra'
-let g:goyo_width = 120
+
+" GOYO
+let g:goyo_width = 128
 
 " JEDI
 " prevent doc string popups
@@ -73,6 +75,9 @@ let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline_section_x = '%-0.15{getcwd()}'
 let g:airline_section_c = '%t'
+
+" NERDcomment
+let g:NERDDefaultAlign = 'left'
 
 " INSTANT MARKDOWN
 let g:instant_markdown_autoscroll = 1
@@ -267,7 +272,7 @@ set tm=500
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
-"set background=dark
+set background=dark
 let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-gruvbox-dark-pale
 
