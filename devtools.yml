@@ -1,0 +1,49 @@
+name: devtools_
+channels:
+  - defaults
+dependencies:
+  - _libgcc_mutex=0.1=main
+  - ca-certificates=2020.1.1=0
+  - certifi=2019.11.28=py37_0
+  - ld_impl_linux-64=2.33.1=h53a641e_7
+  - libedit=3.1.20181209=hc058e9b_0
+  - libffi=3.2.1=hd88cf55_4
+  - libgcc-ng=9.1.0=hdf63c60_0
+  - libstdcxx-ng=9.1.0=hdf63c60_0
+  - ncurses=6.2=he6710b0_0
+  - openssl=1.1.1d=h7b6447c_4
+  - python=3.7.6=h0371630_2
+  - readline=7.0=h7b6447c_5
+  - setuptools=45.2.0=py37_0
+  - sqlite=3.31.1=h7b6447c_0
+  - tk=8.6.8=hbc83047_0
+  - wheel=0.34.2=py37_0
+  - xz=5.2.4=h14c3975_4
+  - zlib=1.2.11=h7b6447c_3
+  - pip:
+    - appdirs==1.4.3
+    - astroid==2.3.3
+    - attrs==19.3.0
+    - black==19.10b0
+    - click==7.0
+    - entrypoints==0.3
+    - flake8==3.7.9
+    - isort==4.3.21
+    - jedi==0.16.0
+    - lazy-object-proxy==1.4.3
+    - mccabe==0.6.1
+    - parso==0.6.1
+    - pathspec==0.7.0
+    - pep8==1.7.1
+    - pycodestyle==2.5.0
+    - pyflakes==2.1.1
+    - pylint==2.4.4
+    - pytz==2019.3
+    - regex==2020.2.20
+    - six==1.14.0
+    - tasklib==1.3.0
+    - toml==0.10.0
+    - typed-ast==1.4.1
+    - tzlocal==2.0.0
+    - wrapt==1.11.2
+prefix: /home/mevans/.local/conda/envs/devtools_
