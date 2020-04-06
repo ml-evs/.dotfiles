@@ -103,8 +103,9 @@
         "format": " {}",
         "tooltip": false,
         "interval": 5,
-        "exec": "python /usr/share/polybar/scripts/spotify_status.py",
-        "exec-if": "pgrep spotify"
+        "exec": "/home/mevans/.local/conda/envs/devtools/bin/python /usr/share/polybar/scripts/spotify_status.py",
+        "exec-if": "pgrep spotify",
+        "on-click": "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
     },
     "disk": {
         "interval": 30,

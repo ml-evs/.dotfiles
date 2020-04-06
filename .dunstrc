@@ -11,7 +11,7 @@
 [urgency_critical]
     background = "#fb4934"
     foreground = "#000000"
-    timeout = 0
+    timeout = 10
 
 [global]
     # The format of the message.  Possible variables:

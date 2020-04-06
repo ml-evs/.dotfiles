@@ -8,10 +8,10 @@ source $ZSH/oh-my-zsh.sh
 #
 
 alias t="$HOME/.dotfiles/scripts/task-git.sh --task-git-push"
+alias vw="$HOME/.dotfiles/scripts/task-wiki.sh --task-git-push"
 alias taskrc="vim ~/.taskrc"
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
-alias vw="vim -c VimwikiIndex"
 alias i3rc="vim ~/.i3/config"
 alias swayrc="vim ~/.config/sway/config"
 alias waybarc="vim ~/.config/waybar/config"

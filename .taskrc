@@ -44,6 +44,7 @@ uda.priority.values=H,M,,L,
 uda.priority.default=
 
 include /usr/share/doc/task/rc/dark-256.theme
+#include /usr/share/doc/task/rc/light-256.theme
 
 rule.precedence.color=deleted,completed,active,keyword.,tag.,project.,overdue,scheduled,due.today,due,blocked,blocking,recurring,tagged,uda.
 

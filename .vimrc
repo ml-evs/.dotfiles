@@ -33,9 +33,10 @@ Plugin 'powerman/vim-plugin-AnsiEsc'
 Plugin 'psf/black'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'tmhedberg/SimpylFold'
-Plugin 'lervag/vimtex'
+"Plugin 'lervag/vimtex'
 Plugin 'alfredodeza/pytest.vim'
-Plugin 'matze/vim-tex-fold'
+"Plugin 'matze/vim-tex-fold'
+Plugin 'KeitaNakamura/tex-conceal.vim'
 Plugin 'danielwe/base16-vim'
 "Plugin 'chriskempton/base16-vim'
 Plugin 'bling/vim-bufferline'
@@ -52,6 +53,9 @@ let g:goyo_width = 128
 autocmd FileType python setlocal completeopt-=preview
 let g:jedi#popup_on_dot = 0
 let g:jedi#completions = 1
+
+set conceallevel=2
+let g:tex_conceal="abdgm"
 
 " VIMWIKI
 let g:vimwiki_list = [{'path': '~/wiki', 'syntax': 'markdown', 'ext': '.md'}]
@@ -136,7 +140,7 @@ let g:ale_set_quickfix = 0
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_save = 0
 let g:ale_echo_msg_error_str = 'E'
-let g:black_linelength = 127
+"let g:black_linelength = 127
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %code%: %s [%severity%]'
 let g:ale_statusline_format = ['✖ %d', '⚠ %d', '']
@@ -276,6 +280,9 @@ syntax enable
 set background=dark
 let base16colorspace=256  " Access colors present in 256 colorspace
 colorscheme base16-gruvbox-dark-pale
+
+hi clear SpellBad
+hi SpellBad cterm=underline,bold ctermfg=DarkGray ctermbg=yellow
 
 
 " Set utf8 as standard encoding and en_US as the standard language

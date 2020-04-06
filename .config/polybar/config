@@ -64,9 +64,9 @@ modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature
 
 tray-position = right
 tray-padding = 2
-;tray-offset-y=2
+tray-transparent = true
 tray-maxsize=16
-;tray-background = #0063ff 
+tray-background = #18181800
 ;wm-restack = bspwm
 wm-restack = i3
 

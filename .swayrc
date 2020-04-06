@@ -14,12 +14,12 @@ smart_borders off
 set $term alacritty
 
 
-bindswitch lid:on exec $HOME/.local/bin/closed.sh 
+bindswitch lid:on exec $HOME/.local/bin/closed.sh
 bindswitch lid:off output eDP-1 enable
 
-output eDP-1 pos 0 0 res 1920x1080
-output DP-1 pos 1920 0 res 1920x1080
-output HDMI-A-2 pos 3840 0 res 1920x1080
+output eDP-1 pos 0 0 res 1920 1080
+output HDMI-A-2 pos 1920 0 res 1920 1080
+output DP-1 pos 3840 0 res 1920 1080
 output * bg /usr/share/backgrounds/spirited.jpg fill
 
 input * {
@@ -63,7 +63,7 @@ client.focused          $magenta $magenta $black $magenta $magenta
 client.focused_inactive $red $lightgrey $black $magenta $lightgrey
 client.unfocused        $magenta $grey $white $magenta $grey
 client.urgent           $red        $red        $red $red $red
-client.background       $background 
+client.background       $background
 
 #..........
 # Applications
@@ -72,15 +72,16 @@ client.background       $background
 
 # exec --no-startup-id exec compton
 # exec --no-startup-id exec nitrogen --restore
-# exec --no-startup-id exec xfce4-power-manager 
+# exec --no-startup-id exec xfce4-power-manager
 # exec_always --no-startup-id ~/.i3/polybar.sh
-exec --no-startup-id exec nm-applet 
+exec --no-startup-id exec nm-applet
 exec --no-startup-id exec blueman-applet
 exec --no-startup-id exec dunst -conf ~/.dunstrc
- #exec --no-startup-id swayidle -w timeout 150 '~/.local/bin/blurlock'
- #exec --no-startup-id swayidle -w timeout 300 'swaymsg "output * dpms off"'
-#exec --no-startup-id swayidle resume 'swaymsg "output eDP1 dpms enable"'
-#exec --no-startup-id swayidle before-sleep '~/.local/bin/blurlock'
+exec --no-startup-id swayidle -w \
+    timeout 300 '~/.local/bin/blurlock' \
+    timeout 600 'swaymsg "output * dpms off"' \
+    resume 'swaymsg "output * dpms on"' \
+    before-sleep '~/.local/bin/blurlock'
 
 # Principal mod key (Super = Win key)
 # mod1 = Alt (xmodmap to show)
@@ -95,8 +96,8 @@ bindsym Mod4+Shift+g gaps outer current set 20 gaps; inner current set 20
 # Media keys
 
 # Pulseaudio volume
-bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +5% #increase sound volume
-bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -5% #decrease sound volume
+bindsym XF86AudioRaiseVolume exec --no-startup-id amixer -q set Master 5%+ unmute #increase sound volume
+bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmute #decrease sound volume
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 
 # Sreen brightness controls
@@ -115,6 +116,9 @@ for_window [title=".*Figure.*"] floating enable
 for_window [title=".*Volume.*"] floating enable
 for_window [title=".*Connection.*"] floating enable
 for_window [app_id="alacritty"] border none
+
+for_window [class="Firefox"] inhibit_idle fullscreen
+for_window [app_id="firefox"] inhibit_idle fullscreen
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -150,9 +154,9 @@ bindsym $mod+Down split v
 bindsym $mod+f fullscreen
 
 # change container layout (stacked, tabbed, default)
-bindsym $mod+s layout stacking
-bindsym $mod+w layout tabbed; gaps outer current set 0;
-bindsym $mod+e layout default
+bindsym Mod4+Shift+S layout stacking
+bindsym Mod4+Shift+T layout tabbed; gaps outer current set 0;
+bindsym Mod4+Shift+E layout default
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -197,7 +201,7 @@ bindsym Mod4+Right move workspace to output right
 bindsym Mod4+l move workspace to output right
 
 bindsym Mod4+Up move workspace to output up
-bindsym Mod4+k move workspace to output up 
+bindsym Mod4+k move workspace to output up
 bindsym Mod4+Down move workspace to output up
 bindsym Mod4+j move workspace to output up
 
