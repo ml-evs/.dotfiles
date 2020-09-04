@@ -59,8 +59,26 @@ export RUST_SRC_PATH=$HOME/.multirust/toolchains/stable-x86_64-unknown-linux-gnu
 export EDITOR=vim
 export GMON_OUT_PREFIX='gprof'
 #alias vim="PYTHONPATH=$HOME/src/matador:$PYTHONPATH vim --servername VIM"
+alias v=vim
+alias im=vim
 alias pacman="sudo pacman"
 alias please="sudo"
+
+ca() {
+    conda activate $@
+}
+
+vpn_up() {
+
+    trap '{ echo "Disconnecting from ${VPN}"; nmcli c down "${VPN}"; exit 0;}' INT
+    if [ -z "$1" ]; then
+        VPN="University of Cambridge"
+    else
+        VPN=${1}
+    fi
+    nmcli c up "${VPN}" && sleep 360
+    nmcli c down "${VPN}"
+}
 
 source $HOME/.dotfiles/zshrc.global
 
@@ -108,3 +126,5 @@ conda deactivate
 # <<< conda initialize <<<
 #
 conda activate devtools
+
+autoload -U compinit && compinit

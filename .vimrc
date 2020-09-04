@@ -30,7 +30,7 @@ Plugin 'tbabej/taskwiki'
 Plugin 'vim-pandoc/vim-pandoc'
 Plugin 'vim-pandoc/vim-pandoc-syntax'
 Plugin 'powerman/vim-plugin-AnsiEsc'
-Plugin 'psf/black'
+"Plugin 'psf/black'
 "Plugin 'rstacruz/sparkup', {'rtp': 'vim/'}
 Plugin 'tmhedberg/SimpylFold'
 "Plugin 'lervag/vimtex'
@@ -54,8 +54,9 @@ autocmd FileType python setlocal completeopt-=preview
 let g:jedi#popup_on_dot = 0
 let g:jedi#completions = 1
 
-set conceallevel=2
+au BufRead,BufNewFile *.md,*.tex set conceallevel=2
 let g:tex_conceal="abdgm"
+let g:tex_conceal_frac=1
 
 " VIMWIKI
 let g:vimwiki_list = [{'path': '~/wiki', 'syntax': 'markdown', 'ext': '.md'}]
@@ -63,6 +64,7 @@ let g:vimwiki_global_ext = 0
 let g:taskwiki_markup_syntax = 'markdown'
 autocmd FileType vimwiki setlocal spell!
 au FileType vimwiki set syntax=markdown.pandoc
+au FileType vimwiki set filetype=pandoc
 
 " VIMTEX
 let g:vimtex_complete_close_braces = 1
@@ -128,6 +130,7 @@ let g:ale_linters = {}
 let g:ale_linters.cpp = ['gcc']
 let g:ale_linters.python = ['flake8']
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fixers.pandoc = []
 "let g:ale_fixers.python = ['remove_trailing_lines', 'trim_whitespace']
 "let g:ale_fixers.pyrex = ['remove_trailing_lines', 'trim_whitespace']
 "let g:ale_fixers = { 'yaml': ['remove_trailing_lines', 'trim_whitespace'] }
@@ -138,7 +141,7 @@ let g:ale_sign_column_always = 1
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
 let g:ale_fix_on_save = 1
-let g:ale_lint_on_save = 0
+let g:ale_lint_on_save = 1
 let g:ale_echo_msg_error_str = 'E'
 "let g:black_linelength = 127
 let g:ale_echo_msg_warning_str = 'W'
@@ -184,6 +187,8 @@ let maplocalleader = "."
 nmap <leader>w :w!<cr>
 nmap <leader>q :TagbarOpenAutoClose<CR>
 
+nmap <leader>b !black %<cr>
+
 " fast commenting
 map cc <leader>c<space>
 
@@ -202,7 +207,6 @@ nnoremap <Leader>gd :Gdiff<CR>
 nnoremap <Leader>gb :Gblame<CR>
 nnoremap <Leader>gs :Gstatus<CR>
 nnoremap <Leader>o :noh<CR>
-nnoremap <Leader>b :Black<CR>
 nmap <localleader>ww <Plug>VimwikiIndex
 nmap <localleader>www <Plug>VimwikiDiaryMakeNote
 

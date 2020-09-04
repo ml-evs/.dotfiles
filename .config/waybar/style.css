@@ -27,22 +27,30 @@ window#waybar.solo {
 
 #workspaces button {
     padding: 0 5px;
-    background-color: transparent;
-    color: #ffffff;
+    color: black;
     border-bottom: 2px solid transparent;
 }
 
 /* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
 #workspaces button:hover {
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.5);
     box-shadow: inherit;
     border-bottom: 2px solid #ffffff;
 }
 
-#workspaces button.focused {
-    /*background-color: #64727D;*/
-    color: #D485AD;
+/*#workspaces button.current_output {*/
+/*    border-bottom: 2px solid #BA8BAF;*/
+/*}*/
+
+#workspaces button.visible {
     border-bottom: 2px solid #BA8BAF;
+}
+
+
+#workspaces button.focused {
+    background-color: initial;
+    color: initial;
+    border-bottom: 2px solid #FABD2F;
 }
 
 #workspaces button.urgent {
@@ -87,6 +95,16 @@ window#waybar.solo {
     animation-direction: alternate;
 }
 
+#memory.critical {
+    background-color: #f53c3c;
+    color: #ffffff;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
 @keyframes blink {
     to {
         background-color: #ffffff;
@@ -109,16 +127,8 @@ window#waybar.solo {
     color: #000000;
 }
 
-#network.vpn.wifi {
+#custom-vpn {
     color: #FFAF00;
-}
-
-#network.vpn.ethernet {
-    color: #FFAF00;
-}
-
-#network.vpn.disconnected {
-    color: #D75F5F;
 }
 
 #custom-spotify {

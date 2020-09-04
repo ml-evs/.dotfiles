@@ -2,7 +2,7 @@
     "layer": "top",
     "modules-left": ["sway/workspaces", "sway/mode"],
     "modules-center": ["custom/tex", "custom/tw", "custom/spotify"],
-    "modules-right": ["network#vpn", "network#wifi", "temperature", "pulseaudio" , "disk", "memory", "cpu", "backlight", "battery", "tray", "clock"],
+    "modules-right": ["idle_inhibitor", "temperature", "custom/bluetooth", "pulseaudio" , "disk", "memory", "cpu", "backlight", "battery", "tray", "clock"],
     "sway/workspaces": {
         "disable-scroll": false,
         "disable-scroll-wraparound": true,
@@ -11,14 +11,15 @@
         "format": "{index}: {icon}",
         "tooltip": false,
         "format-icons": {
-            "1:dev": "",
+            "0:com": "", "1:dev": "",
             "2:rem": "",
-            "3:www": "", "4:wri": "",
+            "3:www": "",
+            "4:wri": "",
             "5:doc": "",
             "6:vis": "",
             "7:scr": "",
-            "8:com": "",
-            "9:mus": "",
+            "8:sla": "",
+            "9:mus": "",
             "focused": "",
             "default": ""
         }
@@ -52,6 +53,8 @@
         "interval": 1,
         "tooltip": false,
         "format": " {avail:0.1f} GB",
+        "format-critical": " {avail:0.1f} GB",
+        "critical-threshold": 10,
         "on-click": "gnome-system-monitor"
     },
      "temperature": {
@@ -59,24 +62,31 @@
         "tooltip": false,
         "hwmon-path": "/sys/class/hwmon/hwmon0/temp1_input",
         "critical-threshold": 80,
+        "interval": 5,
         "format-critical": " {temperatureC}°C",
         "format": " {temperatureC}°C"
     },
     "network#wifi": {
         "format": "",
         "tooltip": false,
-        "interval": 1,
+        "interval": 5,
         "format-wifi": " {essid} ({signalStrength}%)",
         "format-ethernet": " @ {ipaddr}",
+        "interface": "wlp0s20f3",
         "format-disconnected": "",
-        "on-click": "nm-connection-editor"
+        "on-click": "alacritty -e nmtui connect"
     },
-    "network#vpn": {
-        "format": "",
-        "interface": "tun0",
+    "custom/vpn_indicator": {
+        "format": " ",
+        "on-click": "$HOME/.local/bin/vpn_toggle.sh",
+        "tooltip": false
+    },
+    "custom/vpn": {
+        "format": "{}",
         "tooltip": false,
-        "interval": 1,
-        "format-disconnected": ""
+        "interval": 5,
+        "exec": "nmcli c show | grep 'vpn.*wlp' | awk '{print $1}'",
+        "exec-if": "pgrep vpn",
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
@@ -105,12 +115,15 @@
         "interval": 5,
         "exec": "/home/mevans/.local/conda/envs/devtools/bin/python /usr/share/polybar/scripts/spotify_status.py",
         "exec-if": "pgrep spotify",
-        "on-click": "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
+        "on-click": "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause",
+        "on-click-right": "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next",
+        "on-click-middle": "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous"
     },
     "disk": {
         "interval": 30,
         "format": " {free}",
-        "tooltip": false
+        "tooltip": false,
+        "on-click": "alacritty -e ncdu"
     },
     "custom/tw": {
         "interval": 600,
@@ -123,5 +136,15 @@
         "format": "WORDS: {}",
         "tooltip": false,
         "exec": "wc -w ~/repos/thesis/total.md | awk {'print $1'}"
+    },
+    "custom/bluetooth": {
+        "interval": 10,
+        "format": "",
+        "on-click": "blueman-manager",
+        "tooltip": false
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {"activated": "", "deactivated": ""}
     }
 }

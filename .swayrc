@@ -14,12 +14,14 @@ smart_borders off
 set $term alacritty
 
 
-bindswitch lid:on exec $HOME/.local/bin/closed.sh
-bindswitch lid:off output eDP-1 enable
+set $laptop eDP-1
+#bindswitch lid:on exec $HOME/.local/bin/closed.sh
+bindswitch --reload --locked lid:on output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
 
-output eDP-1 pos 0 0 res 1920 1080
+output eDP-1 pos 3840 0 res 1920 1080
 output HDMI-A-2 pos 1920 0 res 1920 1080
-output DP-1 pos 3840 0 res 1920 1080
+output DP-1 pos 0 0 res 1920 1080
 output * bg /usr/share/backgrounds/spirited.jpg fill
 
 input * {
@@ -74,12 +76,11 @@ client.background       $background
 # exec --no-startup-id exec nitrogen --restore
 # exec --no-startup-id exec xfce4-power-manager
 # exec_always --no-startup-id ~/.i3/polybar.sh
-exec --no-startup-id exec nm-applet
+exec --no-startup-id exec nm-applet --indicator
 exec --no-startup-id exec blueman-applet
-exec --no-startup-id exec dunst -conf ~/.dunstrc
+exec --no-startup-id exec dunst -conf $HOME/.dunstrc
 exec --no-startup-id swayidle -w \
-    timeout 300 '~/.local/bin/blurlock' \
-    timeout 600 'swaymsg "output * dpms off"' \
+    timeout 1200 '~/.local/bin/blurlock' \
     resume 'swaymsg "output * dpms on"' \
     before-sleep '~/.local/bin/blurlock'
 
@@ -101,24 +102,28 @@ bindsym XF86AudioLowerVolume exec --no-startup-id amixer -q set Master 5%- unmut
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec brightnessctl set 5%- # increase screen brightness
-bindsym XF86MonBrightnessDown exec brightnessctl +5% # decrease screen brightness
+bindsym XF86MonBrightnessUp exec brightnessctl -d 'intel_backlight' set +5% # increase screen brightness
+bindsym XF86MonBrightnessDown exec brightnessctl -d 'intel_backlight' set 5%- # decrease screen brightness
 
 # Misc
-bindsym XF86Display output eDP-1 res 1280x1720 enable
+bindsym XF86Display output eDP-1 res 1920x1080 enable
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
 bindsym $mod+Shift+Q kill
 
-for_window [title=".*Figure.*"] floating enable
 for_window [title=".*Volume.*"] floating enable
 for_window [title=".*Connection.*"] floating enable
+#for_window [title=".*zoom.*"] floating enable
 for_window [app_id="alacritty"] border none
 
 for_window [class="Firefox"] inhibit_idle fullscreen
 for_window [app_id="firefox"] inhibit_idle fullscreen
+for_window [class=""] inhibit_idle fullscreen
+for_window [app_id="vlc"] inhibit_idle fullscreen
+for_window [class="Zoom"] inhibit_idle
+for_window [app_id="zoom"] inhibit_idle
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -127,6 +132,11 @@ bindsym Mod4+f exec pcmanfm
 bindsym Mod4+s exec slack
 bindsym Mod4+Shift+l exec $HOME/.local/bin/blurlock
 bindsym $mod+d exec rofi -i -show run
+
+exec --no-startup-id alacritty --config-file ~/.config/alacritty/scratchterm.yml -t scratchterm -d 0 0
+for_window [title="scratchterm"] move scratchpad
+bindsym Shift+grave scratchpad show
+bindsym $mod+Shift+grave move scratchpad
 
 # Layout
 
@@ -173,6 +183,7 @@ bindsym $mod+space focus mode_toggle
 
 
 # switch to workspace
+bindsym $mod+0 workspace 0:com
 bindsym $mod+1 workspace 1:dev
 bindsym $mod+2 workspace 2:rem
 bindsym $mod+3 workspace 3:www
@@ -180,11 +191,12 @@ bindsym $mod+4 workspace 4:wri
 bindsym $mod+5 workspace 5:doc
 bindsym $mod+6 workspace 6:vis
 bindsym $mod+7 workspace 7:scr
-bindsym $mod+8 workspace 8:com
+bindsym $mod+8 workspace 8:sla
 bindsym $mod+9 workspace 9:mus
 
 
 # move focused container to workspace
+bindsym $mod+Shift+0 move workspace 0:com
 bindsym $mod+Shift+1 move workspace 1:dev
 bindsym $mod+Shift+2 move workspace 2:rem
 bindsym $mod+Shift+3 move workspace 3:www
@@ -192,7 +204,7 @@ bindsym $mod+Shift+4 move workspace 4:wri
 bindsym $mod+Shift+5 move workspace 5:doc
 bindsym $mod+Shift+6 move workspace 6:vis
 bindsym $mod+Shift+7 move workspace 7:scr
-bindsym $mod+Shift+8 move workspace 8:com
+bindsym $mod+Shift+8 move workspace 8:sla
 bindsym $mod+Shift+9 move workspace 9:mus
 
 bindsym Mod4+Left move workspace to output left
