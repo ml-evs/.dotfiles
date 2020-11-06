@@ -26,10 +26,10 @@
     },
     "battery": {
         "bat": "BAT0",
-        "tooltip": false,
         "interval": 60,
+        "full-at": 96,
         "states": {
-            "full": 90,
+            "nearly_full": 90,
             "warning": 30,
             "critical": 15
         },

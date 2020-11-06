@@ -1,13 +1,12 @@
 [push]
 	default = simple
 [user]
-	email = me388@cam.ac.uk
+	email = git@ml-evs.science
 	name = Matthew Evans
-[filter "lfs"]
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
-	required = true
-  clean = git-lfs clean -- %f
-
+	signingkey = A3024035F41D394B9DD8D03423031501566C022D
 [merge]
   tool = vimdiff
+[commit]
+	gpgsign = true
+[gpg]
+	program = gpg2

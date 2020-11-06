@@ -77,6 +77,7 @@ client.background       $background
 # exec --no-startup-id exec xfce4-power-manager
 # exec_always --no-startup-id ~/.i3/polybar.sh
 exec --no-startup-id exec nm-applet --indicator
+exec --no-startup-id exec gammastep
 exec --no-startup-id exec blueman-applet
 exec --no-startup-id exec dunst -conf $HOME/.dunstrc
 exec --no-startup-id swayidle -w \
@@ -115,6 +116,7 @@ bindsym $mod+Shift+Q kill
 
 for_window [title=".*Volume.*"] floating enable
 for_window [title=".*Connection.*"] floating enable
+for_window [title=".*Sharing Indicator.*"] floating enable
 #for_window [title=".*zoom.*"] floating enable
 for_window [app_id="alacritty"] border none
 

@@ -56,7 +56,7 @@
     icon_position = right       # Align icons left/right/off
 
     idle_threshold = 120        # Don't remove messages if the user is idle (no mouse or keyboard input) for longer than idle_threshold seconds
-    sticky_history = yes        # Make notifications remain until clicked on (yes) or timeout as normal (no) when recalled from history
+    sticky_history = no        # Make notifications remain until clicked on (yes) or timeout as normal (no) when recalled from history
     history_length = 20         # Maximum amount of notifications kept in history
     max_icon_size = 64
 

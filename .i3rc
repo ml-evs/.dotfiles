@@ -28,7 +28,7 @@ set $darkgreen              #b8bb26
 client.focused          $magenta $magenta $black
 client.focused_inactive $red $lightgrey $black
 client.unfocused        $magenta $grey $white
-client.urgent           $red        $red        $black      
+client.urgent           $red        $red        $black
 client.background       $background $grey $lightgrey
 
 #..........
@@ -38,11 +38,14 @@ client.background       $background $grey $lightgrey
 
 exec --no-startup-id exec compton
 exec --no-startup-id exec nitrogen --restore
-exec --no-startup-id exec xfce4-power-manager 
-exec --no-startup-id exec nm-applet 
+exec --no-startup-id exec xfce4-power-manager
+exec --no-startup-id exec nm-applet
 exec --no-startup-id exec xautolock -time 5 -locker ~/.local/bin/lock
 exec_always --no-startup-id ~/.i3/polybar.sh
 exec --no-startup-id exec dunst -conf ~/.dunstrc
+exec --no-startup-id exec xrandr --output HDMI2 --left-of eDP1
+exec --no-startup-id exec xrandr --output DP1 --left-of HDMI2
+
 
 # Principal mod key (Super = Win key)
 # mod1 = Alt (xmodmap to show)
@@ -128,6 +131,7 @@ bindsym $mod+space focus mode_toggle
 
 
 # switch to workspace
+bindsym $mod+0 workspace 0:scr
 bindsym $mod+1 workspace 1:dev
 bindsym $mod+2 workspace 2:rem
 bindsym $mod+3 workspace 3:www
@@ -140,6 +144,7 @@ bindsym $mod+9 workspace 9:mus
 
 
 # move focused container to workspace
+bindsym $mod+Shift+0 move workspace 0:scr
 bindsym $mod+Shift+1 move workspace 1:dev
 bindsym $mod+Shift+2 move workspace 2:rem
 bindsym $mod+Shift+3 move workspace 3:www
@@ -156,7 +161,7 @@ bindsym Mod4+Right move workspace to output right
 bindsym Mod4+l move workspace to output right
 
 bindsym Mod4+Up move workspace to output up
-bindsym Mod4+k move workspace to output up 
+bindsym Mod4+k move workspace to output up
 bindsym Mod4+Down move workspace to output up
 bindsym Mod4+j move workspace to output up
 
@@ -209,7 +214,7 @@ bar {
     workspace_buttons yes
     position top
     #colors {
-          ##background 1 1 1 0 
+          ##background 1 1 1 0
           #background $background
           #statusline $white
           #separator  $white

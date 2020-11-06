@@ -97,7 +97,7 @@ if [ ! -n "${BULLETTRAIN_VIRTUALENV_FG+1}" ]; then
   BULLETTRAIN_VIRTUALENV_FG=black
 fi
 if [ ! -n "${BULLETTRAIN_VIRTUALENV_PREFIX+1}" ]; then
-  BULLETTRAIN_VIRTUALENV_PREFIX=
+  BULLETTRAIN_VIRTUALENV_PREFIX=🐍
 fi
 
 # NVM
@@ -551,18 +551,18 @@ prompt_virtualenv() {
 }
 
 # Virtualenv: current working virtualenv
-prompt_virtualenv_old() {
-  if [[ $BULLETTRAIN_VIRTUALENV_SHOW == false ]]; then
-    return
-  fi
+#prompt_virtualenv_old() {
+#  if [[ $BULLETTRAIN_VIRTUALENV_SHOW == false ]]; then
+#    return
+#  fi
 
-  local virtualenv_path="$VIRTUAL_ENV"
-  if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
-    prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(basename $virtualenv_path)"
-  elif which pyenv &> /dev/null; then
-    prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(pyenv version | sed -e 's/ (set.*$//' | tr '\n' ' ' | sed 's/.$//')"
-  fi
-}
+#  local virtualenv_path="$VIRTUAL_ENV"
+#  if [[ -n $virtualenv_path && -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
+#    prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(basename $virtualenv_path)"
+#  elif which pyenv &> /dev/null; then
+#    prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(pyenv version | sed -e 's/ (set.*$//' | tr '\n' ' ' | sed 's/.$//')"
+#  fi
+#}
 
 # NVM: Node version manager
 prompt_nvm() {

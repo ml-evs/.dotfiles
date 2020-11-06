@@ -3,7 +3,7 @@ export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 ZSH_THEME="bullet-train"
 # Default user; displays host if !=
-export DEFAULT_USER=matthew
+export DEFAULT_USER=mevans
 #export KDEWM='/home/matthew/.local/bin/i3'
 # Fixes tmux colours
 export TERM="xterm-256color"
@@ -27,7 +27,7 @@ PROMPT_COMMAND='pwd > "${HOME}/.cwd"'
 export LS_COLORS='fi=0;34:rs=0:di=0;35:ln=01;33:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33:cd=40;33:or=40;31:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=01;34:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.gz=0;35:*.bz2=01;31:*.bz=01;31:*.tbz2=01;31:*.tz=01;31:*.sh=01;35:*.f90=0;34:*.py=0;34:*.cpp=0;35:*.o=0;37:*.mod=0;37:*.pyc=0;37'
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-export PATH=$PATH:/home/matthew/.local/conda/bin:$PATH
+export PATH=$PATH:/home/mevans/.local/conda/bin:$PATH
 # add locally installed programs and scripts, e.g. latest vim, gcc
 #export PATH=$PATH:/opt/bin
 #export PATH=$HOME/.local/bin:$HOME/.bin:$HOME/.local/opt/bin:$PATH
@@ -63,6 +63,8 @@ alias v=vim
 alias im=vim
 alias pacman="sudo pacman"
 alias please="sudo"
+alias tm="tmuxinator"
+alias gs="gst"
 
 ca() {
     conda activate $@
@@ -128,3 +130,20 @@ conda deactivate
 conda activate devtools
 
 autoload -U compinit && compinit
+
+# >>> mamba initialize >>>
+# !! Contents within this block are managed by 'mamba init' !!
+export MAMBA_EXE="/home/mevans/.local/bin/micromamba";
+export MAMBA_ROOT_PREFIX="/home/mevans/.local/micromamba";
+__mamba_setup="$('/home/mevans/.local/bin/micromamba' shell hook --shell zsh --prefix '/home/mevans/.local/micromamba' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__mamba_setup"
+else
+    if [ -f "/home/mevans/.local/micromamba/etc/profile.d/mamba.sh" ]; then
+        . "/home/mevans/.local/micromamba/etc/profile.d/mamba.sh"
+    else
+        export PATH="/home/mevans/.local/micromamba/bin:$PATH"
+    fi
+fi
+unset __mamba_setup
+# <<< mamba initialize <<<

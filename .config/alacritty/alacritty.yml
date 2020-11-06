@@ -110,12 +110,12 @@ font:
     #   - (macOS) Menlo
     #   - (Linux) monospace
     #   - (Windows) Consolas
-    family: "Iosevka Term Slab"
+    #family: "Noto Color Emoji"
+    family: "monospace"
+    #family: "Iosevka Term Slab"
 
     hintstyle: "hintslight"
     antialias: true
-    #family: "Unifont"
-    #family: "Font Awesome 5 Free"
 
     # The `style` can be specified to pick a specific face.
     style: Medium
@@ -129,7 +129,7 @@ font:
     #family: monospace
 
     # The `style` can be specified to pick a specific face.
-    family: "Iosevka Term Slab"
+    #family: "Iosevka Term Slab"
     style: Bold
 
   # Italic font face
