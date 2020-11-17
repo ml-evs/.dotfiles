@@ -131,6 +131,10 @@ conda activate devtools
 
 autoload -U compinit && compinit
 
+mm () {
+    micromamba $@
+}
+
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!
 export MAMBA_EXE="/home/mevans/.local/bin/micromamba";
