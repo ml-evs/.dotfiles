@@ -117,7 +117,8 @@ bindsym $mod+Shift+Q kill
 for_window [title=".*Volume.*"] floating enable
 for_window [title=".*Connection.*"] floating enable
 for_window [title=".*Sharing Indicator.*"] floating enable
-#for_window [title=".*zoom.*"] floating enable
+for_window [title=".*zoom.*"] floating enable
+for_window [title=".*Zoom.*"] floating enable
 for_window [app_id="alacritty"] border none
 
 for_window [class="Firefox"] inhibit_idle fullscreen

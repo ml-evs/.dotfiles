@@ -1,6 +1,14 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
+
+GPG_TTY=$(tty)
+export GPG_TTY
+
+export PINENTRY_USER_DATA="USE_CURSES=1"
+
+eval $(keychain --agents ssh,gpg --eval --quiet ~/.ssh/id_rsa ~/.ssh/id_rsa.ceci A3024035F41D394B9DD8D03423031501566C022D)
+
 ZSH_THEME="bullet-train"
 # Default user; displays host if !=
 export DEFAULT_USER=mevans
@@ -108,8 +116,6 @@ load_intel() {
         fi
     fi
 }
-
-eval $(keychain --eval --quiet ~/.ssh/id_rsa)
 
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
