@@ -51,11 +51,11 @@ module-margin-left = 1
 module-margin-right = 1
 
 font-0 = Iosevka Term Slab:style=Medium:size=10:antialias=true;2
-;font-1 = Unifont:fontformat=truetype:size=12:antialias=true;1
+font-1 = Unifont:fontformat=truetype:size=12:antialias=true;1
 ;font-2 = Siji:pixelsize=10;1
 ;font-1 = Font Awesome 5 Free
 ;font-2 = Font Awesome 5 Brands
-font-1 = FontAwesome5Free:style=Solid:size=11:antialias=true;
+font-2 = FontAwesome5Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
 modules-center = spotify
@@ -66,7 +66,7 @@ tray-position = right
 tray-padding = 2
 tray-offset-y=2
 tray-maxsize=16
-;tray-background = #0063ff
+tray-background = #0063ff00
 ;wm-restack = bspwm
 wm-restack = i3
 
@@ -396,6 +396,9 @@ interval = 1
 format = <label>
 exec = python /usr/share/polybar/scripts/spotify_status.py
 format-underline = #1db954
+click-left = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+click-right = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+click-middle = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
 [global/wm]
 ;margin-top = 0
