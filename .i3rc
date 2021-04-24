@@ -7,7 +7,7 @@ font pango: Iosevka Term Regular 10
 for_window [class="^.*"] border pixel 2
 gaps inner 20
 gaps outer 20
-# smart_borders off
+ #smart_borders off
 
 # Heath
 set $back               #282828
@@ -25,7 +25,7 @@ set $green              #b8bb26
 set $darkgreen              #b8bb26
 
 #class                  border      backgr.     text        split
-client.focused          $yellow $darkred $black
+client.focused          $yellow $magenta $black
 client.focused_inactive $red $lightgrey $black
 client.unfocused        $magenta $grey $white
 client.urgent           $red        $red        $black
@@ -40,12 +40,13 @@ exec --no-startup-id exec compton
 exec --no-startup-id exec nitrogen --restore
 exec --no-startup-id exec xfce4-power-manager
 exec --no-startup-id exec nm-applet
-exec --no-startup-id exec xautolock -time 5 -locker ~/.local/bin/lock
+exec --no-startup-id exec blueman-applet
+#exec --no-startup-id exec xautolock -time 5 -locker ~/.local/bin/lock
+exec --no-startup-id xidlehook --socket /tmp/xidlehook.sock --not-when-audio --timer 60 '~/.local/bin/lock' '' --timer 120 'autorandr off' 'autorandr $(autorandr --detected)'
 exec_always --no-startup-id ~/.i3/polybar.sh
+exec_always --no-startup-id "setxkbmap gb && xmodmap /home/mevans/.dotfiles/.Xmodmap"
 exec --no-startup-id exec dunst -conf ~/.dunstrc
-exec --no-startup-id exec redshift
-# exec --no-startup-id exec xrandr --output HDMI2 --left-of eDP1
-# exec --no-startup-id exec xrandr --output DP1 --left-of HDMI2
+exec --no-startup-id exec '/usr/bin/python redshift-gtk -l 52.2:0.121 -b 1:0.75'
 
 
 # Principal mod key (Super = Win key)
@@ -70,7 +71,7 @@ bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
 bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
 # Misc
-bindsym XF86Display exec --no-startup-id arandr
+bindsym XF86Display exec --no-startup-id autorandr laptop
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -78,15 +79,15 @@ floating_modifier $mod
 bindsym $mod+Shift+Q kill
 
 for_window [title=".*Figure.*"] floating enable
-for_window [title=".*zoom.*"] floating enable
-for_window [title=".*Zoom.*"] floating enable
+for_window [class=".*zoom.*"] floating enable
+for_window [class=".*Zoom.*"] floating enable
 
 # start a terminal
 bindsym $mod+Return exec alacritty
 bindsym Mod4+w exec firefox
 bindsym Mod4+f exec pcmanfm
 bindsym Mod4+s exec slack
-bindsym Mod4+Shift+l exec ~/.local/bin/lock
+bindsym Mod4+Shift+l exec xidlehook-client --socket /tmp/xidlehook.sock control --timer 0 --action trigger
 bindsym $mod+d exec rofi -i -show run
 
 # Layout
@@ -144,6 +145,8 @@ bindsym $mod+6 workspace 6:com
 bindsym $mod+7 workspace 7:scr
 bindsym $mod+8 workspace 8:vis
 bindsym $mod+9 workspace 9:mus
+bindsym $mod+Escape scratchpad show
+bindsym $mod+Shift+Escape move scratchpad
 
 
 # move focused container to workspace
