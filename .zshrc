@@ -1,13 +1,12 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
+export QT_QPA_PLATFORMTHEME=gtk2
 
 GPG_TTY=$(tty)
 export GPG_TTY
-
 export PINENTRY_USER_DATA="USE_CURSES=1"
 
-eval $(keychain --agents ssh,gpg --eval --quiet ~/.ssh/id_rsa ~/.ssh/id_rsa.ceci A3024035F41D394B9DD8D03423031501566C022D)
 
 ZSH_THEME="bullet-train"
 # Default user; displays host if !=
@@ -15,7 +14,6 @@ export DEFAULT_USER=mevans
 #export KDEWM='/home/matthew/.local/bin/i3'
 # Fixes tmux colours
 export TERM="xterm-256color"
-echo -e -n "\x1b[\x35 q" # changes to blinking bar
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
@@ -72,7 +70,7 @@ alias im=vim
 alias pacman="sudo pacman"
 alias please="sudo"
 alias tm="tmuxinator"
-alias gs="gst"
+alias dco="docker-compose"
 
 ca() {
     conda activate $@
@@ -140,6 +138,7 @@ autoload -U compinit && compinit
 mm () {
     micromamba $@
 }
+
 
 # >>> mamba initialize >>>
 # !! Contents within this block are managed by 'mamba init' !!

@@ -129,7 +129,7 @@ let g:ycm_python_binary_path = '/home/mevans/.local/conda/envs/devtools/bin/pyth
 " ALE
 let g:ale_linters = {}
 let g:ale_linters.cpp = ['gcc']
-let g:ale_linters.python = ['flake8']
+let g:ale_linters.python = ['flake8', 'pylint']
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 let g:ale_fixers.pandoc = []
 "let g:ale_fixers.python = ['remove_trailing_lines', 'trim_whitespace']
