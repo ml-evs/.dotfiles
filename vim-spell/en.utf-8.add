@@ -14,7 +14,6 @@ pseudopotential
 Monkhorst
 Brillouin
 pseudopotentials
-Ultrasoft
 initio
 OPTiMaDe
 config
@@ -27,4 +26,18 @@ stoichiometries
 Wyckoff
 Voronoi
 ICSD
-Geometry
+Perdew
+Ernzerhof
+CASTEP
+potassiated
+Hirschman
+Herfindahl
+KIBs
+LIBs
+HHI
+NIBs
+ultrasoft
+meV
+OQMD
+mAh
+adatom
