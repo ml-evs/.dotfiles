@@ -72,6 +72,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightnes
 
 # Misc
 bindsym XF86Display exec --no-startup-id autorandr laptop
+bindsym Mod4+Shift+F12 exec --no-startup-id autorandr home
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -173,6 +174,7 @@ bindsym Mod4+j move workspace to output up
 
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+R restart
+bindsym Mod4+Shift+R exec --no-startup-id touch -m $(readlink -f $HOME/.config/polybar/config)
 
 # exit i3 (logs you out of your X session)
 set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
