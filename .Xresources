@@ -1,3 +1,47 @@
+*background:                      #181818
+*foreground:                      #d8d8d8
+*fading:                          8
+*fadeColor:                       black
+*cursorColor:                     #1ABB9B
+*pointerColorBackground:          #2B2C2B
+*pointerColorForeground:          #16A085
+
+!! black dark/light
+!*color0:                          #222D31
+*color0:                          #181818
+*color8:                          #585858
+
+!! red dark/light
+*color1:                          #ab4642
+*color9:                          #ab4642
+
+!! green dark/light
+*color2:                          #7E807E
+*color10:                         #8D8F8D
+
+!! yellow dark/light
+*color3:                          #f7ca88
+*color11:                         #f7ca88
+
+!! blue dark/light
+*color4:                          #7cafc2
+*color12:                         #7cafc2
+
+!! magenta dark/light
+*color5:                          #ba8baf
+*color13:                         #ba8baf
+
+!! cyan dark/light
+*color6:                          #1ABB9B
+*color14:                         #1ABB9B
+
+!! white dark/light
+*color7:                          #d8d8d8
+*color15:                         #f8f8f8
+
+!Xcursor.theme: xcursor-breeze
+!Xcursor.size:                     0
+
 Xft.dpi: 96
 Xft.antialias: true
 Xft.rgba: rgb
@@ -12,38 +56,18 @@ rofi.font : iosevka term medium 10
 ! Use extended color scheme
 rofi.color-enabled:                  true
 ! Color scheme for normal row
-rofi.color-normal:                   #1b181b,#C5C8C6,#1b181b,#56bf8b,#1b181b
+rofi.color-normal:                   #181818,#C5C8C6,#181818,#BA8BAF,#181818
 ! Color scheme for urgent row
-rofi.color-urgent:                   #1b181b,#C5C8C6,#1b181b,#56bf8b,#1b181b
+rofi.color-urgent:                   #181818,#C5C8C6,#181818,#BA8BAF,#181818
 ! Color scheme for active row
-rofi.color-active:                   #1b181b,#C5C8C6,#1b181b,#56bf8b,#1b181b
+rofi.color-active:                   #181818,#C5C8C6,#181818,#BA8BAF,#181818
 ! Color scheme window
-rofi.color-window:                   #1b181b,#56bf8b
+rofi.color-window:                   #181818,#BA8BAF
 ! Separator style (none, dash, solid)
 rofi.separator-style:                solid
 rofi.location: 2
 rofi.sidebar-mode : true
 rofi.lines: 15
 rofi.yoffset: 20
-rofi.terminal: gnome-terminal
+rofi.terminal: alacritty
 rofi.combi-modi: drun
-
-URxvt.faceSize: 20
-URxvt.loginShell : true
-URxvt.lineSpace: 0
-URxvt.saveLines: 10000
-
-URxvt*font: xft:Input Mono:pixelsize=15
-URxvt*letterSpace: 0
-URxvt*scrollBar : false
-
-URxvt*borderWidth: 0
-URxvt*loginshell: true
-URxvt*backarrowKey: false
-URxvt*locale: true
-URxvt*utf8: 1
-URxvt*savelines: 16384
-URxvt*ScrollBar: false
-URxvt*faceName: Input 
-URxvt*faceSize: 10
-URxvt*font: xft:Input Mono:pixelsize=10
