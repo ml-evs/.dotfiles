@@ -17,8 +17,8 @@
 ;==========================================================
 
 [colors]
-background = ${xrdb:color0}
-;background = #181b1c00
+;background = ${xrdb:color0}
+background = #CC181b1c
 ;background = #18181800
 background-alt = #181b1c00
 foreground = #D8D8D8
@@ -75,8 +75,8 @@ wm-restack = i3
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
 
-scroll-up = i3wm-wsnext
-scroll-down = i3wm-wsprev
+scroll-up = #i3.next
+scroll-down = #i3.prev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -383,7 +383,7 @@ menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
 [settings]
-;screenchange-reload = true
+screenchange-reload = true
 ;compositing-background = xor
 ;compositing-background = screen
 ;compositing-foreground = source

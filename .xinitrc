@@ -24,6 +24,7 @@ if [ -f "$userresources" ]; then
 fi
 
 if [ -f "$usermodmap" ]; then
+    setxkbmap gb
     xmodmap "$usermodmap"
 fi
 

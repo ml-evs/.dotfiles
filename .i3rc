@@ -42,7 +42,7 @@ exec --no-startup-id exec xfce4-power-manager
 exec --no-startup-id exec nm-applet
 exec --no-startup-id exec blueman-applet
 #exec --no-startup-id exec xautolock -time 5 -locker ~/.local/bin/lock
-exec --no-startup-id xidlehook --socket /tmp/xidlehook.sock --not-when-audio --timer 60 '~/.local/bin/lock' '' --timer 120 'autorandr off' 'autorandr $(autorandr --detected)'
+exec --no-startup-id xidlehook --socket /tmp/xidlehook.sock --not-when-audio --timer 600 '~/.local/bin/lock' '' --timer 600 'autorandr off' 'autorandr $(autorandr --detected)'
 exec_always --no-startup-id ~/.i3/polybar.sh
 exec_always --no-startup-id "setxkbmap gb && xmodmap /home/mevans/.dotfiles/.Xmodmap"
 exec --no-startup-id exec dunst -conf ~/.dunstrc
