@@ -42,11 +42,10 @@ exec --no-startup-id exec xfce4-power-manager
 exec --no-startup-id exec nm-applet
 exec --no-startup-id exec blueman-applet
 #exec --no-startup-id exec xautolock -time 5 -locker ~/.local/bin/lock
-exec --no-startup-id xidlehook --socket /tmp/xidlehook.sock --not-when-audio --timer 600 '~/.local/bin/lock' '' --timer 600 'autorandr off' 'autorandr $(autorandr --detected)'
+#exec --no-startup-id xidlehook --socket /tmp/xidlehook.sock --not-when-audio --timer 600 '~/.local/bin/lock' ''
 exec_always --no-startup-id ~/.i3/polybar.sh
 exec_always --no-startup-id "setxkbmap gb && xmodmap /home/mevans/.dotfiles/.Xmodmap"
 exec --no-startup-id exec dunst -conf ~/.dunstrc
-exec --no-startup-id exec '/usr/bin/python redshift-gtk -l 52.2:0.121 -b 1:0.75'
 
 
 # Principal mod key (Super = Win key)
@@ -145,7 +144,7 @@ bindsym $mod+5 workspace 5:doc
 bindsym $mod+6 workspace 6:com
 bindsym $mod+7 workspace 7:scr
 bindsym $mod+8 workspace 8:vis
-bindsym $mod+9 workspace 9:mus
+bindsym $mod+9 workspace ♪
 bindsym $mod+Escape scratchpad show
 bindsym $mod+Shift+Escape move scratchpad
 

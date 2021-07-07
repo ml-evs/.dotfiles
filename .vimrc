@@ -25,7 +25,7 @@ Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 "Plugin 'ludovicchabant/vim-lawrencium'
-Plugin 'valloric/YouCompleteMe'
+"Plugin 'valloric/YouCompleteMe'
 Plugin 'vimwiki/vimwiki', {'pinned': 1}
 Plugin 'tbabej/taskwiki'
 Plugin 'vim-pandoc/vim-pandoc'
@@ -41,7 +41,7 @@ Plugin 'KeitaNakamura/tex-conceal.vim'
 Plugin 'danielwe/base16-vim'
 "Plugin 'chriskempton/base16-vim'
 Plugin 'bling/vim-bufferline'
-Plugin 'easymotion/vim-easymotion'
+"Plugin 'easymotion/vim-easymotion'
 call vundle#end()
 
 let g:ctrlp_working_path_mode = 'ra'
@@ -49,11 +49,13 @@ let g:ctrlp_working_path_mode = 'ra'
 " GOYO
 let g:goyo_width = 128
 
-" JEDI
-" prevent doc string popups
+ "JEDI
+ "prevent doc string popups
 autocmd FileType python setlocal completeopt-=preview
 let g:jedi#popup_on_dot = 0
 let g:jedi#completions = 1
+"let g:ale_completion_enabled = 1
+"set omnifunc=ale#completion#OmniFunc
 
 au BufRead,BufNewFile *.md,*.tex set conceallevel=2
 let g:tex_conceal="abdgm"
@@ -129,7 +131,7 @@ let g:ycm_python_binary_path = '/home/mevans/.local/conda/envs/devtools/bin/pyth
 " ALE
 let g:ale_linters = {}
 let g:ale_linters.cpp = ['gcc']
-let g:ale_linters.python = ['flake8', 'pylint']
+let g:ale_linters.python = ['flake8', 'pylint'] ", 'pyright']
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 let g:ale_fixers.pandoc = []
 "let g:ale_fixers.python = ['remove_trailing_lines', 'trim_whitespace']
@@ -153,8 +155,9 @@ let g:ale_open_list = 1
 let g:ale_lint_on_enter = 1
 let g:ale_list_window_size = 4
 let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_delay = 0
+let g:ale_lint_delay = 1
 let g:ale_lint_on_text_changed = 'always'
+let g:ale_sign_column_always = 1
 
 
 " prevent quickfix from being added to buflist

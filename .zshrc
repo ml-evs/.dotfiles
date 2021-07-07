@@ -70,7 +70,6 @@ alias im=vim
 alias pacman="sudo pacman"
 alias please="sudo"
 alias tm="tmuxinator"
-alias dco="docker-compose"
 
 ca() {
     conda activate $@
