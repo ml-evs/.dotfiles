@@ -144,7 +144,7 @@ bindsym $mod+5 workspace 5:doc
 bindsym $mod+6 workspace 6:com
 bindsym $mod+7 workspace 7:scr
 bindsym $mod+8 workspace 8:vis
-bindsym $mod+9 workspace ♪
+bindsym $mod+9 workspace 9:mus
 bindsym $mod+Escape scratchpad show
 bindsym $mod+Shift+Escape move scratchpad
 
