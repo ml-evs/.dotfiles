@@ -1,0 +1,9 @@
+{
+    "workbench.colorTheme": "Base16 Gruvbox dark, medium",
+    "workbench.colorCustomizations": {
+        "statusBar.foreground" : "#1A1A1A"
+    },
+    "editor.fontSize": 12,
+    "editor.fontFamily": "'monospace', monospace, 'Droid Sans Fallback'",
+    "terminal.integrated.fontSize": 12
+}

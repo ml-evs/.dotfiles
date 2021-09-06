@@ -47,27 +47,3 @@ Xft.antialias: true
 Xft.rgba: rgb
 Xft.hinting: true
 Xft.hintstyle: hintslight
-
-! ------------------------------------------------------------------------------
-! ROFI Color theme
-! ------------------------------------------------------------------------------
-! Use extended color scheme
-rofi.font : iosevka term medium 10
-! Use extended color scheme
-rofi.color-enabled:                  true
-! Color scheme for normal row
-rofi.color-normal:                   #181818,#C5C8C6,#181818,#BA8BAF,#181818
-! Color scheme for urgent row
-rofi.color-urgent:                   #181818,#C5C8C6,#181818,#BA8BAF,#181818
-! Color scheme for active row
-rofi.color-active:                   #181818,#C5C8C6,#181818,#BA8BAF,#181818
-! Color scheme window
-rofi.color-window:                   #181818,#BA8BAF
-! Separator style (none, dash, solid)
-rofi.separator-style:                solid
-rofi.location: 2
-rofi.sidebar-mode : true
-rofi.lines: 15
-rofi.yoffset: 20
-rofi.terminal: alacritty
-rofi.combi-modi: drun

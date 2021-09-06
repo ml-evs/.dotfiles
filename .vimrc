@@ -13,7 +13,6 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'mhinz/vim-signify'
 "Plugin 'suan/vim-instant-markdown'
 Plugin 'vim-airline/vim-airline'
-"Plugin 'szymonmaszke/vimpyter'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'mhinz/vim-startify'
 Plugin 'w0rp/ale'
@@ -130,17 +129,20 @@ let g:ycm_python_binary_path = '/home/mevans/.local/conda/envs/devtools/bin/pyth
 
 " ALE
 let g:ale_linters = {}
+let g:ale_python_auto_pipenv = '1'
 let g:ale_linters.cpp = ['gcc']
-let g:ale_linters.python = ['flake8', 'pylint'] ", 'pyright']
+let g:ale_linters.python = ['flake8'] ", 'pyright']
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+"let g:ale_fixers = {'*.vue': []}
 let g:ale_fixers.pandoc = []
 "let g:ale_fixers.python = ['remove_trailing_lines', 'trim_whitespace']
 "let g:ale_fixers.pyrex = ['remove_trailing_lines', 'trim_whitespace']
 "let g:ale_fixers = { 'yaml': ['remove_trailing_lines', 'trim_whitespace'] }
-"let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black']}
+let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace']}
 ", 'black'] }
 "let b:ale_fixers = ['black']
 let g:ale_sign_column_always = 1
+let g:ale_python_pylint_options="--ignore import-error"
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
 let g:ale_fix_on_save = 1

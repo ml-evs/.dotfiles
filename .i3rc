@@ -4,10 +4,9 @@ font pango: Iosevka Term Regular 10
 # Look
 #..........
 
-for_window [class="^.*"] border pixel 2
+for_window [class="^.*"] border pixel 1
 gaps inner 20
 gaps outer 20
- #smart_borders off
 
 # Heath
 set $back               #282828
@@ -47,16 +46,16 @@ exec_always --no-startup-id ~/.i3/polybar.sh
 exec_always --no-startup-id "setxkbmap gb && xmodmap /home/mevans/.dotfiles/.Xmodmap"
 exec --no-startup-id exec dunst -conf ~/.dunstrc
 
-
 # Principal mod key (Super = Win key)
 # mod1 = Alt (xmodmap to show)
 # mod4 = Winkey (xmodmap to show)
 set $mod Mod1
 
-bindsym $mod+g gaps inner current set 0
+bindsym $mod+g gaps inner current set 0 gaps outer current set 0
 bindsym $mod+Shift+g gaps outer current set 100
 bindsym Mod4+g gaps outer current set 50 gaps inner current set 50
 bindsym Mod4+Shift+g gaps outer current set 20 gaps inner current set 20
+bindsym Ctrl+q gaps outer current set 20 gaps inner current set 20
 
 # Media keys
 
@@ -71,7 +70,7 @@ bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightnes
 
 # Misc
 bindsym XF86Display exec --no-startup-id autorandr laptop
-bindsym Mod4+Shift+F12 exec --no-startup-id autorandr home
+bindsym Mod4+Shift+F12 exec --no-startup-id autorandr vert
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -87,6 +86,7 @@ bindsym $mod+Return exec alacritty
 bindsym Mod4+w exec firefox
 bindsym Mod4+f exec pcmanfm
 bindsym Mod4+s exec slack
+bindsym Mod4+z exec signal-desktop
 bindsym Mod4+Shift+l exec xidlehook-client --socket /tmp/xidlehook.sock control --timer 0 --action trigger
 bindsym $mod+d exec rofi -i -show run
 
@@ -176,9 +176,8 @@ bindsym $mod+Shift+R restart
 bindsym Mod4+Shift+R exec --no-startup-id touch -m $(readlink -f $HOME/.config/polybar/config)
 
 # exit i3 (logs you out of your X session)
-set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+set $mode_system (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l exec --no-startup-id i3exit lock, mode "default"
     bindsym e exec --no-startup-id i3exit logout, mode "default"
     bindsym s exec --no-startup-id i3exit suspend, mode "default"
     bindsym h exec --no-startup-id i3exit hibernate, mode "default"

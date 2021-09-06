@@ -1,0 +1,11 @@
+configuration {
+	font: "iosevka term medium 10";
+	location: 2;
+	yoffset: 20;
+	terminal: "alacritty";
+	sidebar-mode: true;
+	combi-modi: "drun";
+  show-icons: true;
+}
+
+@theme "gruvbox-dark-soft"
