@@ -28,7 +28,7 @@ secondary = #e60053
 alert = #bd2c40
 
 [bar/vert]
-monitor = DP2
+monitor = DP-2
 bottom = true
 #width = 1920
 height = 28
@@ -84,7 +84,7 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/laptop]
-monitor = eDP1
+monitor = eDP-1
 #width = 1920
 height = 28
 bottom = true
@@ -139,7 +139,7 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 [bar/mine]
-monitor = DP1
+monitor = DP-1
 #width = 1920
 height = 36
 bottom = true
@@ -174,13 +174,11 @@ modules-left = i3
 modules-center = spotify
 modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature battery date
 
-;tray-position = right
-;tray-padding = 8
+tray-position = right
+;tray-padding = 2
 ;tray-offset-y=2
-;tray-maxsize=16
+tray-maxsize=16
 ;tray-background = #0063ff00
-;wm-restack = bspwm
-;wm-restack = i3
 
 ;override-redirect = true
 
@@ -417,7 +415,7 @@ label-muted = 
 [module/battery]
 type = internal/battery
 battery = BAT0
-adapter = ADP1
+adapter = ADP-1
 full-at = 95
 poll-interval = 60
 
