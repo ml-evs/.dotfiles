@@ -112,7 +112,7 @@ font:
     #   - (Windows) Consolas
     #family: "Noto Color Emoji"
     family: "monospace"
-    #family: "Iosevka Term Slab"
+    #family: "Iosevka Term SS07"
 
     hintstyle: "hintslight"
     antialias: true
@@ -129,7 +129,7 @@ font:
     #family: monospace
 
     # The `style` can be specified to pick a specific face.
-    #family: "Iosevka Term Slab"
+    #family: "Iosevka Term SS07"
     style: Bold
 
   # Italic font face

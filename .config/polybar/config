@@ -52,7 +52,7 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = Iosevka Term Slab:style=Medium:size=10:antialias=true;2
+font-0 = Iosevka Term SS07:style=Medium:size=10:antialias=true;2
 font-1 = Siji:pixelsize=10;1
 font-2 = Unifont:fontformat=truetype:size=12:antialias=true;1
 ;font-1 = Font Awesome 5 Free
@@ -108,7 +108,7 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = Iosevka Term Slab:style=Medium:size=10:antialias=true;2
+font-0 = Iosevka Term SS07:style=Medium:size=10:antialias=true;2
 font-1 = Siji:pixelsize=10;1
 font-2 = Unifont:fontformat=truetype:size=12:antialias=true;1
 ;font-1 = Font Awesome 5 Free
@@ -163,7 +163,7 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = Iosevka Term Slab:style=Medium:size=12:antialias=true;2
+font-0 = Iosevka Term SS07:style=Medium:size=12:antialias=true;2
 font-1 = Siji:pixelsize=12;1
 font-2 = Unifont:fontformat=truetype:size=12:antialias=true;1
 ;font-1 = Font Awesome 5 Free
