@@ -21,7 +21,10 @@ report.music.columns=id,entry.age,description,year,rating
 report.music.filter=project:media limit:page +albums
 report.music.sort=status+/,rating-/
 
-urgency.blocking.coefficient=0.0
+report.books.columns=id,entry.age,description
+report.books.filter=project:media limit:page +books
+report.books.sort=status+/
+
 urgency.blocked.coefficient=0.0
 urgency.annotations.coefficient=0.0 # has annotations
 urgency.tags.coefficient=0.0 # has tags
@@ -43,7 +46,7 @@ uda.priority.type=string
 uda.priority.values=H,M,,L,
 uda.priority.default=
 
-include /usr/share/doc/task/rc/dark-256.theme
+#include /usr/share/doc/task/rc/dark-256.theme
 #include /usr/share/doc/task/rc/light-256.theme
 
 rule.precedence.color=deleted,completed,active,keyword.,tag.,project.,overdue,scheduled,due.today,due,blocked,blocking,recurring,tagged,uda.
