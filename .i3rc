@@ -35,7 +35,7 @@ client.background       $background $grey $lightgrey
 #..........
 #
 
-exec --no-startup-id exec compton
+exec --no-startup-id exec picom 
 exec --no-startup-id exec nitrogen --restore
 exec --no-startup-id exec xfce4-power-manager
 exec --no-startup-id exec nm-applet
@@ -65,8 +65,8 @@ bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT
 bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle # mute sound
 
 # Sreen brightness controls
-bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
-bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
+#bindsym XF86MonBrightnessUp exec xbacklight -inc 5 # increase screen brightness
+#bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
 # Misc
 bindsym XF86Display exec --no-startup-id autorandr laptop

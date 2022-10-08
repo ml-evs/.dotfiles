@@ -3,9 +3,16 @@ export ZSH=/usr/share/oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh-custom
 export QT_QPA_PLATFORMTHEME=gtk2
 
+export DOCKER_BUILDKIT=1
 GPG_TTY=$(tty)
+setxkbmap gb
+
 export GPG_TTY
 export PINENTRY_USER_DATA="USE_CURSES=1"
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 
 ZSH_THEME="bullet-train"
@@ -14,6 +21,7 @@ export DEFAULT_USER=mevans
 #export KDEWM='/home/matthew/.local/bin/i3'
 # Fixes tmux colours
 export TERM="xterm-256color"
+export COLORTERM="truecolor"
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
@@ -130,28 +138,6 @@ unset __conda_setup
 conda deactivate
 # <<< conda initialize <<<
 #
-conda activate devtools
 
 # autoload -U compinit && compinit
 
-mm () {
-    micromamba $@
-}
-
-
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE="/home/mevans/.local/bin/micromamba";
-export MAMBA_ROOT_PREFIX="/home/mevans/.local/micromamba";
-__mamba_setup="$('/home/mevans/.local/bin/micromamba' shell hook --shell zsh --prefix '/home/mevans/.local/micromamba' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
-else
-    if [ -f "/home/mevans/.local/micromamba/etc/profile.d/mamba.sh" ]; then
-        . "/home/mevans/.local/micromamba/etc/profile.d/mamba.sh"
-    else
-        export PATH="/home/mevans/.local/micromamba/bin:$PATH"
-    fi
-fi
-unset __mamba_setup
-# <<< mamba initialize <<<

@@ -18,8 +18,8 @@
 
 [colors]
 ;background = ${xrdb:color0}
-background = #CC181b1c
-;background = #18181800
+;background = #47416000
+background = #18181800
 background-alt = #181b1c00
 foreground = #D8D8D8
 foreground-alt = #D8D8D8
@@ -56,12 +56,12 @@ font-0 = Iosevka Term SS07:style=Medium:size=10:antialias=true;2
 font-1 = Siji:pixelsize=10;1
 font-2 = Unifont:fontformat=truetype:size=12:antialias=true;1
 ;font-1 = Font Awesome 5 Free
-font-3 = Font Awesome 5 Brands:size=10:antialias=true;
-font-4 = FontAwesome5Free:style=Solid:size=11:antialias=true;
+font-3 = Font Awesome 6 Brands:size=10:antialias=true;
+font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
 # modules-center = spotify
-modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature battery date
+modules-center = pulseaudio filesystem xbacklight memory cpu wlan eth temperature battery date
 
 tray-position = right
 ;tray-padding = 2
@@ -71,6 +71,116 @@ tray-maxsize=16
 tray-background = #CC181b1c
 ;wm-restack = bspwm
 # wm-restack = i3
+
+;override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+scroll-up = #i3.next
+scroll-down = #i3.prev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/ext2]
+monitor = DP-2-3
+#width = 1920
+height = 28
+bottom = true
+;offset-x = 1%
+;offset-y = 1%
+radius = 1.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 1
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+padding-left = 2
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = Iosevka Term SS07:style=Medium:size=10:antialias=true;2
+font-1 = Siji:pixelsize=10;1
+font-2 = Unifont:fontformat=truetype:size=12:antialias=true;1
+;font-1 = Font Awesome 5 Free
+font-3 = Font Awesome 6 Brands:size=10:antialias=true;
+font-4 = Font Awesome 6 Free:style=Solid:size=10:antialias=true;
+
+modules-left = i3
+modules-center = spotify
+modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature battery date
+
+tray-position = right
+;tray-padding = 2
+;tray-offset-y=2
+tray-maxsize=16
+;tray-background = #0063ff00
+;wm-restack = bspwm
+;wm-restack = i3
+
+;override-redirect = true
+
+;scroll-up = bspwm-desknext
+;scroll-down = bspwm-deskprev
+
+scroll-up = #i3.next
+scroll-down = #i3.prev
+
+cursor-click = pointer
+cursor-scroll = ns-resize
+
+[bar/ext1]
+monitor = DP-2-2
+#width = 1920
+height = 28
+bottom = true
+;offset-x = 1%
+;offset-y = 1%
+radius = 1.0
+fixed-center = true
+
+background = ${colors.background}
+foreground = ${colors.foreground}
+
+line-size = 1
+line-color = #f00
+
+border-size = 0
+border-color = #00000000
+
+padding-left = 2
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = Iosevka Term SS07:style=Medium:size=10:antialias=true;2
+font-1 = Siji:pixelsize=10;1
+font-2 = Unifont:fontformat=truetype:size=12:antialias=true;1
+;font-1 = Font Awesome 5 Free
+font-3 = Font Awesome 6 Brands:size=10:antialias=true;
+font-4 = Font Awesome 6 Free:style=Solid:size=10:antialias=true;
+
+modules-left = i3
+modules-center = spotify
+modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature battery date
+
+tray-position = right
+;tray-padding = 2
+;tray-offset-y=2
+tray-maxsize=16
+;tray-background = #0063ff00
+;wm-restack = bspwm
+;wm-restack = i3
 
 ;override-redirect = true
 
@@ -112,8 +222,8 @@ font-0 = Iosevka Term SS07:style=Medium:size=10:antialias=true;2
 font-1 = Siji:pixelsize=10;1
 font-2 = Unifont:fontformat=truetype:size=12:antialias=true;1
 ;font-1 = Font Awesome 5 Free
-font-3 = Font Awesome 5 Brands:size=10:antialias=true;
-font-4 = FontAwesome5Free:style=Solid:size=11:antialias=true;
+font-3 = Font Awesome 6 Brands:size=10:antialias=true;
+font-4 = Font Awesome 6 Free:style=Solid:size=10:antialias=true;
 
 modules-left = i3
 modules-center = spotify
@@ -167,8 +277,8 @@ font-0 = Iosevka Term SS07:style=Medium:size=12:antialias=true;2
 font-1 = Siji:pixelsize=12;1
 font-2 = Unifont:fontformat=truetype:size=12:antialias=true;1
 ;font-1 = Font Awesome 5 Free
-font-3 = Font Awesome 5 Brands:size=12:antialias=true;
-font-4 = FontAwesome5Free:style=Solid:size=12:antialias=true;
+font-3 = Font Awesome 6 Brands:size=10:antialias=true;
+font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
 modules-center = spotify
@@ -505,11 +615,11 @@ type = custom/script
 interval = 1
 ;format-prefix = " "
 ;format = <label>
-exec = python /usr/share/polybar/scripts/spotify_status.py -t 200
-format-underline = #1db954
-click-left = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-click-right = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-click-middle = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+exec = python /usr/share/polybar/scripts/spotify_status.py -t 200 --mpris_name chromium.instance74028
+format-underline = #ffb52a
+click-left = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.chromium.instance74028 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+click-right = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.chromium.instance74028 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+click-middle = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.chromium.instance74028 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
 [global/wm]
 ;margin-top = 0
