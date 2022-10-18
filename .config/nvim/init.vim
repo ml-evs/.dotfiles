@@ -14,7 +14,6 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'mhinz/vim-signify'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
-Plugin 'Shatur/neovim-session-manager'
 Plugin 'nvim-lua/plenary.nvim'
 Plugin 'mhinz/vim-startify'
 Plugin 'w0rp/ale'
@@ -25,6 +24,7 @@ Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'danielwe/base16-vim'
 Plugin 'bling/vim-bufferline'
+Plugin 'christoomey/vim-tmux-navigator'
 call vundle#end()
 
 let g:ctrlp_working_path_mode = 'ra'
@@ -40,8 +40,12 @@ let g:jedi#completions = 1
 let g:ale_completion_enabled = 1
 let g:deoplete#enable_at_startup = 1
 let g:python3_host_prog = '/home/mevans/.pyenv/versions/neovim/bin/python'
+let g:starify_session_persistence = 1
+let g:startify_session_autoload = 1
 call deoplete#custom#option('sources', {'_': ['ale']})
+let NERDTreeHijackNetrw = 0
 set omnifunc=ale#completion#OmniFunc
+set guicursor=
 
 " AIRLINE
 let g:Powerline_symbols = 'fancy'
@@ -58,7 +62,20 @@ let g:airline_section_c = '%t'
 
 " NERDcomment
 let g:NERDDefaultAlign = 'left'
-autocmd VimEnter * NERDTree | wincmd p
+"autocmd VimEnter * NERDTree | wincmd p
+let g:startify_session_before_save = [ 'silent! tabdo NERDTreeClose' ]
+let g:startify_update_oldfiles = 1
+let g:startify_files_number = 5
+let g:startify_lists = [
+  \ { 'type': 'dir',       'header': ['   MRU '. getcwd()] },
+  \ { 'type': 'sessions',  'header': ['   Sessions']       },
+  \ { 'type': 'bookmarks', 'header': ['   Bookmarks']      },
+  \ { 'type': 'commands',  'header': ['   Commands']       },
+  \ { 'type': 'files',     'header': ['   MRU']            },
+\ ]
+set sessionoptions-=blank
+let g:startify_custom_header =
+      \ 'startify#center(startify#fortune#cowsay())'
 
 " INSTANT MARKDOWN
 let g:instant_markdown_autoscroll = 1
