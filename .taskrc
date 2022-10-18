@@ -15,7 +15,7 @@ data.location=~/.task
 
 report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description,urgency
 report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg
-report.next.filter=project.not:media status:pending limit:page
+#report.next.filter=project.not:media status:pending limit:page
 
 report.music.columns=id,entry.age,description,year,rating
 report.music.filter=project:media limit:page +albums
@@ -66,3 +66,4 @@ color.tagged=
 color.uda.priority.=
 color.uda.priority.L=
 color.uda.priority.M=
+news.version=2.6.0
