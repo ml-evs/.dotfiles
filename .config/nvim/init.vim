@@ -9,7 +9,6 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plugin 'deoplete-plugins/deoplete-jedi'
 Plugin 'L9'
-"Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'mhinz/vim-signify'
 Plugin 'vim-airline/vim-airline'
@@ -55,11 +54,6 @@ call deoplete#custom#option('sources', {'_': ['ale']})
 let NERDTreeHijackNetrw = 0
 set omnifunc=ale#completion#OmniFunc
 set guicursor=
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
-nnoremap <leader>fb <cmd>Telescope buffers<cr>
-nnoremap <leader>fh <cmd>Telescope help_tags<cr>
-nnoremap <leader>fs <cmd>Telescope grep_string<cr>
 
 " AIRLINE
 let g:Powerline_symbols = 'fancy'
@@ -213,13 +207,20 @@ inoremap jj <Esc>
 nnoremap <Leader>l :lnext<CR>
 nnoremap <Leader>ll :ll<CR>
 nnoremap <Leader>lp :lp<CR>
-nnoremap <Leader>gc :Gcommit % <CR>
-nnoremap <Leader>gd :Gdiff<CR>
-nnoremap <Leader>gb :Gblame<CR>
-nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gc :Git commit % <CR>
+nnoremap <Leader>gd :Git diff<CR>
+nnoremap <Leader>gb :Git Gblame<CR>
+nnoremap <Leader>gs :Git<CR>
 nnoremap <Leader>o :noh<CR>
 nmap <localleader>ww <Plug>VimwikiIndex
 nmap <localleader>www <Plug>VimwikiDiaryMakeNote
+
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fs <cmd>Telescope grep_string<cr>
+
 
 " get rid of number incrementing in normal mode
 nnoremap . <NOP>
