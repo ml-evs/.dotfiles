@@ -9,25 +9,32 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plugin 'deoplete-plugins/deoplete-jedi'
 Plugin 'L9'
-Plugin 'ctrlpvim/ctrlp.vim'
+"Plugin 'ctrlpvim/ctrlp.vim'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'mhinz/vim-signify'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'nvim-lua/plenary.nvim'
 Plugin 'mhinz/vim-startify'
+Plugin 'Konfekt/FastFold'
+Plugin 'tmhedberg/SimpylFold'
 Plugin 'w0rp/ale'
+Plugin 'vim-test/vim-test'
 Plugin 'junegunn/goyo.vim'
 Plugin 'Kjwon15/vim-transparent'
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'danielwe/base16-vim'
+Plugin 'preservim/vimux'
+Plugin 'nvim-telescope/telescope.nvim', { 'tag': '0.1.0' }
+Plugin 'nvim-tree/nvim-web-devicons'
 Plugin 'bling/vim-bufferline'
+Plugin 'nvim-treesitter/nvim-treesitter'
 Plugin 'christoomey/vim-tmux-navigator'
 call vundle#end()
 
-let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_working_path_mode = 'ra'
 
 " GOYO
 let g:goyo_width = 128
@@ -37,15 +44,22 @@ let g:goyo_width = 128
 autocmd FileType python setlocal completeopt-=preview
 let g:jedi#popup_on_dot = 0
 let g:jedi#completions = 1
+let g:ale_use_global_executables = 0
 let g:ale_completion_enabled = 1
 let g:deoplete#enable_at_startup = 1
 let g:python3_host_prog = '/home/mevans/.pyenv/versions/neovim/bin/python'
 let g:starify_session_persistence = 1
 let g:startify_session_autoload = 1
+let g:test#strategy = "vimux"
 call deoplete#custom#option('sources', {'_': ['ale']})
 let NERDTreeHijackNetrw = 0
 set omnifunc=ale#completion#OmniFunc
 set guicursor=
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+nnoremap <leader>fs <cmd>Telescope grep_string<cr>
 
 " AIRLINE
 let g:Powerline_symbols = 'fancy'
@@ -96,24 +110,24 @@ let g:SimpylFold_docstring_preview=1
 
 " YCM
 " Latex config from https://samsudar.com/code/vim_and_latex/
-if !exists('g:ycm_semantic_triggers')
-  let g:ycm_semantic_triggers = {}
-endif
+"if !exists('g:ycm_semantic_triggers')
+"  let g:ycm_semantic_triggers = {}
+"endif
 "let g:ycm_semantic_triggers.pandoc = ['@']
-let g:ycm_semantic_triggers.tex = [
-      \ 're!\\[A-Za-z]*cite[A-Za-z]*(\[[^]]*\]){0,2}{[^}]*',
-      \ 're!\\[A-Za-z]*ref({[^}]*|range{([^,{}]*(}{)?))',
-      \ 're!\\hyperref\[[^]]*',
-      \ 're!\\includegraphics\*?(\[[^]]*\]){0,2}{[^}]*',
-      \ 're!\\(include(only)?|input){[^}]*',
-      \ 're!\\\a*(gls|Gls|GLS)(pl)?\a*(\s*\[[^]]*\]){0,2}\s*\{[^}]*',
-      \ 're!\\includepdf(\s*\[[^]]*\])?\s*\{[^}]*',
-      \ 're!\\includestandalone(\s*\[[^]]*\])?\s*\{[^}]*',
-      \]
-autocmd BufRead,BufNewFile *.tex let g:ycm_auto_trigger = 0
-let g:ycm_filetype_whitelist = { '*': 1}
-let g:ycm_filetype_blacklist = { 'fortran': 1, 'pandoc': 1 }
-let g:ycm_python_binary_path = '/home/mevans/.local/conda/envs/devtools/bin/python'
+"let g:ycm_semantic_triggers.tex = [
+"      \ 're!\\[A-Za-z]*cite[A-Za-z]*(\[[^]]*\]){0,2}{[^}]*',
+"      \ 're!\\[A-Za-z]*ref({[^}]*|range{([^,{}]*(}{)?))',
+"      \ 're!\\hyperref\[[^]]*',
+"      \ 're!\\includegraphics\*?(\[[^]]*\]){0,2}{[^}]*',
+"      \ 're!\\(include(only)?|input){[^}]*',
+"      \ 're!\\\a*(gls|Gls|GLS)(pl)?\a*(\s*\[[^]]*\]){0,2}\s*\{[^}]*',
+"      \ 're!\\includepdf(\s*\[[^]]*\])?\s*\{[^}]*',
+"      \ 're!\\includestandalone(\s*\[[^]]*\])?\s*\{[^}]*',
+      "\]
+"autocmd BufRead,BufNewFile *.tex let g:ycm_auto_trigger = 0
+"let g:ycm_filetype_whitelist = { '*': 1}
+"let g:ycm_filetype_blacklist = { 'fortran': 1, 'pandoc': 1 }
+"let g:ycm_python_binary_path = '/home/mevans/.local/conda/envs/devtools/bin/python'
 "nnoremap <Leader>d :YcmCompleter GetDoc<CR>
 
 
@@ -121,14 +135,14 @@ let g:ycm_python_binary_path = '/home/mevans/.local/conda/envs/devtools/bin/pyth
 let g:ale_linters = {}
 let g:ale_python_auto_pipenv = '1'
 let g:ale_linters.cpp = ['gcc']
-let g:ale_linters.python = ['flake8'] ", 'pyright']
+let g:ale_linters.python = ['mypy', 'flake8']
 let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
 "let g:ale_fixers = {'*.vue': []}
 let g:ale_fixers.pandoc = []
 "let g:ale_fixers.python = ['remove_trailing_lines', 'trim_whitespace']
 "let g:ale_fixers.pyrex = ['remove_trailing_lines', 'trim_whitespace']
 "let g:ale_fixers = { 'yaml': ['remove_trailing_lines', 'trim_whitespace'] }
-let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black']}
 ", 'black'] }
 "let b:ale_fixers = ['black']
 let g:ale_sign_column_always = 1
@@ -136,6 +150,7 @@ let g:ale_python_pylint_options="--ignore import-error"
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
 let g:ale_fix_on_save = 1
+let g:ale_python_mypy_ignore_invalid_syntax = 1
 let g:ale_lint_on_save = 1
 let g:ale_echo_msg_error_str = 'E'
 "let g:black_linelength = 127
@@ -160,7 +175,7 @@ augroup END
 
 
 " CTRL-P
-let g:ctrlp_cmd = 'CtrlPMixed'
+"let g:ctrlp_cmd = 'CtrlPMixed'
 
 
 " Sets how many lines of history VIM has to remember
@@ -189,9 +204,9 @@ nmap <leader>b !black %<cr>
 map cc <leader>c<space>
 
 " CtrlP keybinds
-nmap <leader>b :CtrlPBuffer<CR>
-nmap <leader>f :CtrlP<CR>
-nmap <leader>m :CtrlPMRU<CR>
+"nmap <leader>b :CtrlPBuffer<CR>
+"nmap <leader>f :CtrlP<CR>
+"nmap <leader>m :CtrlPMRU<CR>
 
 
 inoremap jj <Esc>
