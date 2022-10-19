@@ -52,7 +52,6 @@ window:
   # Values for `decorations` (macOS only):
   #     - transparent: Title bar, transparent background and title bar buttons
   #     - buttonless: Title bar, transparent background, but no title bar buttons
-  decorations: none
 
   # Startup Mode (changes require restart)
   #
@@ -101,8 +100,8 @@ scrolling:
 # Font configuration (changes require restart)
 #
 dpi:
-    x: 256
-    y: 256
+    x: 512
+    y: 512
 font:
   # Normal (roman) font face
   normal:
@@ -112,15 +111,15 @@ font:
     #   - (macOS) Menlo
     #   - (Linux) monospace
     #   - (Windows) Consolas
-    #family: "Noto Color Emoji"
-    family: "monospace"
-    #family: "Iosevka Term SS07"
+    family: "Noto Color Emoji"
+    #family: "monospace"
+    family: "Iosevka Term SS07"
 
     hintstyle: "hintslight"
     antialias: true
 
     # The `style` can be specified to pick a specific face.
-    style: Medium
+    style: Regular
 
   # Bold font face
   bold:
@@ -201,9 +200,6 @@ colors:
   #
   # Colors which should be used to draw the terminal cursor. If these are unset,
   # the cursor color will be the inverse of the cell color.
-  cursor:
-    text: '0x1d2021'
-    cursor: '0xd5c4a1'
 
   # Selection colors
   #
@@ -295,7 +291,7 @@ selection:
   save_to_clipboard: false
 
 # Allow terminal applications to change Alacritty's window title.
-window.dynamic_title: true
+window.dynamic_title: false
 
 cursor:
   # Cursor style
@@ -323,15 +319,15 @@ live_config_reload: true
 #   - (Linux) user login shell
 #   - (Windows) powershell
 shell:
-   program: /bin/zsh
-   args:
-     - --login
-
+  program: "wsl.exe"
+  args:
+    - -d Ubuntu
+    - --shell-type login
+    - --cd ~
 # Startup directory
 #
 # Directory the shell is started in. If this is unset, or `None`, the working
 # directory of the parent process will be used.
-working_directory: None
 
 # Windows 10 ConPTY backend (Windows only)
 #
@@ -509,3 +505,4 @@ key_bindings:
   - { key: Equals,   mods: Control,       action: IncreaseFontSize }
   - { key: Plus,      mods: Control,       action: IncreaseFontSize }
   - { key: Minus,    mods: Control,       action: DecreaseFontSize }
+  - { key: Space, mods: Control, chars: "\x00" }

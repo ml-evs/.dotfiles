@@ -1,9 +1,220 @@
 {
-    "workbench.colorTheme": "Base16 Gruvbox dark, medium",
-    "workbench.colorCustomizations": {
-        "statusBar.foreground" : "#1A1A1A"
+    "editor.accessibilityPageSize": 1,
+    "editor.accessibilitySupport": "off",
+    "editor.cursorBlinking": "smooth",
+    "editor.fontFamily": "Iosevka Term SS07",
+    "editor.fontWeight": "500",
+    "terminal.integrated.inheritEnv": false,
+    "terminal.external.linuxExec": "alacritty",
+    "terminal.integrated.fontSize": 13,
+    "terminal.integrated.fontFamily": "Iosevka Term SS07",
+    "python.formatting.provider": "black",
+    "explorer.confirmDelete": false,
+    "githubPullRequests.fileListLayout": "tree",
+    "editor.renderWhitespace": "none",
+    "githubIssues.queries": [
+        {
+            "label": "My Issues",
+            "query": "default"
+        },
+        {
+            "label": "Created Issues",
+            "query": "author:${user} state:open repo:${owner}/${repository} sort:created-desc"
+        }
+    ],
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook",
+        "*.xlsx": "default"
     },
-    "editor.fontSize": 12,
-    "editor.fontFamily": "'monospace', monospace, 'Droid Sans Fallback'",
-    "terminal.integrated.fontSize": 12
+    "git.autofetch": true,
+    "python.linting.enabled": true,
+    "python.linting.flake8Enabled": true,
+    "python.linting.mypyEnabled": true,
+    "python.languageServer": "Default",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "workbench.preferredDarkColorTheme": "Base16 Gruvbox dark, medium",
+    "window.autoDetectColorScheme": true,
+    "window.autoDetectHighContrast": false,
+    "debug.console.fontFamily": "Iosevka Term SS07",
+    "debug.console.fontSize": 13,
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "right"
+    },
+    "notebook.diff.ignoreMetadata": true,
+    "notebook.undoRedoPerCell": true,
+    "editor.codeLensFontFamily": "monospace",
+    "markdown.preview.fontSize": 16,
+    "jupyter.askForKernelRestart": false,
+    "notebook.outline.showCodeCells": true,
+    "notebook.showFoldingControls": "always",
+    "notebook.editorOptionsCustomizations": null,
+    "markdown.preview.fontFamily": "sans-serif",
+    "editor.fontLigatures": true,
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/bin/nvim",
+    "editor.bracketPairColorization.enabled": false,
+    "telemetry.enableTelemetry": false,
+    "telemetry.enableCrashReporter": false,
+    "python.pythonPath": "/home/mevans/.local/conda/envs/optimage/bin/python",
+    "customizeUI.font.monospace": "Iosevka Term SS07",
+    "customizeUI.font.regular": "Arial",
+    "editor.inlineSuggest.enabled": true,
+    "svgviewer.transparencycolor": "#FFFFFF",
+    "svg.preview.mode": "svg",
+    "github.copilot.enable": {
+        "*": true,
+        "yaml": false,
+        "plaintext": false,
+        "markdown": false,
+        "svg": false,
+        "python": true
+    },
+    "notebook.output.textLineLimit": 100,
+    "cSpell.enabledLanguageIds": [
+        "asciidoc",
+        "c",
+        "cpp",
+        "csharp",
+        "css",
+        "git-commit",
+        "go",
+        "graphql",
+        "handlebars",
+        "haskell",
+        "html",
+        "jade",
+        "java",
+        "javascriptreact",
+        "json",
+        "jsonc",
+        "jupyter",
+        "latex",
+        "less",
+        "markdown",
+        "php",
+        "plaintext",
+        "pug",
+        "restructuredtext",
+        "rust",
+        "scala",
+        "scss",
+        "swift",
+        "text",
+        "typescript",
+        "typescriptreact",
+        "vue",
+        "yaml",
+        "yml"
+    ],
+    "editor.largeFileOptimizations": false,
+    "editor.scrollbar.verticalScrollbarSize": 20,
+    "editor.smoothScrolling": true,
+    "workbench.editor.scrollToSwitchTabs": true,
+    "editor.lineNumbers": "relative",
+    "notebook.markup.fontSize": 14,
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "remote.SSH.remotePlatform": {
+        "many2": "linux",
+        "dev-mevans": "linux"
+    },
+    "workbench.colorTheme": "Base16 Gruvbox light, hard",
+    "vscodeMarkdownNotes.allowPipedWikiLinks": true,
+    "cmake.configureOnOpen": true,
+    "remote.SSH.configFile": "//wsl$/Ubuntu/home/mevans/.ssh/config",
+    "remote.SSH.path": "//wsl$/Ubuntu/usr/bin/ssh",
+    "PandocCiter.ShowLog": true,
+    "editor.minimap.enabled": false,
+    "settingsSync.ignoredSettings": [
+        "remote.SSH.configFile"
+    ],
+    "vim.leader": ",",
+    "vim.insertModeKeyBindings": [
+        {
+            "before": [
+                "j",
+                "j"
+            ],
+            "after": [
+                "<Esc>"
+            ]
+        }
+    ],
+    "vim.normalModeKeyBindings": [
+        {
+            "before": [
+                "leader",
+                "w"
+            ],
+            "commands": [
+                "workbench.action.files.save"
+            ]
+        },
+        {
+            "before": [
+                "c",
+                "c"
+            ],
+            "commands": [
+                "editor.action.commentLine"
+            ]
+        },
+        {
+            "before": [
+                "[",
+                "c"
+            ],
+            "commands": [
+                "workbench.action.editor.nextChange"
+            ]
+        },
+        {
+            "before": [
+                "]",
+                "c"
+            ],
+            "commands": [
+                "workbench.action.editor.previousChange"
+            ]
+        }
+    ],
+    "vim.cursorStylePerMode.insert": "line",
+    "vim.cursorStylePerMode.normal": "block-outline",
+    "python.analysis.autoImportCompletions": false,
+    "problems.showCurrentInStatus": true,
+    "customizeUI.activityBar": "bottom",
+    "zenMode.hideStatusBar": false,
+    /*
+    "workbench.colorCustomizations": {
+        "sideBar.background": "#44475a",
+        "statusBar.background": "#bd93f9",
+        "sideBarSectionHeader.background": "#44475a",
+        "sideBarSectionHeader.border": "#44475a",
+        "statusBar.noFolderBackground": "#bd93f9",
+        "statusBar.debuggingBackground": "#bd93f9",
+        "statusBarItem.remoteForeground": "#000000",
+        "statusBarItem.remoteBackground": "#bd93f9",
+        "editorGroup.border": "#6272a4",
+        "editorGroupHeader.border": "#6272a4",
+        "tab.unfocusedActiveBackground": "#6272a4",
+        "tab.inactiveBackground": "#44475a",
+        "panel.border": "#6272a4"
+    },*/
+    "window.menuBarVisibility": "toggle",
+    "editor.fontSize": 13,
+    "customizeUI.statusBarPosition": "under-panel",
+    "vim.statusBarColorControl": true,
+    "vim.statusBarColors.normal": "#6272a4",
+    "vim.statusBarColors.insert": "#bd93f9",
+    "vim.statusBarColors.commandlineinprogress": "#44475a",
+    "vim.statusBarColors.searchinprogressmode": "#44475a",
+    "mdb.confirmRunAll": false,
+    "terminal.integrated.minimumContrastRatio": 1,
+    "workbench.colorCustomizations": {
+        "statusBar.background": "#6272a4",
+        "statusBar.noFolderBackground": "#6272a4",
+        "statusBar.debuggingBackground": "#6272a4"
+    },
+    "files.autoSave": "afterDelay",
 }

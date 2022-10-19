@@ -1,6 +1,6 @@
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
-plugins=(git z virtualenv fzf docker taskwarrior zsh-autosuggestions conda-zsh-completion docker-compose)
+plugins=(git z fzf docker taskwarrior zsh-autosuggestions docker-compose poetry)
 setopt extendedglob
 source $ZSH/oh-my-zsh.sh
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -12,7 +12,8 @@ alias t="task"
 alias taskrc="vim ~/.taskrc"
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
-alias vw="vim -c VimwikiIndex"
+alias nvimrc="nvim ~/.config/nvim/init.vim"
+alias vw="pyenv shell vimwiki && vim -c VimwikiIndex"
 alias i3rc="vim ~/.i3/config"
 alias lx="ls -X"
 alias grep='grep --color=auto'

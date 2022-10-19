@@ -15,13 +15,16 @@ data.location=~/.task
 
 report.next.columns=id,start.age,entry.age,depends,priority,project,tags,recur,scheduled.countdown,due.relative,until.remaining,description,urgency
 report.next.labels=ID,Active,Age,Deps,P,Project,Tag,Recur,S,Due,Until,Description,Urg
-report.next.filter=project.not:media status:pending limit:page
+#report.next.filter=project.not:media status:pending limit:page
 
 report.music.columns=id,entry.age,description,year,rating
 report.music.filter=project:media limit:page +albums
 report.music.sort=status+/,rating-/
 
-urgency.blocking.coefficient=0.0
+report.books.columns=id,entry.age,description
+report.books.filter=project:media limit:page +books
+report.books.sort=status+/
+
 urgency.blocked.coefficient=0.0
 urgency.annotations.coefficient=0.0 # has annotations
 urgency.tags.coefficient=0.0 # has tags
@@ -43,7 +46,7 @@ uda.priority.type=string
 uda.priority.values=H,M,,L,
 uda.priority.default=
 
-include /usr/share/doc/task/rc/dark-256.theme
+#include /usr/share/doc/task/rc/dark-256.theme
 #include /usr/share/doc/task/rc/light-256.theme
 
 rule.precedence.color=deleted,completed,active,keyword.,tag.,project.,overdue,scheduled,due.today,due,blocked,blocking,recurring,tagged,uda.
@@ -63,3 +66,4 @@ color.tagged=
 color.uda.priority.=
 color.uda.priority.L=
 color.uda.priority.M=
+news.version=2.6.0
