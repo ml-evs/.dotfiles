@@ -3,17 +3,16 @@ export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 export QT_QPA_PLATFORMTHEME=gtk2
 export DOCKER_BUILDKIT=1
-
 GPG_TTY=$(tty)
+
 export GPG_TTY
 export PINENTRY_USER_DATA="USE_CURSES=1"
 
-export PATH=$HOME/.local/bin:$PATH
 export PYENV_ROOT="$HOME/.pyenv"
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
+#command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+#eval "$(pyenv init -)"
+#eval "$(pyenv virtualenv-init -)"
 export PIPENV_DONT_LOAD_ENV=1
-
 
 export ZSH_THEME="bullet-train"
 # Default user; displays host if !=
@@ -22,8 +21,9 @@ export DEFAULT_USER=mevans
 export TERM="xterm-256color"
 export COLORTERM="truecolor"
 
-keychain -q --nogui --gpg2 --agents gpg,ssh $HOME/.ssh/id_rsa
-source $HOME/.keychain/hartree-sh
+keychain -q --nogui --gpg2 --agents gpg,ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.ceci
+source "$HOME/.keychain/$(hostname)-sh"
+source "$HOME/.keychain/$(hostname)-sh-gpg"
 
 
 BASE16_SHELL_PATH="$HOME/.config/base16-shell"

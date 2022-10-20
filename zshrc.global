@@ -15,46 +15,29 @@ alias vimrc="vim ~/.vimrc"
 alias nvimrc="nvim ~/.config/nvim/init.vim"
 alias vw="pyenv shell vimwiki && vim -c VimwikiIndex"
 alias i3rc="vim ~/.i3/config"
-alias swayrc="vim ~/.config/sway/config"
-alias waybarc="vim ~/.config/waybar/config"
 alias lx="ls -X"
-alias disco='python -m unittest discover'
 alias grep='grep --color=auto'
-alias dc="docker-compose"
+alias dc="docker compose"
 
 ca () {
     conda activate $@
 }
 
-ng () {
-    ssh -X -t noggin 'tmux attach'
-}
-
-rbusy () {
-    ssh -t noggin rbusy $1 $2 $3
-}
-
-cavis () {
-    ca $@ -l && ca $@ -l | awk '{print $1".res"}' | xargs vesta
-}
-
 weather () {
     if [ -z "$1" ]
     then
-        curl "http://wttr.in/\~Cambridge";
+        curl "http://wttr.in/\~Kings+Lynn";
     else
         curl "http://wttr.in/$1";
     fi
     return
 }
 
-nf () {
-    if [ -z "$1" ]; then
-        echo "Enter a port!"
-    elif [ -z "$2" ]; then
-        ssh -N -f -L localhost:"$1":localhost:$1 noggin
+nfl () {
+    if [ -z "$1" ] || [ -z "$2" ]; then
+        echo "Enter a port and host!"
     elif [ -z "$3" ]; then
-        ssh -N -f -L localhost:"$1":localhost:$2 noggin
+        ssh -N -f -L localhost:"$1":localhost:$1 $2
     else
         ssh -N -f -L localhost:"$1":localhost:$2 $3
     fi
@@ -76,14 +59,6 @@ work () {
     else
         tmux new-session -s org \; send-keys 'ng' C-m \; split-window -h -p 20 \; send-keys 'vim ~/documents/org/to-do.org' C-m \,
     fi
-}
-
-unplug () {
-    xrandr --output VGA-0 --off && xrandr --output DP-0 --off && xrandr --output HDMI1 --off
-}
-
-plugin () {
-    xrandr --output eDP1 --primary && xrandr --output DP1 --primary --mode 1920x1080 --right-of eDP1 && xrandr --output HDMI2 --mode 1920x1080 --right-of DP1 && nitrogen --restore
 }
 
 open () {
