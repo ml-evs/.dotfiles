@@ -85,7 +85,16 @@ local config = {
     lualine_y = {},
     lualine_z = { 'location' },
   },
-  tabline = {},
+  tabline = {
+    lualine_a = {
+        {'buffers', mode = 4},
+    },
+    lualine_b = {},
+    lualine_c = {},
+    lualine_x = {},
+    lualine_y = {},
+    lualine_z = {'tabs'}
+  },
   extensions = {'quickfix', 'nerdtree', 'fugitive'},
 }
 
@@ -103,7 +112,6 @@ ins_left({
         title = { pre = '', post = ': ' },
         lsp_client_name = { pre = '[', post = ']' },
         spinner = { pre = '', post = '' },
-        message = { commenced = 'In Progress', completed = 'Completed' },
     },
     display_components = { 'lsp_client_name', 'spinner', { 'title', 'percentage', 'message' } },
     timer = { progress_enddelay = 500, spinner = 1000, lsp_client_name_enddelay = 10000 },

@@ -1,6 +1,6 @@
 require "paq" {
     "tpope/vim-fugitive";
-    "mhinz/vim-signify";
+    "lewis6991/gitsigns.nvim";
     "nvim-lua/plenary.nvim";
     "w0rp/ale";
     {"embark-theme/vim", as="embark"};
@@ -11,6 +11,7 @@ require "paq" {
     "kyazdani42/nvim-web-devicons";
     "vim-test/vim-test";
     "junegunn/goyo.vim";
+    "chriskempson/base16-vim";
     "Kjwon15/vim-transparent";
     "scrooloose/nerdcommenter";
     "mhinz/vim-startify";

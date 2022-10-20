@@ -7,7 +7,7 @@ let g:embark_termcolors= 256
 set t_Co=256
 set termguicolors
 set background=dark
-colorscheme embark
+colorscheme tokyonight-storm
 
 sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=
 sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning linehl= numhl=
@@ -16,6 +16,7 @@ sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
+autocmd BufReadPost,FileReadPost * normal zR
 
 " GOYO
 let g:goyo_width = 128
@@ -30,7 +31,6 @@ let g:startify_session_autoload = 0
 let g:test#strategy = "vimux"
 let NERDTreeHijackNetrw = 1
 set guicursor=
-
 
 " NERDcomment
 let g:NERDDefaultAlign = 'left'

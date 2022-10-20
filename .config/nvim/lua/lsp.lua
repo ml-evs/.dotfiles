@@ -7,6 +7,7 @@ require("nvim-lsp-installer").setup({
     }
 })
 
+
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 --
@@ -32,7 +33,7 @@ local on_attach = function(_, bufnr)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
-  vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+  --vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
   vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
   vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
   vim.keymap.set('n', '<space>wl', function()
@@ -54,7 +55,7 @@ require('nvim-treesitter.configs').setup {
 -- your language servers
 --
 local lspconfig = require'lspconfig'
-local servers = {"jedi_language_server", "sumneko_lua"}
+local servers = {"sumneko_lua", "pyright"}
 for _, server in pairs(servers) do
     lspconfig[server].setup{
         on_attach = on_attach
