@@ -62,8 +62,8 @@ let g:ale_fixers.python = ['black']
 "let b:ale_fixers = ['black']
 let g:ale_sign_column_always = 1
 let g:ale_python_pylint_options="--ignore import-error"
-let g:ale_set_loclist = 1
-let g:ale_set_quickfix = 0
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
 let g:ale_fix_on_save = 1
 let g:ale_python_mypy_ignore_invalid_syntax = 1
 let g:ale_lint_on_save = 1
@@ -76,9 +76,8 @@ let g:ale_open_list = 1
 "let g:ale_echo_cursor = 0
 let g:ale_lint_on_enter = 1
 let g:ale_list_window_size = 4
-let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_delay = 1
-let g:ale_lint_on_text_changed = 'always'
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_delay = 5
 let g:ale_sign_column_always = 0
 
 
@@ -128,11 +127,12 @@ nnoremap <Leader>o :noh<CR>
 nmap <localleader>ww <Plug>VimwikiIndex
 nmap <localleader>www <Plug>VimwikiDiaryMakeNote
 
-nnoremap <leader>ff <cmd>Telescope find_files<cr>
-nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>ff <cmd>Telescope find_files hidden=true<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep hidden=true<cr>
 nnoremap <leader>fb <cmd>Telescope buffers<cr>
 nnoremap <leader>fh <cmd>Telescope help_tags<cr>
 nnoremap <leader>fs <cmd>Telescope grep_string<cr>
+nnoremap <leader>gr <cmd>Telescope lsp_references<cr>
 
 
 " get rid of number incrementing in normal mode

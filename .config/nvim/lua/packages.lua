@@ -1,10 +1,16 @@
 require "paq" {
+    "hrsh7th/cmp-nvim-lsp";
+    "hrsh7th/cmp-buffer";
+    "hrsh7th/cmp-path";
+    "hrsh7th/cmp-cmdline";
+    "hrsh7th/nvim-cmp";
     "tpope/vim-fugitive";
     "lewis6991/gitsigns.nvim";
+    {"iamcco/markdown-preview.nvim", run="cd app && yarn install"};
     "nvim-lua/plenary.nvim";
     "w0rp/ale";
     {"embark-theme/vim", as="embark"};
-    {"akinsho/bufferline.nvim", tag='v3.*'};
+    {"akinsho/bufferline.nvim", tag="v3.*"};
     "folke/tokyonight.nvim";
     "nvim-lualine/lualine.nvim";
     "arkav/lualine-lsp-progress";
@@ -25,5 +31,3 @@ require "paq" {
     {"nvim-treesitter/nvim-treesitter", run="TSUpdate"};
     "christoomey/vim-tmux-navigator";
 }
-
-

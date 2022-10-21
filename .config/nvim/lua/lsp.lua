@@ -24,7 +24,7 @@ for _, sign in ipairs(signs) do
   vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 end
 vim.diagnostic.config(
-    {virtual_text = false, signs = true, underline = true, severity_sort = true, update_on_insert = true}
+    {virtual_text = true, signs = true, underline = true, severity_sort = true, update_in_insert = true}
 )
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
@@ -59,10 +59,10 @@ local on_attach = function(_, bufnr)
 end
 
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { 
-        "lua", 
-        "comment", 
-        "markdown",  
+    ensure_installed = {
+        "lua",
+        "comment",
+        "markdown",
         "html",
         "bash",
         "bibtex",
@@ -74,7 +74,8 @@ require('nvim-treesitter.configs').setup {
         "json",
         "latex",
         "markdown",
-        "python", 
+        "rst",
+        "python",
         "toml",
         "vim",
         "vue",
@@ -88,10 +89,13 @@ require('nvim-treesitter.configs').setup {
 -- your language servers
 --
 local lspconfig = require'lspconfig'
-local servers = {"sumneko_lua", "pyright"}
+local servers = {"sumneko_lua", "jedi_language_server", "pyright"}
 for _, server in pairs(servers) do
     lspconfig[server].setup{
-        on_attach = on_attach
+        on_attach = on_attach,
+        flags = {
+            debounce_text_changes = 500,
+        }
     }
 end
 
