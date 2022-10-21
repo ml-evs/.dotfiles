@@ -9,14 +9,9 @@ set termguicolors
 set background=dark
 colorscheme tokyonight-storm
 
-sign define LspDiagnosticsSignError text= texthl=LspDiagnosticsSignError linehl= numhl=
-sign define LspDiagnosticsSignWarning text= texthl=LspDiagnosticsSignWarning linehl= numhl=
-sign define LspDiagnosticsSignInformation text= texthl=LspDiagnosticsSignInformation linehl= numhl=
-sign define LspDiagnosticsSignHint text= texthl=LspDiagnosticsSignHint linehl=
-
-set foldmethod=expr
+"set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-autocmd BufReadPost,FileReadPost * normal zR
+"autocmd BufReadPost,FileReadPost * normal zR
 
 " GOYO
 let g:goyo_width = 128
@@ -59,16 +54,13 @@ let g:ale_python_auto_pipenv = '1'
 let g:ale_linters.cpp = ['gcc']
 "let g:ale_linters.python = ['mypy', 'flake8']
 let g:ale_linters.python = ['flake8']
-let g:ale_fixers = {'*': ['remove_trailing_lines', 'trim_whitespace']}
+let g:ale_fixers = { '*': ['remove_trailing_lines', 'trim_whitespace']}
 "let g:ale_fixers = {'*.vue': []}
 let g:ale_fixers.pandoc = []
-"let g:ale_fixers.python = ['remove_trailing_lines', 'trim_whitespace']
-"let g:ale_fixers.pyrex = ['remove_trailing_lines', 'trim_whitespace']
-"let g:ale_fixers = { 'yaml': ['remove_trailing_lines', 'trim_whitespace'] }
-let g:ale_fixers = { 'python': ['remove_trailing_lines', 'trim_whitespace', 'black']}
+let g:ale_fixers.python = ['black']
 ", 'black'] }
 "let b:ale_fixers = ['black']
-let g:ale_sign_column_always = 0
+let g:ale_sign_column_always = 1
 let g:ale_python_pylint_options="--ignore import-error"
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
