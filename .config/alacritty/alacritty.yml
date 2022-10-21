@@ -22,7 +22,7 @@ window:
   dimensions:
     columns: 0
     lines: 0
-  opacity: 0.85
+  opacity: 0.99
 
   # Window position (changes require restart)
   #
@@ -111,7 +111,7 @@ font:
     #   - (Linux) monospace
     #   - (Windows) Consolas
     #family: "monospace"
-    family: "Iosevka Term SS07"
+    family: "Iosevka Term"
 
     hintstyle: "hintslight"
     antialias: true
@@ -180,78 +180,32 @@ draw_bold_text_with_bright_colors: true
 # Base16 Gruvbox dark, hard 256 - alacritty color config
 # Dawid Kurek (dawikur@gmail.com), morhetz (https://github.com/morhetz/gruvbox)
 colors:
-  # Default colors
-  primary:
-      background: '0x1d2021'
-      #background: '0x1b1d24'
-      foreground: '0xd5c4a1'
+    primary:
+      background: '0x1e1c31'
+      foreground: '0xcbe3e7'
+    cursor:
+      text: '0x1e1c31'
+      cursor: '0xa1efd3'
+    normal:
+      black: '0x1e1c31'
+      red: '0xf48fb1'
+      green: '0xa1efd3'
+      yellow: '0xffe6b3'
+      blue: '0x91ddff'
+      magenta: '0xd4bfff'
+      cyan: '0x87dfeb'
+      white: '0xcbe3e7'
+    bright:
+      black: '0x585273'
+      red: '0xf02e6e'
+      green: '0x62d196'
+      yellow: '0xf2b482'
+      blue: '0x65b2ff'
+      magenta: '0xa37acc'
+      cyan: '0x63f2f1'
+      white: '0x8a889d'
 
-    # Bright and dim foreground colors
-    #
-    # The dimmed foreground color is calculated automatically if it is not present.
-    # If the bright foreground color is not set, or `draw_bold_text_with_bright_colors`
-    # is `false`, the normal foreground color will be used.
-    #dim_foreground: '0x9a9a9a'
-    #bright_foreground: '0xffffff'
-
-  # Cursor colors
-  #
-  # Colors which should be used to draw the terminal cursor. If these are unset,
-  # the cursor color will be the inverse of the cell color.
-
-  # Selection colors
-  #
-  # Colors which should be used to draw the selection area. If selection
-  # background is unset, selection color will be the inverse of the cell colors.
-  # If only text is unset the cell text color will remain the same.
-  #selection:
-  #  text: '0xeaeaea'
-  #  background: '0x404040'
-
-  # Normal colors
-  normal:
-    black:   '0x1d2021'
-    red:     '0xfb4934'
-    green:   '0xb8bb26'
-    yellow:  '0xfabd2f'
-    blue:    '0x83a598'
-    magenta: '0xd3869b'
-    cyan:    '0x8ec07c'
-    white:   '0xd5c4a1'
-
-  # Bright colors
-  bright:
-    black:   '0x665c54'
-    red:     '0xfb4934'
-    green:   '0xb8bb26'
-    yellow:  '0xfabd2f'
-    blue:    '0x83a598'
-    magenta: '0xd3869b'
-    cyan:    '0x8ec07c'
-    white:   '0xfbf1c7'
-
-  # Dim colors
-  #
-  # If the dim colors are not set, they will be calculated automatically based
-  # on the `normal` colors.
-
-  # Indexed Colors
-  #
-  # The indexed colors include all colors from 16 to 256.
-  # When these are not set, they're filled with sensible defaults.
-  #
-  # Example:
-  #   `- { index: 16, color: '0xff00ff' }`
-  #
-  indexed_colors:
-    - { index: 16, color: '0xfe8019' }
-    - { index: 17, color: '0xd65d0e' }
-    - { index: 18, color: '0x3c3836' }
-    - { index: 19, color: '0x504945' }
-    - { index: 20, color: '0xbdae93' }
-    - { index: 21, color: '0xebdbb2' }
-
-# Visual Bell
+## Visual Bell
 #
 # Any time the BEL code is received, Alacritty "rings" the visual bell. Once
 # rung, the terminal background will be set to white and transition back to the
