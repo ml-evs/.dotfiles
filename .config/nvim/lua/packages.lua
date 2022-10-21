@@ -22,7 +22,7 @@ require "paq" {
     "preservim/vimux";
     {"nvim-telescope/telescope.nvim", tag="0.1.0"};
     "bling/vim-bufferline";
-    "nvim-treesitter/nvim-treesitter";
+    {"nvim-treesitter/nvim-treesitter", run="TSUpdate"};
     "christoomey/vim-tmux-navigator";
 }
 

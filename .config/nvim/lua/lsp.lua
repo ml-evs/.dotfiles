@@ -11,8 +11,20 @@ require("nvim-lsp-installer").setup({
 -- Mappings.
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 --
+--
+
+local signs = {
+  { name = "DiagnosticSignError", text = "" },
+  { name = "DiagnosticSignWarn", text = "" },
+  { name = "DiagnosticSignHint", text = "" },
+  { name = "DiagnosticSignInfo", text = "" },
+}
+
+for _, sign in ipairs(signs) do
+  vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+end
 vim.diagnostic.config(
-    {virtual_text = false, signs = true, underline = false, update_on_insert = true}
+    {virtual_text = false, signs = true, underline = true, severity_sort = true, update_on_insert = true}
 )
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
@@ -47,7 +59,28 @@ local on_attach = function(_, bufnr)
 end
 
 require('nvim-treesitter.configs').setup {
-    ensure_installed = { "python", "lua", "comment" }
+    ensure_installed = { 
+        "lua", 
+        "comment", 
+        "markdown",  
+        "html",
+        "bash",
+        "bibtex",
+        "css",
+        "diff",
+        "dockerfile",
+        "html",
+        "javascript",
+        "json",
+        "latex",
+        "markdown",
+        "python", 
+        "toml",
+        "vim",
+        "vue",
+        "yaml",
+    },
+    auto_install = false,
 }
 
 
@@ -62,3 +95,21 @@ for _, server in pairs(servers) do
     }
 end
 
+lspconfig.pyright.setup {
+    python = {
+        analysis = {
+            typeCheckingMOde = "off"
+        }
+    }
+}
+
+lspconfig.sumneko_lua.setup({
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = {"vim", "use"},
+                disable = {"lowercase-global"}
+            },
+        },
+    },
+})

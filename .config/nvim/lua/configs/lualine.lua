@@ -66,7 +66,7 @@ local config = {
     },
     lualine_c = {},
     lualine_x = {
-        lsp_info, {'diagnostics', sources = {'nvim_lsp'}, always_visible = true},
+        lsp_info, {'diagnostics', always_visible = true},
     },
     lualine_y = {
         {'filetype', icons_enabled = true},
