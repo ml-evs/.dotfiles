@@ -38,7 +38,6 @@ Plugin 'alfredodeza/pytest.vim'
 "Plugin 'matze/vim-tex-fold'
 Plugin 'KeitaNakamura/tex-conceal.vim'
 Plugin 'danielwe/base16-vim'
-"Plugin 'chriskempton/base16-vim'
 Plugin 'bling/vim-bufferline'
 "Plugin 'easymotion/vim-easymotion'
 call vundle#end()
@@ -74,7 +73,7 @@ let g:vimtex_complete_close_braces = 1
 " AIRLINE
 let g:Powerline_symbols = 'fancy'
 let g:airline_powerline_fonts = 1
-"let g:airline_theme = 'base16'
+let g:airline_theme = 'elflord'
 let g:airline#extensions#ale#enabled = 1
 let g:airline#extensions#whitespace#checks = [ 'indent', 'long', 'mixed-indent-file' ]
 let g:airline#extensions#tabline#enabled = 1
