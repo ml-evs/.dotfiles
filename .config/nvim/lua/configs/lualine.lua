@@ -9,6 +9,36 @@ local colors = {
   grey   = '#2D2B40',
 }
 
+local function get_py_venv()
+    local segment = ""
+    if os.getenv("PIPENV_ACTIVE") == "1" then
+        segment = string.format("%s", io.popen("basename $(pipenv --venv)"):read("*all"))
+    elseif os.getenv("CONDA_DEFAULT_ENV") ~= nil then
+        segment = string.format("%s", os.getenv("CONDA_DEFAULT_ENV"))
+    else
+        segment = string.format("%s", io.popen("pyenv version"):read("*all"))
+        for token in string.gmatch(segment, "[^%s]+") do
+            segment = token
+	    break
+	end
+    end
+
+    local version = io.popen("python --version"):read("*all")
+    for token in string.gmatch(version, "[^%s]+") do
+        version = token
+    end
+
+    return string.format("%s (%s)", version, segment)
+
+end
+
+local pyenv = get_py_venv()
+
+local function get_pyenv_once()
+    return pyenv
+end
+
+
 local bubbles_theme = {
   normal = {
     a = { fg = colors.black, bg = colors.violet },
@@ -69,7 +99,8 @@ local config = {
         lsp_info, {'diagnostics', always_visible = true},
     },
     lualine_y = {
-        {'filetype', icons_enabled = true},
+        {'filetype', icons_enabled = true, cond = function() return vim.bo.filetype ~= 'python' end},
+        { get_pyenv_once, cond = function() return vim.bo.filetype == 'python' end, icon = " ", color = {fg = "#F2B482"}},
         {'filesize'},
         {'progress'},
     },
@@ -113,8 +144,8 @@ ins_left({
         lsp_client_name = { pre = '[', post = ']' },
         spinner = { pre = '', post = '' },
     },
-    display_components = { 'lsp_client_name', 'spinner', { 'title', 'percentage', 'message' } },
-    timer = { progress_enddelay = 500, spinner = 1000, lsp_client_name_enddelay = 10000 },
+    display_components = { 'spinner' },
+    timer = { progress_enddelay = 0, spinner = 0, lsp_client_name_enddelay = 0 },
     spinner_symbols = { '⠋', '⠙', '⠹', '⠸', '⠼', '⠴', '⠦', '⠧', '⠇', '⠏' },
 })
 

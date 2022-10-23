@@ -89,25 +89,31 @@ require('nvim-treesitter.configs').setup {
 -- your language servers
 --
 local lspconfig = require'lspconfig'
-local servers = {"sumneko_lua", "jedi_language_server", "pyright"}
-for _, server in pairs(servers) do
-    lspconfig[server].setup{
-        on_attach = on_attach,
-        flags = {
-            debounce_text_changes = 500,
-        }
-    }
-end
+--local servers = {"sumneko_lua", "pyright"}
+--for _, server in pairs(servers) do
+--    lspconfig[server].setup{
+--        on_attach = on_attach,
+--    }
+--end
 
 lspconfig.pyright.setup {
-    python = {
-        analysis = {
-            typeCheckingMOde = "off"
+    on_attach = on_attach,
+    settings = {
+        python = {
+            analysis = {
+                typeCheckingMode = "off",
+                useLibraryCodeForTypes = true,
+                autoSearchPaths = true
+            }
         }
+    },
+    flags = {
+        debounce_text_changes = 500,
     }
 }
 
 lspconfig.sumneko_lua.setup({
+    on_attach = on_attach,
     settings = {
         Lua = {
             diagnostics = {
@@ -116,4 +122,7 @@ lspconfig.sumneko_lua.setup({
             },
         },
     },
+    flags = {
+        debounce_text_changes = 500,
+    }
 })
