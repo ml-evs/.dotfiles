@@ -13,9 +13,12 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PIPENV_DONT_LOAD_ENV=1
 export PATH=$HOME/.local/bin:$PATH
 
-export PYENV_ROOT="$HOME/.pyenv"
-command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
+if [[ -z "$PYENV_SHELL" ]];
+then
+    export PYENV_ROOT="$HOME/.pyenv"
+    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+fi
 
 export ZSH_THEME="bullet-train"
 # Default user; displays host if !=
