@@ -4,6 +4,9 @@ require "paq" {
     "hrsh7th/cmp-path";
     "hrsh7th/cmp-cmdline";
     "hrsh7th/nvim-cmp";
+    "antoinemadec/FixCursorHold.nvim",
+    "nvim-neotest/neotest";
+    "nvim-neotest/neotest-python";
     "tpope/vim-fugitive";
     "lewis6991/gitsigns.nvim";
     {"iamcco/markdown-preview.nvim", run="cd app && yarn install"};
@@ -15,7 +18,6 @@ require "paq" {
     "nvim-lualine/lualine.nvim";
     "arkav/lualine-lsp-progress";
     "kyazdani42/nvim-web-devicons";
-    "vim-test/vim-test";
     "junegunn/goyo.vim";
     "chriskempson/base16-vim";
     "Kjwon15/vim-transparent";

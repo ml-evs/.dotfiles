@@ -1,7 +1,6 @@
 set nocompatible
 filetype off
 
-
 let g:embark_terminal_italics = 1
 let g:embark_termcolors= 256
 set t_Co=256
@@ -60,7 +59,7 @@ let g:ale_fixers.pandoc = []
 let g:ale_fixers.python = ['black', 'isort']
 ", 'black'] }
 "let b:ale_fixers = ['black']
-let g:ale_sign_column_always = 1
+"
 let g:ale_python_pylint_options="--ignore import-error"
 let g:ale_set_loclist = 1
 let g:ale_set_quickfix = 0
@@ -79,6 +78,7 @@ let g:ale_list_window_size = 4
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_delay = 5
 let g:ale_sign_column_always = 0
+let g:ale_max_signs = 0
 
 
 " prevent quickfix from being added to buflist

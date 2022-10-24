@@ -23,8 +23,19 @@ local signs = {
 for _, sign in ipairs(signs) do
   vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 end
-vim.diagnostic.config(
-    {virtual_text = true, signs = true, underline = true, severity_sort = true, update_in_insert = true}
+vim.diagnostic.config({
+        virtual_text = {
+            severity = {vim.diagnostic.severity.WARN, vim.diagnostic.severity.ERROR},
+        },
+        signs = {
+            severity = {vim.diagnostic.severity.WARN, vim.diagnostic.severity.ERROR},
+        },
+        underline = {
+            severity = {vim.diagnostic.severity.WARN, vim.diagnostic.severity.ERROR},
+        },
+        severity_sort = true,
+        update_in_insert = true
+    }
 )
 local opts = { noremap=true, silent=true }
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
