@@ -93,6 +93,9 @@ require('nvim-treesitter.configs').setup {
         "yaml",
     },
     auto_install = false,
+    highlight = {
+        enable = true,
+    },
 }
 
 
