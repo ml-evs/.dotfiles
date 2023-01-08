@@ -33,4 +33,5 @@ require "paq" {
     "bling/vim-bufferline";
     {"nvim-treesitter/nvim-treesitter", run="TSUpdate"};
     "christoomey/vim-tmux-navigator";
+    "github/copilot.vim";
 }
