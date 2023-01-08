@@ -46,7 +46,7 @@ unset SSH_ASKPASS
 
 export LD_LIBRARY_PATH=/usr/lib
 
-export EDITOR=vim
+export EDITOR=nvim
 export GMON_OUT_PREFIX='gprof'
 #alias vim="PYTHONPATH=$HOME/src/matador:$PYTHONPATH vim --servername VIM"
 alias v=nvim

@@ -1,5 +1,5 @@
 export QT_QPA_PLATFORMTHEME="gtk2"
-export EDITOR=vim
+export EDITOR=nvim
 export GTK_THEME='Matcha-dark-purple'
 export XDG_CURRENT_DESKTOP='Unity'
 export GTK2_RC_FILES="$HOME/.gtkrc-2.0"
