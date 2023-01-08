@@ -12,11 +12,11 @@ local colors = {
 local function get_py_venv()
     local segment = ""
     if os.getenv("PIPENV_ACTIVE") == "1" then
-        segment = string.format("%s", io.popen("basename $(pipenv --venv)"):read("*all"))
+        segment = string.format("%s", io.popen("basename $(pipenv --venv)"):read("*a"))
     elseif os.getenv("CONDA_DEFAULT_ENV") ~= nil then
         segment = string.format("%s", os.getenv("CONDA_DEFAULT_ENV"))
     else
-        segment = string.format("%s", io.popen("pyenv version"):read("*all"))
+        segment = string.format("%s", io.popen("pyenv version"):read("*a"))
         for token in string.gmatch(segment, "[^%s]+") do
             segment = token
 	    break
