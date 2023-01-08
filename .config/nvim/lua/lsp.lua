@@ -92,10 +92,10 @@ require('nvim-treesitter.configs').setup {
         "vue",
         "yaml",
     },
-    auto_install = false,
+    auto_install = true,
     highlight = {
         enable = true,
-    },
+    }
 }
 
 
@@ -109,6 +109,15 @@ local lspconfig = require'lspconfig'
 --        on_attach = on_attach,
 --    }
 --end
+
+lspconfig.tsserver.setup {
+    on_attach = on_attach,
+}
+
+lspconfig.vuels.setup {
+    on_attach = on_attach,
+}
+
 
 lspconfig.pyright.setup {
     on_attach = on_attach,
