@@ -1,5 +1,6 @@
 [push]
-	default = simple
+    default = simple
+    autoSetupRemote = true
 [user]
 	email = git@ml-evs.science
 	name = Matthew Evans
@@ -17,3 +18,5 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[core]
+	excludesFile = ~/.gitignore
