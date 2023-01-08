@@ -205,7 +205,7 @@ set tm=500
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable
+"syntax enable
 "set background=dark
 "let base16colorspace=256  " Access colors present in 256 colorspace
 

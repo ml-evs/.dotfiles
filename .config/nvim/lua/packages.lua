@@ -19,6 +19,7 @@ require "paq" {
     "arkav/lualine-lsp-progress";
     "kyazdani42/nvim-web-devicons";
     "junegunn/goyo.vim";
+    "goerz/jupytext.vim";
     "chriskempson/base16-vim";
     "Kjwon15/vim-transparent";
     "scrooloose/nerdcommenter";
@@ -32,4 +33,5 @@ require "paq" {
     "bling/vim-bufferline";
     {"nvim-treesitter/nvim-treesitter", run="TSUpdate"};
     "christoomey/vim-tmux-navigator";
+    "github/copilot.vim";
 }
