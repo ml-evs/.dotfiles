@@ -19,19 +19,15 @@ require "paq" {
     "arkav/lualine-lsp-progress";
     "kyazdani42/nvim-web-devicons";
     "junegunn/goyo.vim";
-    "goerz/jupytext.vim";
     "chriskempson/base16-vim";
-    "Kjwon15/vim-transparent";
     "scrooloose/nerdcommenter";
     "mhinz/vim-startify";
     "scrooloose/nerdtree";
     "Xuyuanp/nerdtree-git-plugin";
     "williamboman/nvim-lsp-installer";
     "neovim/nvim-lspconfig";
-    "preservim/vimux";
-    {"nvim-telescope/telescope.nvim", tag="0.1.0"};
+    {"nvim-telescope/telescope.nvim"};
     "bling/vim-bufferline";
     {"nvim-treesitter/nvim-treesitter", run="TSUpdate"};
-    "christoomey/vim-tmux-navigator";
     "github/copilot.vim";
 }

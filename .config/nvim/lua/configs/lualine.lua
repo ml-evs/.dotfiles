@@ -79,7 +79,7 @@ local lsp_info = {
 
 local config = {
   options = {
-    theme = bubbles_theme,
+    theme = "tokyonight",
     icons_enabled = true,
     component_separators = '|',
     section_separators = { left = '', right = '' },
