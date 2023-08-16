@@ -13,13 +13,17 @@ end
 -- This is where you actually apply your config choices
 
 -- For example, changing the color scheme:
-config.color_scheme = 'Tokyo Night Storm'
-
-config.default_prog = {"wsl"}
+config.color_scheme = 'tokyonight_storm'
 
 config.font = wezterm.font("Iosevka Term SS07", {weight="Medium"})
 
 config.font_size = 12
+config.initial_cols = 150
+config.initial_rows = 50
+
+config.wsl_domains = wezterm.default_wsl_domains()
+config.default_domain = "WSL:Ubuntu"
+config.default_cursor_style = "SteadyBar"
 
 config.window_decorations = "RESIZE"
 
