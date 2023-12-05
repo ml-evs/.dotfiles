@@ -26,8 +26,8 @@ require "paq" {
     "Xuyuanp/nerdtree-git-plugin";
     "williamboman/nvim-lsp-installer";
     "neovim/nvim-lspconfig";
-    {"nvim-telescope/telescope.nvim"};
     "bling/vim-bufferline";
-    {"nvim-treesitter/nvim-treesitter", run="TSUpdate"};
+    "bling/vim-bufferline";
+    {"nvim-treesitter/nvim-treesitter", build=":TSUpdate", branch="v0.9.1"};
     "github/copilot.vim";
 }
