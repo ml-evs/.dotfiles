@@ -1,11 +1,12 @@
-require("nvim-lsp-installer").setup({
-    automatic_installation = true,
-    icons = {
-        server_installed = "✓",
-        server_pending = "➜",
-        server_uninstalled = "✗",
+require("mason").setup {
+    ui = {
+        icons = {
+            package_instsalled = "✓",
+        }
     }
-})
+}
+require("mason-lspconfig").setup {
+}
 
 
 -- Mappings.
@@ -81,6 +82,7 @@ require('nvim-treesitter.configs').setup {
         "diff",
         "dockerfile",
         "html",
+        "mojo",
         "javascript",
         "json",
         "latex",
@@ -99,18 +101,33 @@ require('nvim-treesitter.configs').setup {
 }
 
 
--- Make sure to use this new on_attach function when you setup
--- your language servers
---
 local lspconfig = require'lspconfig'
---local servers = {"sumneko_lua", "pyright"}
---for _, server in pairs(servers) do
---    lspconfig[server].setup{
---        on_attach = on_attach,
---    }
---end
 
 lspconfig.tsserver.setup {
+    on_attach = on_attach,
+}
+
+lspconfig.vuels.setup {
+    on_attach = on_attach,
+}
+
+lspconfig.yamlls.setup {
+    on_attach = on_attach,
+}
+
+lspconfig.bashls.setup {
+    on_attach = on_attach,
+}
+
+lspconfig.jsonls.setup {
+    on_attach = on_attach,
+}
+
+lspconfig.ruff_lsp.setup {
+    on_attach = on_attach,
+}
+
+lspconfig.marksman.setup {
     on_attach = on_attach,
 }
 
@@ -124,9 +141,9 @@ lspconfig.pyright.setup {
     settings = {
         python = {
             analysis = {
-                typeCheckingMode = "off",
                 useLibraryCodeForTypes = true,
-                autoSearchPaths = true
+                autoSearchPaths = true,
+                diagnosticMode = "openFilesOnly",
             }
         }
     },
@@ -135,17 +152,21 @@ lspconfig.pyright.setup {
     }
 }
 
--- lspconfig.sumneko_lua.setup({
---     on_attach = on_attach,
---     settings = {
---         Lua = {
---             diagnostics = {
---                 globals = {"vim", "use"},
---                 disable = {"lowercase-global"}
---             },
---         },
---     },
---     flags = {
---         debounce_text_changes = 500,
---     }
--- })
+lspconfig.mojo.setup {
+    on_attach = on_attach,
+}
+
+lspconfig.lua_ls.setup({
+    on_attach = on_attach,
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = {"vim", "use"},
+                disable = {"lowercase-global"}
+            },
+        },
+    },
+    flags = {
+        debounce_text_changes = 500,
+    }
+})
