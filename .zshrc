@@ -1,4 +1,5 @@
 # Path to your oh-my-zsh installation.
+#
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 
@@ -7,16 +8,14 @@ export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu"
 export QT_QPA_PLATFORMTHEME=gtk2
 export DOCKER_BUILDKIT=1
 
-export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+#export NVM_DIR="$HOME/.nvm"
+#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 GPG_TTY=$(tty)
 
 export GPG_TTY
 export PINENTRY_USER_DATA="USE_CURSES=1"
-
-export PIPENV_DONT_LOAD_ENV=1
-export PATH=$HOME/.local/bin:$PATH
 
 if [[ -z "$PYENV_SHELL" ]];
 then
@@ -76,27 +75,6 @@ else
     fi
 fi
 unset __conda_setup
-# <<< conda initialize <<<
-#
 autoload -U compinit && compinit
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# >>> mamba initialize >>>
-# !! Contents within this block are managed by 'mamba init' !!
-export MAMBA_EXE="/home/mevans/.local/bin/micromamba";
-export MAMBA_ROOT_PREFIX="/home/mevans/.local/micromamba";
-__mamba_setup="$("$MAMBA_EXE" shell hook --shell zsh --prefix "$MAMBA_ROOT_PREFIX" 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__mamba_setup"
-else
-    if [ -f "/home/mevans/.local/micromamba/etc/profile.d/micromamba.sh" ]; then
-        . "/home/mevans/.local/micromamba/etc/profile.d/micromamba.sh"
-    else
-        export  PATH="/home/mevans/.local/micromamba/bin:$PATH"  # extra space after export prevents interference from conda init
-    fi
-fi
-unset __mamba_setup
-# <<< mamba initialize <<<
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib/mojo
+export PATH=$PATH:~/.modular/pkg/packages.modular.com_mojo/bin/
