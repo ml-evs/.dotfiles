@@ -49,16 +49,9 @@ if [[ -f $DIRSTACKFILE ]] && [[ $#dirstack -eq 0 ]]; then
   dirstack=( ${(f)"$(< $DIRSTACKFILE)"} )
     [[ -d $dirstack[1] ]] && cd $dirstack[1] && cd $OLDPWD
 fi
+
 chpwd() {
   print -l $PWD ${(u)dirstack} >$DIRSTACKFILE
-}
-
-work () {
-    if [ "$(tmux ls | grep -c org)" -eq "1" ]; then
-        tmux attach -t org
-    else
-        tmux new-session -s org \; send-keys 'ng' C-m \; split-window -h -p 20 \; send-keys 'vim ~/documents/org/to-do.org' C-m \,
-    fi
 }
 
 open () {
