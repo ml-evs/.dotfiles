@@ -540,9 +540,9 @@ prompt_go() {
 prompt_virtualenv() {
   if [[ -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
     local virtualenv_path="$VIRTUAL_ENV"
-    if [[ -n $PIPENV_ACTIVE ]]; then
-      prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(basename $(pipenv --venv))"
-    elif [[ -n $CONDA_DEFAULT_ENV ]]; then
+    #if [[ -n $PIPENV_ACTIVE ]]; then
+    #  prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(basename $(pipenv --venv))"
+    if [[ -n $CONDA_DEFAULT_ENV ]]; then
       prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $CONDA_DEFAULT_ENV"
     elif [[ -n $virtualenv_path ]]; then
       prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(basename $virtualenv_path)"
