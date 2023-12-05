@@ -5,7 +5,7 @@ font pango: Iosevka Term Regular 10
 #..........
 
 for_window [class="^.*"] border pixel 1
-gaps inner 20
+gaps inner 0
 gaps outer 20
 
 # Heath
@@ -35,7 +35,7 @@ client.background       $background $grey $lightgrey
 #..........
 #
 
-exec --no-startup-id exec picom 
+exec --no-startup-id exec picom
 exec --no-startup-id exec nitrogen --restore
 exec --no-startup-id exec xfce4-power-manager
 exec --no-startup-id exec nm-applet
@@ -80,6 +80,7 @@ bindsym $mod+Shift+Q kill
 for_window [title=".*Figure.*"] floating enable
 for_window [class=".*zoom.*"] floating enable
 for_window [class=".*Zoom.*"] floating enable
+for_window [class=".*steam.*"] floating enable
 
 # start a terminal
 bindsym $mod+Return exec alacritty
