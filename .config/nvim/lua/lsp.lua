@@ -82,7 +82,6 @@ require('nvim-treesitter.configs').setup {
         "diff",
         "dockerfile",
         "html",
-        "mojo",
         "javascript",
         "json",
         "latex",
