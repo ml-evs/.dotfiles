@@ -110,6 +110,10 @@ lspconfig.vuels.setup {
     on_attach = on_attach,
 }
 
+lspconfig.cssls.setup {
+    on_attach = on_attach,
+}
+
 lspconfig.yamlls.setup {
     on_attach = on_attach,
 }
