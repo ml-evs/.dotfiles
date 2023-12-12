@@ -81,15 +81,19 @@ for_window [title=".*Figure.*"] floating enable
 for_window [class=".*zoom.*"] floating enable
 for_window [class=".*Zoom.*"] floating enable
 for_window [class=".*steam.*"] floating enable
+for_window [class=".*Slack.*"] floating enable
+for_window [class=".*Signal.*"] floating enable
+for_window [class=".*Teams.*"] floating enable
 
 # start a terminal
 bindsym $mod+Return exec alacritty
 bindsym Mod4+w exec firefox
 bindsym Mod4+f exec pcmanfm
 bindsym Mod4+s exec slack
-bindsym Mod4+z exec signal-desktop
+bindsym Mod4+z exec signal-desktop --use-tray-icon
 bindsym Mod4+Shift+l exec xidlehook-client --socket /tmp/xidlehook.sock control --timer 0 --action trigger
 bindsym $mod+d exec rofi -i -show run
+bindsym --release Print exec scrot -s
 
 # Layout
 
