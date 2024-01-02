@@ -13,16 +13,10 @@ set foldexpr=nvim_treesitter#foldexpr()
 autocmd BufReadPost,FileReadPost * normal zR
 
 " GOYO
-let g:goyo_width = 128
+set list listchars=tab:\ \ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨
 
-let g:python3_host_prog = '/home/mevans/.pyenv/versions/neovim/bin/python'
-
-let g:ale_use_global_executables = 0
-let g:ale_disable_lsp = 1
-let g:ale_completion_enabled = 0
 let g:starify_session_persistence = 0
 let g:startify_session_autoload = 0
-let g:test#strategy = "vimux"
 let NERDTreeHijackNetrw = 1
 set guicursor=
 
@@ -39,47 +33,7 @@ let g:startify_lists = [
   \ { 'type': 'files',     'header': ['   MRU']            },
 \ ]
 set sessionoptions-=blank
-let g:startify_custom_header =
-      \ 'startify#center(startify#fortune#cowsay())'
-
-" INSTANT MARKDOWN
-let g:instant_markdown_autoscroll = 1
-let g:instant_markdown_slow = 0
-let g:instant_markdown_mathjax = 1
-
-" ALE
-let g:ale_linters = {}
-let g:ale_python_auto_pipenv = '0'
-let g:ale_linters.cpp = ['gcc']
-"let g:ale_linters.python = ['mypy', 'flake8']
-let g:ale_linters.python = ['ruff', 'mypy']
-let g:ale_fixers = { '*': []}
-"let g:ale_fixers = {'*.vue': []}
-let g:ale_fixers.pandoc = []
-let g:ale_fixers.python = ['black', 'isort', 'remove_trailing_lines', 'trim_whitespace']
-", 'black'] }
-"let b:ale_fixers = ['black']
-"
-let g:ale_python_pylint_options="--ignore import-error"
-let g:ale_set_loclist = 1
-let g:ale_set_quickfix = 0
-let g:ale_fix_on_save = 1
-let g:ale_python_mypy_ignore_invalid_syntax = 1
-let g:ale_lint_on_save = 1
-let g:ale_echo_msg_error_str = 'E'
-"let g:black_linelength = 127
-let g:ale_echo_msg_warning_str = 'W'
-let g:ale_echo_msg_format = '[%linter%] %code%: %s [%severity%]'
-let g:ale_statusline_format = ['✖ %d', '⚠ %d', '']
-let g:ale_open_list = 1
-"let g:ale_echo_cursor = 0
-let g:ale_lint_on_enter = 1
-let g:ale_list_window_size = 4
-let g:ale_lint_on_insert_leave = 1
-let g:ale_lint_delay = 5
-let g:ale_sign_column_always = 0
-let g:ale_max_signs = 1
-
+let g:startify_custom_header = 'startify#center(startify#fortune#cowsay())'
 
 " prevent quickfix from being added to buflist
 augroup qf

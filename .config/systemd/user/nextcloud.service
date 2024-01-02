@@ -1,0 +1,9 @@
+[Unit]
+Description=Launch NextCloud Client
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/nextcloud --background
+
+[Install]
+WantedBy=default.target

@@ -4,14 +4,15 @@ require "paq" {
     "hrsh7th/cmp-path";
     "hrsh7th/cmp-cmdline";
     "hrsh7th/nvim-cmp";
+    "hrsh7th/cmp-vsnip";
+    "hrsh7th/vim-vsnip";
     "antoinemadec/FixCursorHold.nvim",
     "nvim-neotest/neotest";
     "nvim-neotest/neotest-python";
     "tpope/vim-fugitive";
     "lewis6991/gitsigns.nvim";
-    {"iamcco/markdown-preview.nvim", run="cd app && yarn install"};
     "nvim-lua/plenary.nvim";
-    -- "w0rp/ale";
+    {"nvim-telescope/telescope.nvim", branch="0.1.x"};
     {"embark-theme/vim", as="embark"};
     {"akinsho/bufferline.nvim", tag="v3.*"};
     "folke/tokyonight.nvim";
@@ -19,7 +20,7 @@ require "paq" {
     "arkav/lualine-lsp-progress";
     "kyazdani42/nvim-web-devicons";
     "junegunn/goyo.vim";
-    "chriskempson/base16-vim";
+    "Kjwon15/vim-transparent";
     "scrooloose/nerdcommenter";
     "mhinz/vim-startify";
     "scrooloose/nerdtree";

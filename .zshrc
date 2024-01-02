@@ -2,27 +2,44 @@
 #
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+bindkey '^ ' autosuggest-execute
+
+export DEFAULT_PYTHON_VER="3.11"
 
 # Add cuda to ld library path
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu"
-export QT_QPA_PLATFORMTHEME=gtk2
-export DOCKER_BUILDKIT=1
+#export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu"
+#export QT_QPA_PLATFORMTHEME=gtk2
+#export DOCKER_BUILDKIT=1
+#
+workon () {
+    # if the activate file does not exist then activate
+    if [ ! -f ".venv/bin/activate" ]; then
+        pyenv shell $DEFAULT_PYTHON_VER && pyenv exec python -m venv .venv
+    fi
+    source .venv/bin/activate
+}
 
-#export NVM_DIR="$HOME/.nvm"
-#[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-#[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+export RUFF_EXPERIMENTAL_FORMATTER=1
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 GPG_TTY=$(tty)
 
 export GPG_TTY
 export PINENTRY_USER_DATA="USE_CURSES=1"
 
-if [[ -z "$PYENV_SHELL" ]];
-then
-    export PYENV_ROOT="$HOME/.pyenv"
-    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-    eval "$(pyenv init -)"
-fi
+#if [[ -z "$PYENV_SHELL" ]];
+#then
+#    export PYENV_ROOT="$HOME/.pyenv"
+#    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+#    eval "$(pyenv init -)"
+#fi
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
 
 export ZSH_THEME="bullet-train"
 # Default user; displays host if !=
@@ -31,21 +48,15 @@ export DEFAULT_USER=mevans
 export TERM="xterm-256color"
 export COLORTERM="truecolor"
 
-keychain -q --nogui --gpg2 --agents gpg,ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.ceci
-source "$HOME/.keychain/$(hostname)-sh"
-source "$HOME/.keychain/$(hostname)-sh-gpg"
-
-#BASE16_SHELL_PATH="$HOME/.config/base16-shell"
-#[ -n "$PS1" ] && \
-#  [ -s "$BASE16_SHELL_PATH/profile_helper.sh" ] && \
-#    source "$BASE16_SHELL_PATH/profile_helper.sh"
-
+#keychain -q --nogui --gpg2 --agents gpg,ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.ceci
+#source "$HOME/.keychain/$(hostname)-sh"
+#source "$HOME/.keychain/$(hostname)-sh-gpg"
 
 # # Save current working dir
-precmd() { eval "$PROMPT_COMMAND" }
-PROMPT_COMMAND='pwd > "${HOME}/.cwd"'
+#precmd() { eval "$PROMPT_COMMAND" }
+#PROMPT_COMMAND='pwd > "${HOME}/.cwd"'
 #
-export PYTHONNOUSERSITE=true
+#export PYTHONNOUSERSITE=true
 unset SSH_ASKPASS
 
 
@@ -58,23 +69,7 @@ alias vim=nvim
 alias nv=nvim
 alias pacman="sudo pacman"
 alias please="sudo"
-alias tm="tmuxinator"
 
 source $HOME/.dotfiles/zshrc.global
 
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/mevans/.local/miniforge3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/mevans/.local/miniforge3/etc/profile.d/conda.sh" ]; then
-        . "/home/mevans/.local/miniforge3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/mevans/.local/miniforge3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-autoload -U compinit && compinit
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:~/.local/lib/mojo
-export PATH=$PATH:~/.modular/pkg/packages.modular.com_mojo/bin/
+#autoload -U compinit && compinit

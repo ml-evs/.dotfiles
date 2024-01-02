@@ -126,11 +126,20 @@ lspconfig.jsonls.setup {
     on_attach = on_attach,
 }
 
+local ruff_on_attach = function(client, bufnr)
+    -- Disable hover in favor of Pyright
+    client.server_capabilities.hoverProvider = false
+end
+
 lspconfig.ruff_lsp.setup {
-    on_attach = on_attach,
+    on_attach = ruff_on_attach,
 }
 
 lspconfig.marksman.setup {
+    on_attach = on_attach,
+}
+
+lspconfig.taplo.setup {
     on_attach = on_attach,
 }
 
@@ -155,8 +164,26 @@ lspconfig.pyright.setup {
     }
 }
 
-lspconfig.mojo.setup {
-    on_attach = on_attach,
+lspconfig.ansiblels.setup {
+  on_attach = on_attach,
+  ansible = {
+    ansible = {
+      path = "ansible"
+    },
+    executionEnvironment = {
+      enabled = false
+    },
+    python = {
+      interpreterPath = "python"
+    },
+    validation = {
+      enabled = true,
+      lint = {
+        enabled = true,
+        path = "ansible-lint"
+      }
+    }
+  }
 }
 
 lspconfig.lua_ls.setup({

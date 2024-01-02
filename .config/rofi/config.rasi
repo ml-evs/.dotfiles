@@ -1,11 +1,13 @@
 configuration {
-	font: "iosevka term medium 10";
+	font: "iosevka term nerd font 10";
 	location: 2;
 	yoffset: 20;
 	terminal: "alacritty";
 	sidebar-mode: true;
 	combi-modi: "drun";
-  show-icons: true;
+        show-icons: true;
 }
 
-@theme "gruvbox-dark-soft"
+//@theme "simple-tokyonight"
+//@theme "/home/mevans/.local/share/rofi/themes/launchpad.rasi"
+@theme "/home/mevans/.local/share/rofi/themes/simple-tokyonight.rasi"

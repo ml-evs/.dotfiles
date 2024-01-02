@@ -1,10 +1,10 @@
-font pango: Iosevka Term Regular 10
+font pango: Iosevka Term NF 11
 
 #..........
 # Look
 #..........
 
-for_window [class="^.*"] border pixel 1
+for_window [class="^.*"] border pixel 2
 gaps inner 0
 gaps outer 20
 
@@ -36,23 +36,24 @@ client.background       $background $grey $lightgrey
 #
 
 exec --no-startup-id exec picom
-exec --no-startup-id exec nitrogen --restore
+exec --no-startup-id exec_always nitrogen --restore
 exec --no-startup-id exec xfce4-power-manager
 exec --no-startup-id exec nm-applet
 exec --no-startup-id exec blueman-applet
+exec --no-startup-id exec light-locker --lock-on-suspend --no-late-locking --idle-hint --no-lock-on-lid
 #exec --no-startup-id exec xautolock -time 5 -locker ~/.local/bin/lock
-exec --no-startup-id xidlehook --socket /tmp/xidlehook.sock --not-when-audio --timer 600 '~/.local/bin/lock' ''
+#exec --no-startup-id xidlehook --socket /tmp/xidlehook.sock --not-when-audio --timer 600 '~/.local/bin/lock' ''
 exec_always --no-startup-id ~/.i3/polybar.sh
 exec_always --no-startup-id "setxkbmap gb && xmodmap /home/mevans/.dotfiles/.Xmodmap"
-exec --no-startup-id exec dunst -conf ~/.dunstrc
+exec --no-startup-id exec dunst 
 
 # Principal mod key (Super = Win key)
 # mod1 = Alt (xmodmap to show)
 # mod4 = Winkey (xmodmap to show)
 set $mod Mod1
 
-bindsym $mod+g gaps inner current set 0 gaps outer current set 0
-bindsym $mod+Shift+g gaps outer current set 100
+bindsym $mod+g gaps inner current set 0; gaps outer current set 20
+bindsym $mod+Shift+g gaps outer current set 100; gaps right current set 500; gaps left current set 500;
 bindsym Mod4+g gaps outer current set 50 gaps inner current set 50
 bindsym Mod4+Shift+g gaps outer current set 20 gaps inner current set 20
 bindsym Ctrl+q gaps outer current set 20 gaps inner current set 20
@@ -69,8 +70,8 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 #bindsym XF86MonBrightnessDown exec xbacklight -dec 5 # decrease screen brightness
 
 # Misc
-bindsym XF86Display exec --no-startup-id autorandr laptop
-bindsym Mod4+Shift+F12 exec --no-startup-id autorandr vert
+#bindsym XF86Display exec --no-startup-id autorandr laptop
+#bindsym Mod4+Shift+F12 exec --no-startup-id autorandr vert
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -83,7 +84,8 @@ for_window [class=".*Zoom.*"] floating enable
 for_window [class=".*steam.*"] floating enable
 for_window [class=".*Slack.*"] floating enable
 for_window [class=".*Signal.*"] floating enable
-for_window [class=".*Teams.*"] floating enable
+for_window [class=".*whatsapp.*"] floating enable
+for_window [class=".*teams.*"] floating enable
 
 # start a terminal
 bindsym $mod+Return exec alacritty
@@ -91,7 +93,11 @@ bindsym Mod4+w exec firefox
 bindsym Mod4+f exec pcmanfm
 bindsym Mod4+s exec slack
 bindsym Mod4+z exec signal-desktop --use-tray-icon
-bindsym Mod4+Shift+l exec xidlehook-client --socket /tmp/xidlehook.sock control --timer 0 --action trigger
+bindsym Mod4+t exec teams-for-linux
+bindsym Mod4+a exec whatsapp-nativefier
+bindsym Mod4+Shift+l exec light-locker-command --lock
+# xidlehook-client --socket /tmp/xidlehook.sock control --timer 0 --action trigger
+#bindsym Mod4+Shift+l exec light-locker-command --lock
 bindsym $mod+d exec rofi -i -show run
 bindsym --release Print exec scrot -s
 
@@ -221,7 +227,7 @@ bindsym $mod+r mode "resize"
 bar {
     tray_output primary
     #status_command i3status -c ~/.i3/i3status.conf
-    i3bar_command polybar mine
+    i3bar_command polybar
     workspace_buttons yes
     position top
     #colors {

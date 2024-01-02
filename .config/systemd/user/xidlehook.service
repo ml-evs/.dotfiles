@@ -5,7 +5,7 @@ Description=Automatic Screen Locker
 Type=simple
 Environment=DISPLAY=:0
 Environment=XIDLEHOOK_SOCK=/tmp/xidlehook.sock
-ExecStart=/usr/bin/xidlehook --socket /tmp/xidlehook.sock --not-when-audio --timer 600 '~/.local/bin/lock' ''
+ExecStart=/usr/bin/xidlehook --socket /tmp/xidlehook.sock --not-when-audio --timer 600 'light-locker-command --lock' ''
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target

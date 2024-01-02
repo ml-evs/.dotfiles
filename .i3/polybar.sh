@@ -10,6 +10,7 @@ polybar -r mine &
 polybar -r laptop &
 polybar -r vert &
 polybar -r ext1 &
+polybar -r ext &
 polybar -r ext2
 
 # for m in $(polybar -m | awk '{gsub(":", "", $1); print $1}'); do

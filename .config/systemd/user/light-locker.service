@@ -1,0 +1,10 @@
+[Unit]
+Description=Screen locker
+
+[Service]
+Type=simple
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/light-locker --lock-on-lid --no-idle-hint --lock-on-suspend 
+
+[Install]
+WantedBy=graphical-session.target
