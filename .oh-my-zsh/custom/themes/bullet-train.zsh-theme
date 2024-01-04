@@ -540,15 +540,15 @@ prompt_go() {
 prompt_virtualenv() {
   if [[ -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
     local virtualenv_path="$VIRTUAL_ENV"
-    if [[ -n $PIPENV_ACTIVE ]]; then
+    if [[ -n $virtualenv_path ]]; then
+      prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(basename $virtualenv_path)"
+    elif [[ -n $PIPENV_ACTIVE ]]; then
       prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(which python | awk '{split($0, a, "/"); print a[7]}')"
     elif [[ -n $CONDA_DEFAULT_ENV ]]; then
 PIPENV_COMMAND = which python | awk '{split($0, a, "/"); print a[7]}'
       prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $CONDA_DEFAULT_ENV"
     elif [[ -n $PYENV_VERSION ]]; then
       prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $PYENV_VERSION"
-    elif [[ -n $virtualenv_path ]]; then
-      prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(basename $virtualenv_path)"
     #elif which pyenv &> /dev/null; then
     #  prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(pyenv version | sed -e 's/ (set.*$//' | tr '\n' ' ' | sed 's/.$//')"
     fi

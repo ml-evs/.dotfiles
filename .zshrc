@@ -14,10 +14,21 @@ export DEFAULT_PYTHON_VER="3.11"
 #
 workon () {
     # if the activate file does not exist then activate
-    if [ ! -f ".venv/bin/activate" ]; then
-        pyenv shell $DEFAULT_PYTHON_VER && pyenv exec python -m venv .venv
+    if [ $# -eq 0 ]; then
+        PYTHON_VER=$DEFAULT_PYTHON_VER
+    else
+        PYTHON_VER=$1
     fi
-    source .venv/bin/activate
+
+    if [ -f "Pipfile" ]; then
+        pipenv shell
+    elif [ ! -f ".venv-$PYTHON_VER/bin/activate" ]; then
+        echo "Creating virtualenv .venv-$PYTHON_VER"
+        pyenv shell $PYTHON_VER && pyenv exec python -m venv .venv-$PYTHON_VER
+    fi
+    if [ -f ".venv-$PYTHON_VER/bin/activate" ]; then
+        source .venv-$PYTHON_VER/bin/activate
+    fi
 }
 
 export RUFF_EXPERIMENTAL_FORMATTER=1

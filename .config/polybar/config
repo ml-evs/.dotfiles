@@ -60,7 +60,7 @@ font-3 = Font Awesome 6 Brands:size=10:antialias=true;
 font-4 = Font Awesome 6 Free:style=Solid:size=10:antialias=true;
 
 modules-left = i3
-modules-center = spotify
+modules-center = player-mpris-tail 
 modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature date
 
 tray-position = right
@@ -115,7 +115,7 @@ font-3 = Font Awesome 6 Brands:size=10:antialias=true;
 font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
-# modules-center = spotify
+modules-center = player-mpris-tail
 modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature date
 
 tray-position = right
@@ -168,7 +168,7 @@ font-3 = Font Awesome 6 Brands:size=10:antialias=true;
 font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
-# modules-center = spotify
+modules-center = player-mpris-tail
 modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature date
 
 tray-position = right
@@ -222,7 +222,7 @@ font-3 = Font Awesome 6 Brands:size=10:antialias=true;
 font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
-# modules-center = spotify
+modules-center = player-mpris-tail
 modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature date
 
 tray-position = right
@@ -547,27 +547,17 @@ menu-2-1-exec = menu-open-0
 
 [settings]
 screenchange-reload = true
-;compositing-background = xor
 compositing-background = screen
-;compositing-foreground = source
-;compositing-border = over
-;pseudo-transparency = true
-;
-[module/spotify]
-type = custom/script
-interval = 1
-;format-prefix = " "
-;format = <label>
-exec = python /usr/share/polybar/scripts/spotify_status.py -t 200 --mpris_name chromium.instance74028
-format-underline = #ffb52a
-click-left = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.chromium.instance74028 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-click-right = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.chromium.instance74028 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-click-middle = dbus-send --print-reply --dest=org.mpris.MediaPlayer2.chromium.instance74028 /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
 [global/wm]
-;margin-top = 0
-;margin-bottom = 0
 margin-top = 5
 margin-bottom = 5
 
-; vim:ft=dosini
+[module/player-mpris-tail]
+type = custom/script
+format-prefix="󰽰 "
+exec = ~/.i3/scripts/player-mpris-tail.py -f '{icon} {:artist:t25:{artist}:}{:artist: - :}{:t25:{title}:}'
+tail = true
+click-left = ~/.i3/scripts/player-mpris-tail.py play-pause &
+scroll-down = ~/.i3/scripts/player-mpris-tail.py previous &
+scroll-up = ~/.i3/scripts/player-mpris-tail.py next &

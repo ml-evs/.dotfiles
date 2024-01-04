@@ -15,6 +15,9 @@ require "paq" {
     {"nvim-telescope/telescope.nvim", branch="0.1.x"};
     {"embark-theme/vim", as="embark"};
     {"akinsho/bufferline.nvim", tag="v3.*"};
+    "mfussenegger/nvim-dap";
+    "mfussenegger/nvim-dap-python";
+    "rcarriga/nvim-dap-ui";
     "folke/tokyonight.nvim";
     "nvim-lualine/lualine.nvim";
     "arkav/lualine-lsp-progress";
@@ -30,6 +33,6 @@ require "paq" {
     "neovim/nvim-lspconfig";
     "bling/vim-bufferline";
     "bling/vim-bufferline";
-    {"nvim-treesitter/nvim-treesitter", build=":TSUpdate", branch="v0.9.1"};
+    {"nvim-treesitter/nvim-treesitter", build=":TSUpdate"};
     "github/copilot.vim";
 }

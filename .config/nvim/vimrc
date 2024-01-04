@@ -8,9 +8,10 @@ set termguicolors
 set background=dark
 colorscheme tokyonight-storm
 
-"set foldmethod=expr
+set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
-autocmd BufReadPost,FileReadPost * normal zR
+set nofoldenable
+"autocmd BufReadPost,FileReadPost * normal zR
 
 " GOYO
 set list listchars=tab:\ \ ,nbsp:␣,trail:•,extends:⟩,precedes:⟨

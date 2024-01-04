@@ -1,0 +1,128 @@
+live_config_reload = true
+
+[bell]
+animation = "EaseOutExpo"
+color = "0xffffff"
+duration = 1
+
+[colors]
+draw_bold_text_with_bright_colors = false
+
+[colors.bright]
+black = "0x585273"
+blue = "0x65b2ff"
+cyan = "0x63f2f1"
+green = "0x62d196"
+magenta = "0xa37acc"
+red = "0xf02e6e"
+white = "0x8a889d"
+yellow = "0xf2b482"
+
+[colors.cursor]
+cursor = "0xa1efd3"
+text = "0x1e1c31"
+
+[colors.normal]
+black = "0x1e1c31"
+blue = "0x91ddff"
+cyan = "0x87dfeb"
+green = "0xa1efd3"
+magenta = "0xd4bfff"
+red = "0xf48fb1"
+white = "0xcbe3e7"
+yellow = "0xffe6b3"
+
+[colors.primary]
+background = "0x1e1c31"
+foreground = "0xcbe3e7"
+
+[cursor]
+style = "Beam"
+unfocused_hollow = true
+
+[debug]
+log_level = "Warn"
+persistent_logging = false
+print_events = false
+render_timer = false
+
+[env]
+COLORTERM = "truecolor"
+TERM = "xterm-256color"
+WINIT_HIDPI_FACTOR = "1.5"
+
+[font]
+size = 14
+
+[font.bold]
+family = "Iosevka Term Nerd Font"
+style = "Bold"
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[font.normal]
+family = "Iosevka Term Nerd Font"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 0
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "V"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "Copy"
+key = "C"
+mods = "Control|Shift"
+
+[[keyboard.bindings]]
+action = "ResetFontSize"
+key = "Key0"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Equals"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Plus"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Control"
+
+[mouse]
+hide_when_typing = false
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
+
+[scrolling]
+history = 10000
+multiplier = 3
+
+[selection]
+save_to_clipboard = false
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+
+[window]
+dynamic_padding = false
+opacity = 0.85
+
+[window.dimensions]
+columns = 0
+lines = 0
+
+[window.padding]
+x = 2
+y = 2
