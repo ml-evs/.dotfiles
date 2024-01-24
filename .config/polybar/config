@@ -26,6 +26,7 @@ foreground-alt = #D8D8D8
 primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
+docker = #1d76ed
 
 [bar/laptop]
 monitor = eDP-1
@@ -61,7 +62,7 @@ font-4 = Font Awesome 6 Free:style=Solid:size=10:antialias=true;
 
 modules-left = i3
 modules-center = player-mpris-tail 
-modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature date
+modules-right = info-docker pulseaudio filesystem xbacklight memory cpu wlan eth temperature date battery
 
 tray-position = right
 ;tray-padding = 2
@@ -116,12 +117,12 @@ font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
 modules-center = player-mpris-tail
-modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature date
+modules-right = info-docker pulseaudio filesystem xbacklight memory cpu wlan eth temperature date battery
 
-tray-position = right
+;tray-posit;ion = right
 ;tray-padding = 2
 ;tray-offset-y=2
-tray-maxsize=16
+;tray-maxsize=16
 ;tray-background = #0063ff00
 
 ;override-redirect = true
@@ -137,7 +138,6 @@ cursor-scroll = ns-resize
 
 [bar/ext2]
 monitor = DisplayPort-1
-#width = 1920
 height = 36
 bottom = true
 ;offset-x = 1%
@@ -169,7 +169,7 @@ font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
 modules-center = player-mpris-tail
-modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature date
+modules-right = info-docker pulseaudio filesystem xbacklight memory cpu wlan eth temperature date battery
 
 tray-position = right
 ;tray-padding = 2
@@ -223,7 +223,7 @@ font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
 modules-center = player-mpris-tail
-modules-right = pulseaudio filesystem xbacklight memory cpu wlan eth temperature date
+modules-right = info-docker pulseaudio filesystem xbacklight memory cpu wlan eth temperature date battery
 
 tray-position = right
 ;tray-padding = 2
@@ -492,11 +492,11 @@ animation-charging-framerate = 1000
 
 format-charging-prefix=" "
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
-ramp-capacity-3 = 
-ramp-capacity-4 = 
+ramp-capacity-0 = " "
+ramp-capacity-1 = " "
+ramp-capacity-2 = " "
+ramp-capacity-3 = " "
+ramp-capacity-4 = " "
 
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 100
@@ -556,8 +556,14 @@ margin-bottom = 5
 [module/player-mpris-tail]
 type = custom/script
 format-prefix="󰽰 "
-exec = ~/.i3/scripts/player-mpris-tail.py -f '{icon} {:artist:t25:{artist}:}{:artist: - :}{:t25:{title}:}'
+exec = ~/.i3/scripts/player-mpris-tail.py -f '{icon} {:artist:t50:{artist}:}{:artist: - :}{:t50:{title}:}'
 tail = true
 click-left = ~/.i3/scripts/player-mpris-tail.py play-pause &
 scroll-down = ~/.i3/scripts/player-mpris-tail.py previous &
 scroll-up = ~/.i3/scripts/player-mpris-tail.py next &
+
+[module/info-docker]
+type = custom/script
+format-prefix="  "
+exec = ~/.i3/scripts/info-docker.sh
+format-prefix-foreground = ${colors.docker}

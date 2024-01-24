@@ -11,7 +11,9 @@ local colors = {
 
 local function get_py_venv()
     local segment = ""
-    if os.getenv("PIPENV_ACTIVE") == "1" then
+    if os.getenv("VIRTUAL_ENV") ~= nil then
+        segment = string.format("%s", io.popen("basename $VIRTUAL_ENV"):read("*a"))
+    elseif os.getenv("PIPENV_ACTIVE") == "1" then
         segment = string.format("%s", io.popen("basename $(pipenv --venv)"):read("*a"))
     elseif os.getenv("CONDA_DEFAULT_ENV") ~= nil then
         segment = string.format("%s", os.getenv("CONDA_DEFAULT_ENV"))
