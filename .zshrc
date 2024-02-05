@@ -2,6 +2,7 @@
 #
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
+export PIPENV_VENV_IN_PROJECT=1
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-execute
 
@@ -20,8 +21,15 @@ workon () {
         PYTHON_VER=$1
     fi
 
+    INIT_DIR=$(pwd)
+
+    # find nearest .git folder
+    while [ ! -d ".git" ]; do
+        cd ..
+    done
+
     if [ -f "Pipfile" ]; then
-        pipenv shell
+        pipenv shell --python $PYTHON_VER
     elif [ ! -f ".venv-$PYTHON_VER/bin/activate" ]; then
         echo "Creating virtualenv .venv-$PYTHON_VER"
         pyenv shell $PYTHON_VER && pyenv exec python -m venv .venv-$PYTHON_VER
@@ -29,6 +37,8 @@ workon () {
     if [ -f ".venv-$PYTHON_VER/bin/activate" ]; then
         source .venv-$PYTHON_VER/bin/activate
     fi
+
+    cd $INIT_DIR
 }
 
 export RUFF_EXPERIMENTAL_FORMATTER=1

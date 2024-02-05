@@ -143,10 +143,6 @@ lspconfig.taplo.setup {
     on_attach = on_attach,
 }
 
-lspconfig.vuels.setup {
-    on_attach = on_attach,
-}
-
 
 lspconfig.pyright.setup {
     on_attach = on_attach,
