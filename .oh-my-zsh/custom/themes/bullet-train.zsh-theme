@@ -153,7 +153,7 @@ if [ ! -n "${BULLETTRAIN_DIR_FG+1}" ]; then
   BULLETTRAIN_DIR_FG=black
 fi
 if [ ! -n "${BULLETTRAIN_DIR_CONTEXT_SHOW+1}" ]; then
-  BULLETTRAIN_DIR_CONTEXT_SHOW=false
+  BULLETTRAIN_DIR_CONTEXT_SHOW=0
 fi
 if [ ! -n "${BULLETTRAIN_DIR_EXTENDED+1}" ]; then
   BULLETTRAIN_DIR_EXTENDED=0
@@ -412,9 +412,17 @@ prompt_git() {
     fi
     prompt_segment $BULLETTRAIN_GIT_BG $BULLETTRAIN_GIT_FG
 
+    # show current git repo name:
+
     eval git_prompt=${BULLETTRAIN_GIT_PROMPT_CMD}
     if [[ $BULLETTRAIN_GIT_EXTENDED == true ]]; then
-      echo -n ${git_prompt}$(git_prompt_status)
+      remote=$(git config --get remote.origin.url)
+      github=$(echo $remote | grep -Eo 'github.com[:/][^/]+/[^/]+')
+      repo=$(echo $remote | awk '{split($0, a, ":"); print a[2]}')
+      if [[ -n $github ]]; then
+        repo="\uea84  ${repo}"
+      fi
+      echo -n ${repo} ${git_prompt}$(git_prompt_status)
     else
       echo -n ${git_prompt}
     fi
