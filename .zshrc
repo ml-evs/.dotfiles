@@ -2,11 +2,13 @@
 #
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
-export PIPENV_VENV_IN_PROJECT=1
+#export PIPENV_VENV_IN_PROJECT=1
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^ ' autosuggest-execute
 
 export DEFAULT_PYTHON_VER="3.11"
+
+alias 5g='sudo mbimcli -p -d /dev/cdc-wdm0  --quectel-set-radio-state=on'
 
 # Add cuda to ld library path
 #export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:/usr/lib/x86_64-linux-gnu"
@@ -30,9 +32,12 @@ workon () {
 
     if [ -f "Pipfile" ]; then
         pipenv shell --python $PYTHON_VER
+    elif [ -f ".venv/bin/activate" ]; then
+        source .venv/bin/activate
     elif [ ! -f ".venv-$PYTHON_VER/bin/activate" ]; then
         echo "Creating virtualenv .venv-$PYTHON_VER"
-        pyenv shell $PYTHON_VER && pyenv exec python -m venv .venv-$PYTHON_VER
+        uv venv
+        source .venv/bin/activate
     fi
     if [ -f ".venv-$PYTHON_VER/bin/activate" ]; then
         source .venv-$PYTHON_VER/bin/activate
@@ -94,3 +99,4 @@ alias please="sudo"
 source $HOME/.dotfiles/zshrc.global
 
 #autoload -U compinit && compinit
+. "$HOME/.cargo/env"
