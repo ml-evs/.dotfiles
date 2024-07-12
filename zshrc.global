@@ -1,5 +1,6 @@
 HYPHEN_INSENSITIVE="true"
 DISABLE_UNTRACKED_FILES_DIRTY="true"
+GIT_LFS_SKIP_SMUDGE=1
 plugins=(git z)
 setopt extendedglob
 source $ZSH/oh-my-zsh.sh
