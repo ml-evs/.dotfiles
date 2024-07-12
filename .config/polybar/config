@@ -62,7 +62,7 @@ font-4 = Font Awesome 6 Free:style=Solid:size=10:antialias=true;
 
 modules-left = i3
 modules-center = player-mpris-tail 
-modules-right = info-docker pulseaudio filesystem xbacklight memory cpu wlan eth temperature date battery
+modules-right = info-docker pulseaudio filesystem memory cpu wlan eth temperature date battery
 
 tray-position = right
 ;tray-padding = 2
@@ -72,7 +72,7 @@ tray-maxsize=16
 ;wm-restack = bspwm
 ;wm-restack = i3
 
-;override-redirect = true
+override-redirect = false
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
@@ -117,7 +117,7 @@ font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
 modules-center = player-mpris-tail
-modules-right = info-docker pulseaudio filesystem xbacklight memory cpu wlan eth temperature date battery
+modules-right = info-docker pulseaudio filesystem memory cpu wlan eth temperature date battery
 
 ;tray-posit;ion = right
 ;tray-padding = 2
@@ -125,7 +125,7 @@ modules-right = info-docker pulseaudio filesystem xbacklight memory cpu wlan eth
 ;tray-maxsize=16
 ;tray-background = #0063ff00
 
-;override-redirect = true
+override-redirect = false
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
@@ -170,7 +170,7 @@ font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
 modules-center = player-mpris-tail
-modules-right = info-docker pulseaudio filesystem xbacklight memory cpu wlan eth temperature date battery
+modules-right = info-docker pulseaudio filesystem memory cpu wlan eth temperature date battery
 
 ;tray-posit;ion = right
 ;tray-padding = 2
@@ -178,7 +178,7 @@ modules-right = info-docker pulseaudio filesystem xbacklight memory cpu wlan eth
 ;tray-maxsize=16
 ;tray-background = #0063ff00
 
-;override-redirect = true
+override-redirect = false
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
@@ -223,7 +223,7 @@ font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
 modules-center = player-mpris-tail
-modules-right = info-docker pulseaudio filesystem xbacklight memory cpu wlan eth temperature date battery
+modules-right = info-docker pulseaudio filesystem memory cpu wlan eth temperature date battery
 
 tray-position = right
 ;tray-padding = 2
@@ -231,7 +231,7 @@ tray-position = right
 tray-maxsize=16
 ;tray-background = #0063ff00
 
-;override-redirect = true
+override-redirect = false
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
@@ -277,7 +277,7 @@ font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
 modules-center = player-mpris-tail
-modules-right = info-docker pulseaudio filesystem xbacklight memory cpu wlan eth temperature date battery
+modules-right = info-docker pulseaudio filesystem memory cpu wlan eth temperature date battery
 
 tray-position = right
 ;tray-padding = 2
@@ -285,7 +285,7 @@ tray-position = right
 tray-maxsize=16
 ;tray-background = #0063ff00
 
-;override-redirect = true
+override-redirect = false
 
 ;scroll-up = bspwm-desknext
 ;scroll-down = bspwm-deskprev
@@ -295,8 +295,6 @@ scroll-down = #i3.prev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
-
-
 
 [module/xwindow]
 type = internal/xwindow
@@ -523,7 +521,7 @@ label-muted = 󰝟
 type = internal/battery
 battery = BAT0
 adapter = ADP-1
-full-at = 95
+full-at = 98
 poll-interval = 60
 
 ;format-charging = <animation-charging> <label-charging>
@@ -613,11 +611,10 @@ format-prefix="󰽰 "
 exec = ~/.i3/scripts/player-mpris-tail.py -f '{icon} {:artist:t50:{artist}:}{:artist: - :}{:t50:{title}:}'
 tail = true
 click-left = ~/.i3/scripts/player-mpris-tail.py play-pause &
-scroll-down = ~/.i3/scripts/player-mpris-tail.py previous &
-scroll-up = ~/.i3/scripts/player-mpris-tail.py next &
 
 [module/info-docker]
 type = custom/script
 format-prefix="  "
 exec = ~/.i3/scripts/info-docker.sh
 format-prefix-foreground = ${colors.docker}
+interval = 60
