@@ -81,7 +81,6 @@ require('nvim-treesitter.configs').setup {
         "css",
         "diff",
         "dockerfile",
-        "html",
         "javascript",
         "json",
         "latex",
@@ -134,6 +133,23 @@ end
 lspconfig.ruff_lsp.setup {
     on_attach = ruff_on_attach,
 }
+
+lspconfig.html.setup {
+    on_attach = on_attach,
+}
+
+vim.filetype.add {
+  extension = {
+    jinja = 'jinja',
+    jinja2 = 'jinja',
+    j2 = 'jinja',
+  },
+}
+
+lspconfig.jinja_lsp.setup {
+    on_attach = on_attach,
+}
+
 
 lspconfig.marksman.setup {
     on_attach = on_attach,

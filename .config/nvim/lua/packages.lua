@@ -1,14 +1,14 @@
 require "paq" {
+    "mfussenegger/nvim-lint";
+    "mhartington/formatter.nvim";
     "hrsh7th/cmp-nvim-lsp";
     "hrsh7th/cmp-buffer";
     "hrsh7th/cmp-path";
     "hrsh7th/cmp-cmdline";
     "hrsh7th/nvim-cmp";
-    "hrsh7th/cmp-vsnip";
-    "hrsh7th/vim-vsnip";
-    "antoinemadec/FixCursorHold.nvim",
-    "nvim-neotest/neotest";
-    "nvim-neotest/neotest-python";
+    "antoinemadec/FixCursorHold.nvim";
+    --"nvim-neotest/neotest";
+    --"nvim-neotest/neotest-python";
     "tpope/vim-fugitive";
     "lewis6991/gitsigns.nvim";
     "nvim-lua/plenary.nvim";
@@ -31,7 +31,6 @@ require "paq" {
     "williamboman/mason.nvim";
     "williamboman/mason-lspconfig.nvim";
     "neovim/nvim-lspconfig";
-    "bling/vim-bufferline";
     "bling/vim-bufferline";
     {"nvim-treesitter/nvim-treesitter", build=":TSUpdate"};
     "github/copilot.vim";
