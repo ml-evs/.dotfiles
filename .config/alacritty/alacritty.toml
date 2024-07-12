@@ -1,40 +1,13 @@
 live_config_reload = true
+import = ["~/.config/alacritty/themes/tokyonight.toml"]
+
+[colors]
+draw_bold_text_with_bright_colors = false
 
 [bell]
 animation = "EaseOutExpo"
 color = "0xffffff"
 duration = 1
-
-[colors]
-draw_bold_text_with_bright_colors = false
-
-[colors.bright]
-black = "0x585273"
-blue = "0x65b2ff"
-cyan = "0x63f2f1"
-green = "0x62d196"
-magenta = "0xa37acc"
-red = "0xf02e6e"
-white = "0x8a889d"
-yellow = "0xf2b482"
-
-[colors.cursor]
-cursor = "0xa1efd3"
-text = "0x1e1c31"
-
-[colors.normal]
-black = "0x1e1c31"
-blue = "0x91ddff"
-cyan = "0x87dfeb"
-green = "0xa1efd3"
-magenta = "0xd4bfff"
-red = "0xf48fb1"
-white = "0xcbe3e7"
-yellow = "0xffe6b3"
-
-[colors.primary]
-background = "0x1e1c31"
-foreground = "0xcbe3e7"
 
 [cursor]
 style = "Beam"
@@ -49,13 +22,13 @@ render_timer = false
 [env]
 COLORTERM = "truecolor"
 TERM = "xterm-256color"
-WINIT_HIDPI_FACTOR = "1.5"
+WINIT_X11_SCALE_FACTOR = "1.5"
 
 [font]
-size = 14
+size = 8
 
 [font.bold]
-family = "Iosevka Term Nerd Font"
+family = "Alacritty"
 style = "Bold"
 
 [font.glyph_offset]
@@ -63,7 +36,7 @@ x = 0
 y = 0
 
 [font.normal]
-family = "Iosevka Term Nerd Font"
+family = "Alacritty"
 style = "Regular"
 
 [font.offset]
@@ -117,7 +90,6 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [window]
 dynamic_padding = false
-opacity = 0.85
 
 [window.dimensions]
 columns = 0
