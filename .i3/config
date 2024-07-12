@@ -36,7 +36,7 @@ client.background       $background $grey $lightgrey
 #
 
 exec --no-startup-id exec picom
-exec --no-startup-id exec_always nitrogen --restore
+exec_always --no-startup-id nitrogen --restore
 exec --no-startup-id exec xfce4-power-manager
 exec --no-startup-id exec nm-applet
 exec --no-startup-id exec blueman-applet
@@ -44,7 +44,7 @@ exec --no-startup-id exec light-locker --lock-on-suspend --no-late-locking --idl
 #exec --no-startup-id exec xautolock -time 5 -locker ~/.local/bin/lock
 #exec --no-startup-id xidlehook --socket /tmp/xidlehook.sock --not-when-audio --timer 600 '~/.local/bin/lock' ''
 exec_always --no-startup-id ~/.i3/polybar.sh
-exec_always --no-startup-id "setxkbmap gb && xmodmap /home/mevans/.dotfiles/.Xmodmap"
+exec --no-startup-id "setxkbmap gb && xmodmap /home/mevans/.dotfiles/.Xmodmap"
 exec --no-startup-id exec dunst 
 
 # Principal mod key (Super = Win key)
@@ -159,7 +159,7 @@ bindsym $mod+7 workspace 7:scr
 bindsym $mod+8 workspace 8:vis
 bindsym $mod+9 workspace 9:mus
 bindsym $mod+Escape scratchpad show
-bindsym $mod+Shift+Escape move scratchpad
+bindsym Mod4+Escape move scratchpad
 
 
 # move focused container to workspace
