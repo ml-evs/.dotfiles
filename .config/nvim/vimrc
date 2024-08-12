@@ -250,6 +250,7 @@ autocmd BufReadPost *
      \ endif
 
 autocmd FileType make set tabstop=2 shiftwidth=2 softtabstop=0 noexpandtab
+autocmd FileType vue set tabstop=2 shiftwidth=2 softtabstop=0 noexpandtab
 " Remember info about open buffers on close
 "set viminfo^=%
 set laststatus=2

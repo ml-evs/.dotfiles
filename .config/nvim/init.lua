@@ -5,5 +5,6 @@ require("configs/lualine")
 require("configs/signs")
 require("configs/cmp")
 require("configs/neotest")
+require("configs/format")
 
 vim.cmd('source ~/.config/nvim/vimrc')

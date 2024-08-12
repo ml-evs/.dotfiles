@@ -1,5 +1,5 @@
 live_config_reload = true
-import = ["~/.config/alacritty/themes/tokyonight.toml"]
+import = ["~/.config/alacritty/themes/themes/tokyo-night.toml"]
 
 [colors]
 draw_bold_text_with_bright_colors = false
@@ -89,6 +89,7 @@ save_to_clipboard = false
 semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [window]
+opacity = 0.85
 dynamic_padding = false
 
 [window.dimensions]

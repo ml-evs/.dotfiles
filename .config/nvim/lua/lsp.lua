@@ -101,11 +101,7 @@ require('nvim-treesitter.configs').setup {
 
 local lspconfig = require'lspconfig'
 
-lspconfig.tsserver.setup {
-    on_attach = on_attach,
-}
-
-lspconfig.vuels.setup {
+lspconfig.volar.setup {
     on_attach = on_attach,
 }
 

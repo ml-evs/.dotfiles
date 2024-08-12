@@ -5,8 +5,8 @@ font pango: Iosevka Term NF 11
 #..........
 
 for_window [class="^.*"] border pixel 2
-gaps inner 0
-gaps outer 20
+gaps inner 20
+gaps outer 50
 
 # Heath
 set $back               #282828
@@ -34,6 +34,10 @@ client.background       $background $grey $lightgrey
 # Applications
 #..........
 #
+workspace 0 output DisplayPort-1~1
+workspace 1 output DisplayPort-1~2
+workspace 2 output DisplayPort-1~3
+
 
 exec --no-startup-id exec picom
 exec_always --no-startup-id nitrogen --restore
@@ -54,9 +58,9 @@ set $mod Mod1
 
 bindsym $mod+g gaps inner current set 0; gaps outer current set 20
 bindsym $mod+Shift+g gaps outer current set 100; gaps right current set 500; gaps left current set 500;
-bindsym Mod4+g gaps outer current set 50 gaps inner current set 50
-bindsym Mod4+Shift+g gaps outer current set 20 gaps inner current set 20
-bindsym Ctrl+q gaps outer current set 20 gaps inner current set 20
+bindsym Mod4+g gaps outer current set 50; gaps inner current set 50;
+bindsym Mod4+Shift+g gaps outer current set 20; gaps inner current set 20;
+bindsym Ctrl+q gaps outer current set 50; gaps inner current set 20
 
 # Media keys
 
@@ -127,6 +131,7 @@ bindsym $mod+Down split v
 
 # enter fullscreen mode for the focused container
 bindsym $mod+f fullscreen
+bindsym $mod+Shift+f fullscreen global
 
 # change container layout (stacked, tabbed, default)
 bindsym $mod+s layout stacking
@@ -231,6 +236,9 @@ bar {
     #status_command i3status -c ~/.i3/i3status.conf
     i3bar_command polybar
     workspace_buttons yes
+    mode dock
+    hidden_state show
+    modifier none
     position top
     #colors {
           ##background 1 1 1 0

@@ -14,7 +14,7 @@
 # ------------------------------------------------------------------------------
 
 VIRTUAL_ENV_DISABLE_PROMPT=true
-BULLETTRAIN_TIME_SHOW=true
+BULLETTRAIN_TIME_SHOW=false
 BULLETTRAIN_CONTEXT_SHOW=true
 BULLETTRAIN_CONTEXT_DEFAULT_USER='mevans'
 

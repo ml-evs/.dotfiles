@@ -100,3 +100,5 @@ source $HOME/.dotfiles/zshrc.global
 
 #autoload -U compinit && compinit
 . "$HOME/.cargo/env"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
