@@ -1,14 +1,4 @@
 -- stylua: ignore
-local colors = {
-  blue   = '#65B2FF',
-  cyan   = '#63F2F1',
-  black  = '#100E23',
-  white  = '#CBE3E7',
-  red    = '#F02E6E',
-  violet = '#A37ACC',
-  grey   = '#2D2B40',
-}
-
 local function get_py_venv()
     local segment = ""
     if os.getenv("VIRTUAL_ENV") ~= nil then
@@ -40,24 +30,6 @@ local function get_pyenv_once()
     return pyenv
 end
 
-
-local bubbles_theme = {
-  normal = {
-    a = { fg = colors.black, bg = colors.violet },
-    b = { fg = colors.white, bg = colors.grey },
-    c = { fg = colors.white, bg = colors.black },
-  },
-
-  insert = { a = { fg = colors.black, bg = colors.blue } },
-  visual = { a = { fg = colors.black, bg = colors.cyan } },
-  replace = { a = { fg = colors.black, bg = colors.red } },
-
-  inactive = {
-    a = { fg = colors.white, bg = colors.black }, b = { fg = colors.white, bg = colors.black },
-    c = { fg = colors.white, bg = colors.black },
-  },
-}
-
 local lsp_info = {
   function()
     local msg = "No Active Lsp"
@@ -75,21 +47,24 @@ local lsp_info = {
     return msg
   end,
   icon = " ",
-  color = { fg = "#56B6C2" },
+  -- color = { fg = "#56B6C2" },
 }
 
 
 local config = {
   options = {
-    theme = "tokyonight",
+    theme = "auto",
     icons_enabled = true,
-    component_separators = '|',
-    section_separators = { left = '', right = '' },
+    --component_separators = '|',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    --section_separators = { left = '', right = '' },
     always_divide_middle = true,
   },
   sections = {
     lualine_a = {
-      { 'mode', separator = { left = '' }, right_padding = 2 },
+      --{ 'mode', separator = { left = '' }, right_padding = 2 },
+      { 'mode', separator = { left = ' ' }, right_padding = 2 },
     },
     lualine_b = {
         {'filename', file_status = true},
@@ -107,7 +82,8 @@ local config = {
         {'progress'},
     },
     lualine_z = {
-      { 'location', separator = { right = '' }, left_padding = 2 },
+      --{ 'location', separator = { right = '' }, left_padding = 2 },
+      { 'location', separator = { right = ' ' }, left_padding = 2 },
     },
   },
   inactive_sections = {

@@ -17,6 +17,7 @@ VIRTUAL_ENV_DISABLE_PROMPT=true
 BULLETTRAIN_TIME_SHOW=false
 BULLETTRAIN_CONTEXT_SHOW=true
 BULLETTRAIN_CONTEXT_DEFAULT_USER='mevans'
+BULLETTRAIN_GIT_EXTENDED=true
 
 # Define order and content of prompt
 if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
@@ -24,9 +25,7 @@ if [ ! -n "${BULLETTRAIN_PROMPT_ORDER+1}" ]; then
     context
     dir
     virtualenv
-    #nvm
     git
-    #hg
     time
     cmd_exec_time
     status
@@ -44,7 +43,7 @@ if [ ! -n "${BULLETTRAIN_PROMPT_SEPARATE_LINE+1}" ]; then
   BULLETTRAIN_PROMPT_SEPARATE_LINE=true
 fi
 if [ ! -n "${BULLETTRAIN_PROMPT_ADD_NEWLINE+1}" ]; then
-  BULLETTRAIN_PROMPT_ADD_NEWLINE=true
+  BULLETTRAIN_PROMPT_ADD_NEWLINE=false
 fi
 
 # STATUS
@@ -55,10 +54,10 @@ if [ ! -n "${BULLETTRAIN_STATUS_EXIT_SHOW+1}" ]; then
   BULLETTRAIN_STATUS_EXIT_SHOW=true
 fi
 if [ ! -n "${BULLETTRAIN_STATUS_BG+1}" ]; then
-  BULLETTRAIN_STATUS_BG=white
+  BULLETTRAIN_STATUS_BG=black
 fi
 if [ ! -n "${BULLETTRAIN_STATUS_ERROR_BG+1}" ]; then
-  BULLETTRAIN_STATUS_ERROR_BG=black
+  BULLETTRAIN_STATUS_ERROR_BG=white
 fi
 if [ ! -n "${BULLETTRAIN_STATUS_FG+1}" ]; then
   BULLETTRAIN_STATUS_FG=red
@@ -87,64 +86,14 @@ if [ ! -n "${BULLETTRAIN_CUSTOM_FG+1}" ]; then
 fi
 
 # VIRTUALENV
-if [ ! -n "${BULLETTRAIN_VIRTUALENV_SHOW+1}" ]; then
-  BULLETTRAIN_VIRTUALENV_SHOW=true
-fi
-if [ ! -n "${BULLETTRAIN_VIRTUALENV_BG+1}" ]; then
-  BULLETTRAIN_VIRTUALENV_BG=11
-fi
-if [ ! -n "${BULLETTRAIN_VIRTUALENV_FG+1}" ]; then
-  BULLETTRAIN_VIRTUALENV_FG=black
-fi
-if [ ! -n "${BULLETTRAIN_VIRTUALENV_PREFIX+1}" ]; then
-  BULLETTRAIN_VIRTUALENV_PREFIX=
-fi
-
-# NVM
-if [ ! -n "${BULLETTRAIN_NVM_SHOW+1}" ]; then
-  BULLETTRAIN_NVM_SHOW=true
-fi
-if [ ! -n "${BULLETTRAIN_NVM_BG+1}" ]; then
-  BULLETTRAIN_NVM_BG=green
-fi
-if [ ! -n "${BULLETTRAIN_NVM_FG+1}" ]; then
-  BULLETTRAIN_NVM_FG=white
-fi
-if [ ! -n "${BULLETTRAIN_NVM_PREFIX+1}" ]; then
-  BULLETTRAIN_NVM_PREFIX="⬡ "
-fi
-
-# RUBY
-if [ ! -n "${BULLETTRAIN_RUBY_SHOW+1}" ]; then
-  BULLETTRAIN_RUBY_SHOW=true
-fi
-if [ ! -n "${BULLETTRAIN_RUBY_BG+1}" ]; then
-  BULLETTRAIN_RUBY_BG=magenta
-fi
-if [ ! -n "${BULLETTRAIN_RUBY_FG+1}" ]; then
-  BULLETTRAIN_RUBY_FG=white
-fi
-if [ ! -n "${BULLETTRAIN_RUBY_PREFIX+1}" ]; then
-  BULLETTRAIN_RUBY_PREFIX=♦️
-fi
-
-# Go
-if [ ! -n "${BULLETTRAIN_GO_SHOW+1}" ]; then
-  BULLETTRAIN_GO_SHOW=false
-fi
-if [ ! -n "${BULLETTRAIN_GO_BG+1}" ]; then
-  BULLETTRAIN_GO_BG=cyan
-fi
-if [ ! -n "${BULLETTRAIN_GO_FG+1}" ]; then
-  BULLETTRAIN_GO_FG=white
-fi
-if [ ! -n "${BULLETTRAIN_GO_PREFIX+1}" ]; then
-  BULLETTRAIN_GO_PREFIX="go "
-fi
+BULLETTRAIN_VIRTUALENV_SHOW=true
+BULLETTRAIN_VIRTUALENV_BG=16
+BULLETTRAIN_VIRTUALENV_FG=black
+BULLETTRAIN_VIRTUALENV_PREFIX=
 
 # DIR
 if [ ! -n "${BULLETTRAIN_DIR_SHOW+1}" ]; then
-  BULLETTRAIN_DIR_SHOW=true
+  BULLETTRAIN_DIR_SHOW=false
 fi
 if [ ! -n "${BULLETTRAIN_DIR_BG+1}" ]; then
   BULLETTRAIN_DIR_BG=13
@@ -167,41 +116,22 @@ if [ ! -n "${BULLETTRAIN_GIT_COLORIZE_DIRTY+1}" ]; then
   BULLETTRAIN_GIT_COLORIZE_DIRTY=true
 fi
 if [ ! -n "${BULLETTRAIN_GIT_COLORIZE_DIRTY_FG_COLOR+1}" ]; then
-  BULLETTRAIN_GIT_COLORIZE_DIRTY_FG_COLOR=black
+  BULLETTRAIN_GIT_COLORIZE_DIRTY_FG_COLOR=red
 fi
 if [ ! -n "${BULLETTRAIN_GIT_COLORIZE_DIRTY_BG_COLOR+1}" ]; then
-  BULLETTRAIN_GIT_COLORIZE_DIRTY_BG_COLOR=red
+  BULLETTRAIN_GIT_COLORIZE_DIRTY_BG_COLOR=black
 fi
 if [ ! -n "${BULLETTRAIN_GIT_BG+1}" ]; then
-  BULLETTRAIN_GIT_BG=10
+  BULLETTRAIN_GIT_BG=black
 fi
 if [ ! -n "${BULLETTRAIN_GIT_FG+1}" ]; then
-  BULLETTRAIN_GIT_FG=black
+  BULLETTRAIN_GIT_FG=green
 fi
 if [ ! -n "${BULLETTRAIN_GIT_EXTENDED+1}" ]; then
   BULLETTRAIN_GIT_EXTENDED=true
 fi
 if [ ! -n "${BULLETTRAIN_GIT_PROMPT_CMD+1}" ]; then
-  BULLETTRAIN_GIT_PROMPT_CMD="\$(git_prompt_info)"
-fi
-
-# PERL
-if [ ! -n "${BULLETTRAIN_PERL_SHOW+1}" ]; then
-  BULLETTRAIN_PERL_SHOW=false
-fi
-if [ ! -n "${BULLETTRAIN_PERL_BG+1}" ]; then
-  BULLETTRAIN_PERL_BG=yellow
-fi
-if [ ! -n "${BULLETTRAIN_PERL_FG+1}" ]; then
-  BULLETTRAIN_PERL_FG=black
-fi
-if [ ! -n "${BULLETTRAIN_PERL_PREFIX+1}" ]; then
-  BULLETTRAIN_PERL_PREFIX=🐪
-fi
-
-# HG
-if [ ! -n "${BULLETTRAIN_HG_SHOW+1}" ]; then
-  BULLETTRAIN_HG_SHOW=true
+  BULLETTRAIN_GIT_PROMPT_CMD="\$(_omz_git_prompt_info)"
 fi
 
 # CONTEXT
@@ -230,32 +160,32 @@ else
   ZSH_THEME_GIT_PROMPT_SUFFIX=$BULLETTRAIN_GIT_SUFFIX
 fi
 if [ ! -n "${BULLETTRAIN_GIT_DIRTY+1}" ]; then
-  ZSH_THEME_GIT_PROMPT_DIRTY=" %F{black}✘%F{black}"
+  ZSH_THEME_GIT_PROMPT_DIRTY=" %F{red}✘%F{red}"
 else
   ZSH_THEME_GIT_PROMPT_DIRTY=$BULLETTRAIN_GIT_DIRTY
 fi
 if [ ! -n "${BULLETTRAIN_GIT_CLEAN+1}" ]; then
-  ZSH_THEME_GIT_PROMPT_CLEAN=" %F{black}✔%F{black}"
+  ZSH_THEME_GIT_PROMPT_CLEAN=" %F{green}✔%F{green}"
 else
   ZSH_THEME_GIT_PROMPT_CLEAN=$BULLETTRAIN_GIT_CLEAN
 fi
 if [ ! -n "${BULLETTRAIN_GIT_ADDED+1}" ]; then
-  ZSH_THEME_GIT_PROMPT_ADDED=" %F{black}✚%F{black}"
+  ZSH_THEME_GIT_PROMPT_ADDED=" %F{yellow}✚%F{yellow}"
 else
   ZSH_THEME_GIT_PROMPT_ADDED=$BULLETTRAIN_GIT_ADDED
 fi
 if [ ! -n "${BULLETTRAIN_GIT_MODIFIED+1}" ]; then
-  ZSH_THEME_GIT_PROMPT_MODIFIED=" %F{black}✹%F{black}"
+  ZSH_THEME_GIT_PROMPT_MODIFIED=" %F{yellow}✹%F{yellow}"
 else
   ZSH_THEME_GIT_PROMPT_MODIFIED=$BULLETTRAIN_GIT_MODIFIED
 fi
 if [ ! -n "${BULLETTRAIN_GIT_DELETED+1}" ]; then
-  ZSH_THEME_GIT_PROMPT_DELETED=" %F{black}✖%F{black}"
+  ZSH_THEME_GIT_PROMPT_DELETED=" %F{red}✖%F{red}"
 else
   ZSH_THEME_GIT_PROMPT_DELETED=$BULLETTRAIN_GIT_DELETED
 fi
 if [ ! -n "${BULLETTRAIN_GIT_UNTRACKED+1}" ]; then
-  ZSH_THEME_GIT_PROMPT_UNTRACKED=" %F{black}✭%F{black}"
+  ZSH_THEME_GIT_PROMPT_UNTRACKED=" %F{yellow}✭%F{yellow}"
 else
   ZSH_THEME_GIT_PROMPT_UNTRACKED=$BULLETTRAIN_GIT_UNTRACKED
 fi
@@ -307,7 +237,7 @@ fi
 
 #CURRENT_BG='NONE'
 CURRENT_BG='NONE'
-SEGMENT_SEPARATOR=''
+SEGMENT_SEPARATOR=''
 
 # Begin a segment
 # Takes two arguments, background and foreground. Both can be omitted,
@@ -410,7 +340,8 @@ prompt_git() {
       BULLETTRAIN_GIT_BG=$BULLETTRAIN_GIT_COLORIZE_DIRTY_BG_COLOR
       BULLETTRAIN_GIT_FG=$BULLETTRAIN_GIT_COLORIZE_DIRTY_FG_COLOR
     fi
-    prompt_segment $BULLETTRAIN_GIT_BG $BULLETTRAIN_GIT_FG
+    #prompt_segment $BULLETTRAIN_GIT_BG $BULLETTRAIN_GIT_FG
+    prompt_segment black white
 
     # show current git repo name:
 
@@ -422,48 +353,12 @@ prompt_git() {
       if [[ -n $github ]]; then
         repo="\uea84  ${repo}"
       fi
-      echo -n ${repo} ${git_prompt}$(git_prompt_status)
+      echo -n ${repo}
+      prompt_segment $BULLETTRAIN_GIT_BG $BULLETTRAIN_GIT_FG
+      echo -n ${git_prompt}$(git_prompt_status)
     else
+      prompt_segment $BULLETTRAIN_GIT_BG $BULLETTRAIN_GIT_FG
       echo -n ${git_prompt}
-    fi
-  fi
-}
-
-prompt_hg() {
-  if [[ $BULLETTRAIN_HG_SHOW == false ]]; then
-    return
-  fi
-
-  local rev status
-  if $(hg id >/dev/null 2>&1); then
-    if $(hg prompt >/dev/null 2>&1); then
-      if [[ $(hg prompt "{status|unknown}") = "?" ]]; then
-        # if files are not added
-        prompt_segment red white
-        st='±'
-      elif [[ -n $(hg prompt "{status|modified}") ]]; then
-        # if any modification
-        prompt_segment yellow black
-        st='±'
-      else
-        # if working copy is clean
-        prompt_segment green black
-      fi
-      echo -n $(hg prompt "☿ {rev}@{branch}") $st
-    else
-      st=""
-      rev=$(hg id -n 2>/dev/null | sed 's/[^-0-9]//g')
-      branch=$(hg id -b 2>/dev/null)
-      if $(hg st | grep -Eq "^\?"); then
-        prompt_segment red black
-        st='±'
-      elif $(hg st | grep -Eq "^(M|A)"); then
-        prompt_segment yellow black
-        st='±'
-      else
-        prompt_segment green black
-      fi
-      echo -n "☿ $rev@$branch" $st
     fi
   fi
 }
@@ -489,59 +384,7 @@ prompt_dir() {
     dir="${dir}%4(c:...:)%3c"
   fi
 
-  prompt_segment $BULLETTRAIN_DIR_BG $BULLETTRAIN_DIR_FG $dir
-}
-
-# RUBY
-# RVM: only shows RUBY info if on a gemset that is not the default one
-# RBENV: shows current ruby version active in the shell; also with non-global gemsets if any is active
-# CHRUBY: shows current ruby version active in the shell
-prompt_ruby() {
-  if [[ $BULLETTRAIN_RUBY_SHOW == false ]]; then
-    return
-  fi
-
-  if command -v rvm-prompt > /dev/null 2>&1; then
-    prompt_segment $BULLETTRAIN_RUBY_BG $BULLETTRAIN_RUBY_FG $BULLETTRAIN_RUBY_PREFIX" $(rvm-prompt i v g)"
-  elif command -v chruby > /dev/null 2>&1; then
-    prompt_segment $BULLETTRAIN_RUBY_BG $BULLETTRAIN_RUBY_FG $BULLETTRAIN_RUBY_PREFIX"  $(chruby | sed -n -e 's/ \* //p')"
-  elif command -v rbenv > /dev/null 2>&1; then
-    current_gemset() {
-      echo "$(rbenv gemset active 2&>/dev/null | sed -e 's/ global$//')"
-    }
-
-    if [[ -n $(current_gemset) ]]; then
-      prompt_segment $BULLETTRAIN_RUBY_BG $BULLETTRAIN_RUBY_FG $BULLETTRAIN_RUBY_PREFIX" $(rbenv version | sed -e 's/ (set.*$//')"@"$(current_gemset)"
-    else
-      prompt_segment $BULLETTRAIN_RUBY_BG $BULLETTRAIN_RUBY_FG $BULLETTRAIN_RUBY_PREFIX" $(rbenv version | sed -e 's/ (set.*$//')"
-    fi
-  fi
-}
-
-# PERL
-# PLENV: shows current PERL version active in the shell
-prompt_perl() {
-  if [[ $BULLETTRAIN_PERL_SHOW == false ]]; then
-    return
-  fi
-
-  if command -v plenv > /dev/null 2>&1; then
-    prompt_segment $BULLETTRAIN_PERL_BG $BULLETTRAIN_PERL_FG $BULLETTRAIN_PERL_PREFIX" $(plenv version | sed -e 's/ (set.*$//')"
-  fi
-}
-
-# Go
-prompt_go() {
-  if [[ $BULLETTRAIN_GO_SHOW == false ]]; then
-    return
-  fi
-
-  setopt extended_glob
-  if [[ (-f *.go(#qN) || -d Godeps || -f glide.yaml) ]]; then
-    if command -v go > /dev/null 2>&1; then
-      prompt_segment $BULLETTRAIN_GO_BG $BULLETTRAIN_GO_FG $BULLETTRAIN_GO_PREFIX" $(go version | grep --colour=never -oE '[[:digit:]].[[:digit:]]')"
-    fi
-  fi
+  prompt_segment $BULLETTRAIN_DIR_FG $BULLETTRAIN_DIR_BG $dir
 }
 
 # from pull_request by niechen
@@ -549,14 +392,14 @@ prompt_virtualenv() {
   if [[ -n $VIRTUAL_ENV_DISABLE_PROMPT ]]; then
     local virtualenv_path="$VIRTUAL_ENV"
     if [[ -n $virtualenv_path ]]; then
-      prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(basename $virtualenv_path)"
+      prompt_segment $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_PREFIX" $(basename $virtualenv_path)"
     elif [[ -n $PIPENV_ACTIVE ]]; then
-      prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(which python | awk '{split($0, a, "/"); print a[7]}')"
+      prompt_segment $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_PREFIX" $(which python | awk '{split($0, a, "/"); print a[7]}')"
     elif [[ -n $CONDA_DEFAULT_ENV ]]; then
 PIPENV_COMMAND = which python | awk '{split($0, a, "/"); print a[7]}'
-      prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $CONDA_DEFAULT_ENV"
+      prompt_segment $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_PREFIX" $CONDA_DEFAULT_ENV"
     elif [[ -n $PYENV_VERSION ]]; then
-      prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $PYENV_VERSION"
+      prompt_segment $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_PREFIX" $PYENV_VERSION"
     #elif which pyenv &> /dev/null; then
     #  prompt_segment $BULLETTRAIN_VIRTUALENV_BG $BULLETTRAIN_VIRTUALENV_FG $BULLETTRAIN_VIRTUALENV_PREFIX" $(pyenv version | sed -e 's/ (set.*$//' | tr '\n' ' ' | sed 's/.$//')"
     fi
@@ -623,9 +466,9 @@ prompt_status() {
   [[ $(jobs -l | wc -l) -gt 0 ]] && symbols+="⚙"
 
   if [[ -n "$symbols" && $RETVAL -ne 0 ]]; then
-    prompt_segment $BULLETTRAIN_STATUS_ERROR_BG $BULLETTRAIN_STATUS_FG "$symbols"
+    prompt_segment $BULLETTRAIN_STATUS_ERROR_FG $BULLETTRAIN_STATUS_BG "$symbols"
   elif [[ -n "$symbols" ]]; then
-    prompt_segment $BULLETTRAIN_STATUS_BG $BULLETTRAIN_STATUS_FG "$symbols"
+    prompt_segment $BULLETTRAIN_STATUS_FG $BULLETTRAIN_STATUS_BG "$symbols"
   fi
 
 }

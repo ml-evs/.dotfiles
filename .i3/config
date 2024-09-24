@@ -5,8 +5,9 @@ font pango: Iosevka Term NF 11
 #..........
 
 for_window [class="^.*"] border pixel 2
-gaps inner 20
+gaps inner 50
 gaps outer 50
+gaps top 100
 
 # Heath
 set $back               #282828
@@ -60,7 +61,7 @@ bindsym $mod+g gaps inner current set 0; gaps outer current set 20
 bindsym $mod+Shift+g gaps outer current set 100; gaps right current set 500; gaps left current set 500;
 bindsym Mod4+g gaps outer current set 50; gaps inner current set 50;
 bindsym Mod4+Shift+g gaps outer current set 20; gaps inner current set 20;
-bindsym Ctrl+q gaps outer current set 50; gaps inner current set 20
+bindsym Ctrl+q gaps outer current set 100; gaps inner current set 50
 
 # Media keys
 
@@ -90,13 +91,15 @@ for_window [class=".*Zoom.*"] floating enable
 for_window [class=".*steam.*"] floating enable
 for_window [class=".*Slack.*"] floating enable
 for_window [class=".*Signal.*"] floating enable
+#for_window [class=".*Alacritty.*"] floating enable
 for_window [class=".*whatsapp.*"] floating enable
 for_window [class=".*teams.*"] floating enable
+for_window [class=".*Blueman.*"] floating enable
 
 # start a terminal
 bindsym $mod+Return exec alacritty
 bindsym Mod4+w exec firefox
-bindsym Mod4+f exec pcmanfm
+#bindsym Mod4+f exec pcmanfm
 bindsym Mod4+s exec slack
 bindsym Mod4+z exec signal-desktop --use-tray-icon
 bindsym Mod4+t exec teams-for-linux
@@ -130,8 +133,9 @@ bindsym $mod+Up split v
 bindsym $mod+Down split v
 
 # enter fullscreen mode for the focused container
-bindsym $mod+f fullscreen
+bindsym Mod4+f fullscreen
 bindsym $mod+Shift+f fullscreen global
+bindsym $mod+f gaps outer current set 0; gaps inner current set 0; gaps top current set 36;
 
 # change container layout (stacked, tabbed, default)
 bindsym $mod+s layout stacking

@@ -6,7 +6,8 @@ let g:embark_termcolors= 256
 set t_Co=256
 set termguicolors
 set background=dark
-colorscheme tokyonight-storm
+"colorscheme tokyonight-storm
+colorscheme cyberdream
 
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()

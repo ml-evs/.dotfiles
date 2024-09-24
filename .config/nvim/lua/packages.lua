@@ -11,6 +11,7 @@ require "paq" {
     --"nvim-neotest/neotest-python";
     "tpope/vim-fugitive";
     "lewis6991/gitsigns.nvim";
+    "scottmckendry/cyberdream.nvim";
     "nvim-lua/plenary.nvim";
     {"nvim-telescope/telescope.nvim", branch="0.1.x"};
     {"embark-theme/vim", as="embark"};
@@ -18,6 +19,7 @@ require "paq" {
     "mfussenegger/nvim-dap";
     "mfussenegger/nvim-dap-python";
     "rcarriga/nvim-dap-ui";
+    "rcarriga/nvim-notify";
     "folke/tokyonight.nvim";
     "nvim-lualine/lualine.nvim";
     "arkav/lualine-lsp-progress";

@@ -15,6 +15,43 @@ alias 5g='sudo mbimcli -p -d /dev/cdc-wdm0  --quectel-set-radio-state=on'
 #export QT_QPA_PLATFORMTHEME=gtk2
 #export DOCKER_BUILDKIT=1
 #
+#
+split () {
+    # Create the center virtual monitor (1/2 of the total width)
+    xrandr --setmonitor 'DisplayPort-1~1' 3072/896x1440/399+1024+0 DisplayPort-1
+    # Create the left virtual monitor (1/4 of the total width)
+    xrandr --setmonitor 'DisplayPort-1~2' 1024/448x1440/399+0+0 none
+    # Create the right virtual monitor (1/4 of the total width)
+    xrandr --setmonitor 'DisplayPort-1~3' 1024/448x1440/399+4096+0 none
+    i3-msg restart
+}
+
+unsplit () {
+    # Create the center virtual monitor (1/2 of the total width)
+    xrandr --delmonitor 'DisplayPort-1~1'
+    # Create the left virtual monitor (1/4 of the total width)
+    xrandr --delmonitor 'DisplayPort-1~2'
+    # Create the right virtual monitor (1/4 of the total width)
+    xrandr --delmonitor 'DisplayPort-1~3'
+    autorandr home
+    i3-msg restart
+    polybar -r ext2 &
+}
+
+gwtpr () {
+    cd $(git rev-parse --show-toplevel);
+    if [ $1 -eq 0 ]; then
+        gh pr list
+    else
+        if [ -f ../pr-$1 ]; then
+            cd ../pr-$1 && gh pr checkout $1 
+        else
+            gh pr view $1 && git worktree add ../pr-$1 && cd ../pr-$1 && gh pr checkout $1
+        fi
+    fi
+}
+
+
 workon () {
     # if the activate file does not exist then activate
     if [ $# -eq 0 ]; then
@@ -26,16 +63,18 @@ workon () {
     INIT_DIR=$(pwd)
 
     # find nearest .git folder
-    while [ ! -d ".git" ]; do
-        cd ..
-    done
+    if [ ! -f ".venv/bin/activate" ]; then
+        while [ ! -d ".git" ]; do
+            cd ..
+        done
+    fi
 
     if [ -f "Pipfile" ]; then
         pipenv shell --python $PYTHON_VER
     elif [ -f ".venv/bin/activate" ]; then
         source .venv/bin/activate
     elif [ ! -f ".venv-$PYTHON_VER/bin/activate" ]; then
-        echo "Creating virtualenv .venv-$PYTHON_VER"
+        echo "Creating virtualenv"
         uv venv
         source .venv/bin/activate
     fi

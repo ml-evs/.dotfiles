@@ -1,3 +1,5 @@
+vim.notify = require("notify")
+
 require("mason").setup {
     ui = {
         icons = {
@@ -106,6 +108,10 @@ lspconfig.volar.setup {
 }
 
 lspconfig.cssls.setup {
+    on_attach = on_attach,
+}
+
+lspconfig.dockerls.setup {
     on_attach = on_attach,
 }
 

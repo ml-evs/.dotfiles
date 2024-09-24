@@ -22,7 +22,3 @@ chpwd() {
 open () {
     xdg-open $@ 2>/dev/null
 }
-
-alias gbf="git-fzf branch"
-alias gcof="git-fzf checkout"
-alias gwtf="git-fzf worktree"
