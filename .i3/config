@@ -6,8 +6,9 @@ font pango: Iosevka Term NF 11
 
 for_window [class="^.*"] border pixel 2
 gaps inner 50
-gaps outer 50
+gaps outer 25
 gaps top 100
+gaps bottom 100
 
 # Heath
 set $back               #282828
@@ -61,7 +62,7 @@ bindsym $mod+g gaps inner current set 0; gaps outer current set 20
 bindsym $mod+Shift+g gaps outer current set 100; gaps right current set 500; gaps left current set 500;
 bindsym Mod4+g gaps outer current set 50; gaps inner current set 50;
 bindsym Mod4+Shift+g gaps outer current set 20; gaps inner current set 20;
-bindsym Ctrl+q gaps outer current set 100; gaps inner current set 50
+bindsym Ctrl+q gaps outer current set 25; gaps inner current set 50
 
 # Media keys
 
@@ -135,7 +136,7 @@ bindsym $mod+Down split v
 # enter fullscreen mode for the focused container
 bindsym Mod4+f fullscreen
 bindsym $mod+Shift+f fullscreen global
-bindsym $mod+f gaps outer current set 0; gaps inner current set 0; gaps top current set 36;
+bindsym $mod+f gaps outer current set 0; gaps inner current set 0; gaps top current set 0;
 
 # change container layout (stacked, tabbed, default)
 bindsym $mod+s layout stacking

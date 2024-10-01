@@ -88,7 +88,7 @@ save_to_clipboard = false
 semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [window]
-opacity = 0.85
+opacity = 0.8
 dynamic_padding = false
 
 [window.dimensions]
@@ -96,5 +96,5 @@ columns = 0
 lines = 0
 
 [window.padding]
-x = 2
-y = 2
+x = 10
+y = 10

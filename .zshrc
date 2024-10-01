@@ -25,13 +25,19 @@ split () {
     xrandr --setmonitor 'DisplayPort-1~3' 1024/448x1440/399+4096+0 none
     i3-msg restart
 }
+split4 () {
+    # Create the center virtual monitor (1/2 of the total width)
+    xrandr --setmonitor 'DisplayPort-1~1' 2560/896x1440/399+1280+0 DisplayPort-1
+    # Create the left virtual monitor (1/4 of the total width)
+    xrandr --setmonitor 'DisplayPort-1~2' 1280/448x1440/399+0+0 none
+    # Create the right virtual monitor (1/4 of the total width)
+    xrandr --setmonitor 'DisplayPort-1~3' 1280/448x1440/399+3840+0 none
+    i3-msg restart
+}
 
 unsplit () {
-    # Create the center virtual monitor (1/2 of the total width)
     xrandr --delmonitor 'DisplayPort-1~1'
-    # Create the left virtual monitor (1/4 of the total width)
     xrandr --delmonitor 'DisplayPort-1~2'
-    # Create the right virtual monitor (1/4 of the total width)
     xrandr --delmonitor 'DisplayPort-1~3'
     autorandr home
     i3-msg restart
@@ -42,12 +48,48 @@ gwtpr () {
     cd $(git rev-parse --show-toplevel);
     if [ $1 -eq 0 ]; then
         gh pr list
-    else
-        if [ -f ../pr-$1 ]; then
-            cd ../pr-$1 && gh pr checkout $1 
+        return
+    fi 
+
+    if [[ $1 =~ ^[0-9]+$ ]]; then
+        pr_number=$1
+        tree="../pr-$pr_number"
+        if [ -d $tree ]; then
+            cd $tree && gh pr checkout $1
         else
-            gh pr view $1 && git worktree add ../pr-$1 && cd ../pr-$1 && gh pr checkout $1
+            gh pr view $1
+            git worktree add $tree
+            cd $tree
+            gh pr checkout $1
         fi
+    else
+        branch_name="ml-evs/$1"
+        tree="../$1"
+        if [ -d "$tree" ]; then
+            cd $tree && git checkout $branch_name
+        else
+            git worktree add $tree $branch_name
+        fi
+    fi 
+
+    if [ ! -d "webapp/node_modules" ]; then
+        cd webapp; yarn install --dev; cd ../
+    fi
+
+    if [ ! -d "pydatalab/.venv" ]; then
+        cd pydatalab; uv venv; uv sync --all-extras; cd ../
+    fi
+
+    if [ ! -f "pydatalab/.env" ]; then
+        cp ../datalab-main/pydatalab/.env pydatalab/.env
+    fi
+
+    if [ ! -f "webapp/.env" ]; then
+        cp ../datalab-main/webapp/.env webapp/.env
+    fi
+
+    if [ "$TERM_PROGRAM" != "tmux" ]; then
+        tmuxinator start datalab $(realpath $tree)
     fi
 }
 

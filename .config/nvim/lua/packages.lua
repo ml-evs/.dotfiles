@@ -33,7 +33,6 @@ require "paq" {
     "williamboman/mason.nvim";
     "williamboman/mason-lspconfig.nvim";
     "neovim/nvim-lspconfig";
-    "bling/vim-bufferline";
     {"nvim-treesitter/nvim-treesitter", build=":TSUpdate"};
     "github/copilot.vim";
 }

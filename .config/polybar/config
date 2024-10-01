@@ -300,7 +300,6 @@ cursor-scroll = ns-resize
 [bar/splits-1]
 monitor = DisplayPort-1~2
 height = 36
-width = 1024
 top = true
 ;offset-x = 1%
 ;offset-y = 1%
@@ -321,7 +320,6 @@ module-margin-left = 1
 module-margin-right = 1
 
 modules-left = i3
-modules-center = player-mpris-tail
 override-redirect = false
 
 font-0 = Iosevka Term Nerd Font:style=Medium:size=13:antialias=true;2
@@ -334,7 +332,6 @@ font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 [bar/main-splits]
 monitor = DisplayPort-1~1
 height = 36
-width = 3072
 top = true
 ;offset-x = 1%
 ;offset-y = 1%
@@ -364,7 +361,7 @@ font-3 = Font Awesome 6 Brands:size=10:antialias=true;
 font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
-modules-center = info-docker pulseaudio filesystem memory cpu wlan eth temperature date battery
+modules-center = info-docker pulseaudio filesystem memory cpu wlan eth temperature battery
 
 ;tray-position = right
 ;tray-padding = 2
@@ -384,11 +381,9 @@ cursor-click = pointer
 cursor-scroll = ns-resize
 
 
-
 [bar/splits-2]
 monitor = DisplayPort-1~3
 height = 36
-width = 1024
 top = true
 ;offset-x = 1%
 ;offset-y = 1%
@@ -420,7 +415,8 @@ font-2 = Unifont:fontformat=truetype:size=13:antialias=true;1
 font-3 = Font Awesome 6 Brands:size=10:antialias=true;
 font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 ;modules-right = info-docker pulseaudio filesystem memory cpu wlan eth temperature date battery
-modules-right = date battery
+modules-center = player-mpris-tail
+modules-right = date
 
 tray-position = right
 ;tray-padding = 2
@@ -461,7 +457,7 @@ font-3 = Font Awesome 6 Brands:size=10:antialias=true;
 font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
-modules-center = player-mpris-tail
+modules-center = player-mpris-tail 
 modules-right = info-docker pulseaudio filesystem memory cpu wlan eth temperature date battery
 
 tray-position = right
