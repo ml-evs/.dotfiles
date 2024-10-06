@@ -1,5 +1,5 @@
 live_config_reload = true
-import = ["~/.config/alacritty/themes/themes/cyberdream.toml"]
+import = ["~/.config/alacritty/cyberdream.toml"]
 
 [colors]
 draw_bold_text_with_bright_colors = false
