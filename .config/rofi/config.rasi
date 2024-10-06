@@ -8,6 +8,4 @@ configuration {
         show-icons: true;
 }
 
-//@theme "simple-tokyonight"
-//@theme "/home/mevans/.local/share/rofi/themes/launchpad.rasi"
-@theme "/home/mevans/.local/share/rofi/themes/simple-tokyonight.rasi"
+@theme "simple-tokyonight"
