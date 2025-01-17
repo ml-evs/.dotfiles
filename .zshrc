@@ -111,9 +111,7 @@ workon () {
         done
     fi
 
-    if [ -f "Pipfile" ]; then
-        pipenv shell --python $PYTHON_VER
-    elif [ -f ".venv/bin/activate" ]; then
+    if [ -f ".venv/bin/activate" ]; then
         source .venv/bin/activate
     elif [ ! -f ".venv-$PYTHON_VER/bin/activate" ]; then
         echo "Creating virtualenv"
@@ -178,6 +176,7 @@ alias pacman="sudo pacman"
 alias please="sudo"
 
 source $HOME/.dotfiles/zshrc.global
+source $HOME/.dotfiles/keys
 
 #autoload -U compinit && compinit
 . "$HOME/.cargo/env"

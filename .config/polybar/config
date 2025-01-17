@@ -29,7 +29,7 @@ alert = #ff6e5e
 docker = #1d76ed
 
 [bar/laptop]
-monitor = eDP-1
+monitor = DisplayPort-1
 #width = 1920
 height = 28
 top = true
@@ -61,7 +61,7 @@ font-3 = Font Awesome 6 Brands:size=13:antialias=true;
 font-4 = Font Awesome 6 Free:style=Solid:size=13:antialias=true;
 
 modules-left = i3
-modules-center = player-mpris-tail 
+modules-center = player-mpris-tail
 modules-right = info-docker pulseaudio filesystem memory cpu wlan eth temperature date battery
 
 ;wm-restack = bspwm
@@ -77,58 +77,6 @@ scroll-down = #i3.prev
 
 cursor-click = pointer
 cursor-scroll = ns-resize
-
-[bar/ext8]
-monitor = DisplayPort-8
-height = 48
-bottom = true
-;offset-x = 1%
-;offset-y = 1%
-radius = 1.0
-fixed-center = true
-
-background = ${colors.background}
-foreground = ${colors.foreground}
-
-line-size = 1
-line-color = #f00
-
-border-size = 0
-border-color = #00000000
-
-padding-left = 2
-padding-right = 2
-
-module-margin-left = 1
-module-margin-right = 1
-
-font-0 = Iosevka Term Nerd Font:style=Medium:size=13:antialias=true;2
-font-1 = Siji:pixelsize=13;1
-font-2 = Unifont:fontformat=truetype:size=13:antialias=true;1
-;font-1 = Font Awesome 5 Free
-font-3 = Font Awesome 6 Brands:size=10:antialias=true;
-font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
-
-modules-left = i3
-modules-right = info-docker pulseaudio filesystem memory cpu wlan eth temperature date battery
-
-;tray-posit;ion = right
-;tray-padding = 2
-;tray-offset-y=2
-;tray-maxsize=16
-;tray-background = #0063ff00
-
-override-redirect = false
-
-;scroll-up = bspwm-desknext
-;scroll-down = bspwm-deskprev
-
-scroll-up = #i3.next
-scroll-down = #i3.prev
-
-cursor-click = pointer
-cursor-scroll = ns-resize
-
 
 [bar/ext]
 monitor = DisplayPort-0
@@ -317,6 +265,7 @@ padding-left = 2
 padding-right = 2
 
 module-margin-left = 1
+modules-center = player-mpris-tail
 module-margin-right = 1
 
 modules-left = i3
@@ -415,7 +364,7 @@ font-2 = Unifont:fontformat=truetype:size=13:antialias=true;1
 font-3 = Font Awesome 6 Brands:size=10:antialias=true;
 font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 ;modules-right = info-docker pulseaudio filesystem memory cpu wlan eth temperature date battery
-modules-center = player-mpris-tail
+#modules-center = player-mpris-tail
 modules-right = date
 
 tray-position = right
@@ -457,7 +406,7 @@ font-3 = Font Awesome 6 Brands:size=10:antialias=true;
 font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
 modules-left = i3
-modules-center = player-mpris-tail 
+modules-center = player-mpris-tail
 modules-right = info-docker pulseaudio filesystem memory cpu wlan eth temperature date battery
 
 tray-position = right

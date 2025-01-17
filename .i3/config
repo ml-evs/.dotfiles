@@ -90,6 +90,7 @@ for_window [title=".*Figure.*"] floating enable
 for_window [class=".*zoom.*"] floating enable
 for_window [class=".*Zoom.*"] floating enable
 for_window [class=".*steam.*"] floating enable
+for_window [title=".*Quick Format Citation.*"] floating enable
 for_window [class=".*Slack.*"] floating enable
 for_window [class=".*Signal.*"] floating enable
 #for_window [class=".*Alacritty.*"] floating enable
