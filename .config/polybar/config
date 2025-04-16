@@ -278,6 +278,9 @@ font-2 = Unifont:fontformat=truetype:size=13:antialias=true;1
 font-3 = Font Awesome 6 Brands:size=10:antialias=true;
 font-4 = Font Awesome 6 Free:style=Solid:size=11:antialias=true;
 
+scroll-up = #i3.next
+scroll-down = #i3.prev
+
 [bar/main-splits]
 monitor = DisplayPort-1~1
 height = 36
@@ -356,6 +359,9 @@ module-margin-right = 1
 
 modules-left = i3
 override-redirect = false
+
+scroll-up = #i3.next
+scroll-down = #i3.prev
 
 font-0 = Iosevka Term Nerd Font:style=Medium:size=13:antialias=true;2
 font-1 = Siji:pixelsize=13;1

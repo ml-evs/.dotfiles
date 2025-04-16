@@ -103,12 +103,12 @@ require('nvim-treesitter.configs').setup {
 
 local lspconfig = require'lspconfig'
 
-lspconfig.volar.setup {
+lspconfig.cssls.setup {
     on_attach = on_attach,
 }
 
-lspconfig.cssls.setup {
-    on_attach = on_attach,
+lspconfig.vuels.setup {
+	  on_attach = on_attach,
 }
 
 lspconfig.dockerls.setup {
@@ -127,14 +127,16 @@ lspconfig.jsonls.setup {
     on_attach = on_attach,
 }
 
-local ruff_on_attach = function(client, bufnr)
-    -- Disable hover in favor of Pyright
-    client.server_capabilities.hoverProvider = false
-end
+lspconfig.ruff.setup{}
 
-lspconfig.ruff_lsp.setup {
-    on_attach = ruff_on_attach,
-}
+--local ruff_on_attach = function(client, bufnr)
+--    -- Disable hover in favor of Pyright
+--    client.server_capabilities.hoverProvider = false
+--end
+
+--lspconfig.ruff_lsp.setup {
+--    on_attach = ruff_on_attach,
+--}
 
 lspconfig.html.setup {
     on_attach = on_attach,

@@ -17,6 +17,7 @@ alias 5g='sudo mbimcli -p -d /dev/cdc-wdm0  --quectel-set-radio-state=on'
 #
 #
 split () {
+    autorandr home
     # Create the center virtual monitor (1/2 of the total width)
     xrandr --setmonitor 'DisplayPort-1~1' 3072/896x1440/399+1024+0 DisplayPort-1
     # Create the left virtual monitor (1/4 of the total width)
@@ -25,13 +26,14 @@ split () {
     xrandr --setmonitor 'DisplayPort-1~3' 1024/448x1440/399+4096+0 none
     i3-msg restart
 }
-split4 () {
-    # Create the center virtual monitor (1/2 of the total width)
-    xrandr --setmonitor 'DisplayPort-1~1' 2560/896x1440/399+1280+0 DisplayPort-1
-    # Create the left virtual monitor (1/4 of the total width)
-    xrandr --setmonitor 'DisplayPort-1~2' 1280/448x1440/399+0+0 none
-    # Create the right virtual monitor (1/4 of the total width)
-    xrandr --setmonitor 'DisplayPort-1~3' 1280/448x1440/399+3840+0 none
+split3 () {
+    autorandr home
+    # Create the center virtual monitor (2120px width)
+    xrandr --setmonitor 'DisplayPort-1~1' 2120/896x1440/256+1500+0 DisplayPort-1
+    # Create the left virtual monitor (1500px width)
+    xrandr --setmonitor 'DisplayPort-1~2' 1500/448x1440/256+0+0 none
+    # Create the right virtual monitor (1500px width)
+    xrandr --setmonitor 'DisplayPort-1~3' 1500/448x1440/256+3620+0 none
     i3-msg restart
 }
 
@@ -39,7 +41,7 @@ unsplit () {
     xrandr --delmonitor 'DisplayPort-1~1'
     xrandr --delmonitor 'DisplayPort-1~2'
     xrandr --delmonitor 'DisplayPort-1~3'
-    autorandr home
+    autorandr laptop
     i3-msg restart
     polybar -r ext2 &
 }
@@ -135,16 +137,6 @@ GPG_TTY=$(tty)
 
 export GPG_TTY
 export PINENTRY_USER_DATA="USE_CURSES=1"
-
-#if [[ -z "$PYENV_SHELL" ]];
-#then
-#    export PYENV_ROOT="$HOME/.pyenv"
-#    command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
-#    eval "$(pyenv init -)"
-#fi
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init -)"
 
 export ZSH_THEME="bullet-train"
 # Default user; displays host if !=

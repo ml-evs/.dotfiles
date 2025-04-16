@@ -79,7 +79,7 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 
 # Misc
 bindsym XF86Display exec --no-startup-id autorandr laptop
-bindsym Mod4+Shift+F12 exec --no-startup-id autorandr home
+bindsym Mod4+Shift+F12 exec --no-startup-id autorandr home 
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
