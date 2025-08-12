@@ -8,6 +8,7 @@ require("mason").setup {
     }
 }
 require("mason-lspconfig").setup {
+    automatic_enable = false
 }
 
 
@@ -127,7 +128,12 @@ lspconfig.jsonls.setup {
     on_attach = on_attach,
 }
 
-lspconfig.ruff.setup{}
+lspconfig.ruff.setup{
+    init_options = {
+        root_markers = { "pyproject.toml", "uv.lock" },
+    }
+}
+
 
 --local ruff_on_attach = function(client, bufnr)
 --    -- Disable hover in favor of Pyright
@@ -164,14 +170,19 @@ lspconfig.taplo.setup {
 }
 
 
-lspconfig.pyright.setup {
+lspconfig.basedpyright.setup {
     on_attach = on_attach,
+    init_options = {
+        root_markers = { "pyproject.toml", "uv.lock" },
+    },
     settings = {
-        python = {
+        basedpyright = {
+            disableOrganizeImports = true,
+            openFilesOnly = true,
+            useLibraryCodeForTypes = true,
+            reportMissingTypeStubs = false,
             analysis = {
-                useLibraryCodeForTypes = true,
-                autoSearchPaths = true,
-                diagnosticMode = "openFilesOnly",
+                typeCheckingMode = "basic" 
             }
         }
     },
