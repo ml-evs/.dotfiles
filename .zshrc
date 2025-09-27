@@ -1,5 +1,6 @@
 # Path to your oh-my-zsh installation.
 #
+export ANSIBLE_STDOUT_CALLBACK=debug
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 #export PIPENV_VENV_IN_PROJECT=1
@@ -106,10 +107,22 @@ workon () {
 
     INIT_DIR=$(pwd)
 
-    # find nearest .git folder
+    # If I'm in the base datalab, just cd in
+    if [ -d "pydatalab" ]; then
+        cd pydatalab
+    fi
+    # find nearest uv.lock
     if [ ! -f ".venv/bin/activate" ]; then
-        while [ ! -d ".git" ]; do
+        counter=0
+        while [ ! -d "uv.lock" ]; do
             cd ..
+            counter=$((counter + 1))
+
+            if [ $counter -gt 10 ]; then
+                echo "No lockfile found"
+                cd $INIT_DIR
+                return
+            fi
         done
     fi
 
@@ -174,3 +187,4 @@ source $HOME/.dotfiles/keys
 . "$HOME/.cargo/env"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#. "/home/mevans/.deno/env"
