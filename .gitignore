@@ -2,3 +2,4 @@
 .config
 .venv*
 keys
+.claude
