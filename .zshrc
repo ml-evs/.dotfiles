@@ -181,8 +181,6 @@ alias pacman="sudo pacman"
 alias please="sudo"
 
 source $HOME/.dotfiles/zshrc.global
-source $HOME/.dotfiles/keys
-
 #autoload -U compinit && compinit
 . "$HOME/.cargo/env"
 
