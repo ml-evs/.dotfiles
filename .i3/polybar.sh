@@ -19,6 +19,7 @@ else
     polybar -r ext2 &
 fi
 
+polybar -r ext &
 ## for m in $(polybar -m | awk '{gsub(":", "", $1); print $1}'); do
 #     MONITOR=$m polybar -r mine &
 # done
