@@ -1,0 +1,14 @@
+[Unit]
+Description=Load Bitwarden Session
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/mevans/.dotfiles/scripts/bw-session.sh
+RemainAfterExit=yes
+Restart=on-failure
+RestartSec=5
+StartLimitBurst=3
+
+[Install]
+WantedBy=default.target
