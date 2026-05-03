@@ -748,7 +748,7 @@ margin-bottom = 5
 [module/player-mpris-tail]
 type = custom/script
 format-prefix="󰽰 "
-exec = ~/.i3/scripts/player-mpris-tail.py -f '{icon} {:artist:t50:{artist}:}{:artist: - :}{:t50:{title}:}'
+exec = ~/.i3/scripts/player-mpris-tail.py -f '{icon} {:artist:t50:{artist}:}{:artist: - :}{:t10:{title}:}'
 tail = true
 click-left = ~/.i3/scripts/player-mpris-tail.py play-pause &
 
