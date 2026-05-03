@@ -7,8 +7,7 @@ require "paq" {
     "hrsh7th/cmp-cmdline";
     "hrsh7th/nvim-cmp";
     "antoinemadec/FixCursorHold.nvim";
-    --"nvim-neotest/neotest";
-    --"nvim-neotest/neotest-python";
+    "jpwol/thorn.nvim";
     "tpope/vim-fugitive";
     "lewis6991/gitsigns.nvim";
     "scottmckendry/cyberdream.nvim";
