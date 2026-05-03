@@ -22,3 +22,5 @@
 	excludesFile = ~/.gitignore
 [color]
 	ui = auto
+[rerere]
+	enabled = true
