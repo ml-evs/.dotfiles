@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 # Wait up to 30 seconds for keyring to be available
 for i in {1..30}; do
