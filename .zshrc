@@ -179,14 +179,11 @@ alias vim=nvim
 alias nv=nvim
 alias pacman="sudo pacman"
 alias please="sudo"
+alias bw=rbw
 
 source $HOME/.dotfiles/zshrc.global
 #autoload -U compinit && compinit
 . "$HOME/.cargo/env"
-
-if [ -f $HOME/.bw-session ] ; then
-    source $HOME/.bw-session
-fi
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 #. "/home/mevans/.deno/env"
