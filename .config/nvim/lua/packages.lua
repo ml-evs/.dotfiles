@@ -12,7 +12,7 @@ require "paq" {
     "lewis6991/gitsigns.nvim";
     "scottmckendry/cyberdream.nvim";
     "nvim-lua/plenary.nvim";
-    {"nvim-telescope/telescope.nvim", branch="0.1.x"};
+    {"nvim-telescope/telescope.nvim", tag="0.2.1"};
     {"embark-theme/vim", as="embark"};
     {"akinsho/bufferline.nvim", tag="v3.*"};
     "mfussenegger/nvim-dap";
@@ -32,6 +32,6 @@ require "paq" {
     "williamboman/mason.nvim";
     "williamboman/mason-lspconfig.nvim";
     "neovim/nvim-lspconfig";
-    {"nvim-treesitter/nvim-treesitter", build=":TSUpdate"};
+    {"nvim-treesitter/nvim-treesitter", build=":TSUpdate", branch="main"};
     "github/copilot.vim";
 }

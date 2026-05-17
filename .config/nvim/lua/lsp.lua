@@ -70,35 +70,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 
-require('nvim-treesitter.configs').setup {
-    ensure_installed = {
-        "lua",
-        "comment",
-        "markdown",
-        "html",
-        "bash",
-        "bibtex",
-        "css",
-        "diff",
-        "dockerfile",
-        "javascript",
-        "json",
-        "latex",
-        "markdown",
-        "rst",
-        "python",
-        "toml",
-        "vim",
-        "vue",
-        "yaml",
-    },
-    auto_install = true,
-    highlight = {
-        enable = true,
-    }
-}
-
-
 vim.filetype.add {
   extension = {
     jinja = 'jinja',

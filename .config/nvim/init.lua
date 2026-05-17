@@ -8,5 +8,6 @@ require("configs/cyberdream")
 require("configs/cmp")
 require("configs/neotest")
 require("configs/format")
+require("configs/treesitter")
 
 vim.cmd('source ~/.config/nvim/vimrc')
