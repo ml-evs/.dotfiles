@@ -1,0 +1,18 @@
+# kanshi — autorandr equivalent for Wayland/sway.
+# Profiles match on connected outputs; the first matching profile wins.
+# Reload via: systemctl --user restart kanshi  (or pkill -HUP kanshi).
+
+profile home {
+    output "GIGA-BYTE TECHNOLOGY CO., LTD. AORUS CO49DQ *" mode 5120x1440@144Hz position 0,0 scale 1
+    output eDP-1 mode 1920x1200@60Hz position 5120,0 scale 1
+}
+
+profile docked {
+    output "GIGA-BYTE TECHNOLOGY CO., LTD. AORUS CO49DQ *" mode 5120x1440@144Hz position 0,0 scale 1
+    output eDP-1 disable
+}
+
+profile laptop {
+    output "GIGA-BYTE TECHNOLOGY CO., LTD. AORUS CO49DQ *" disable
+    output eDP-1 mode 1920x1200@60Hz position 0,0 scale 1
+}

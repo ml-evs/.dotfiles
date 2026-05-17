@@ -1,0 +1,290 @@
+# Sway config — ported from ~/.dotfiles/.i3/config
+# Sway was previously falling back to ~/.i3/config. This file (symlinked
+# to ~/.config/sway/config) takes priority.
+
+font pango: Iosevka Term NF 11
+
+#..........
+# Look
+#..........
+
+default_border pixel 2
+default_floating_border pixel 2
+smart_borders off
+
+gaps inner 50
+gaps outer 25
+gaps top 100
+gaps bottom 100
+
+# Heath
+set $back               #282828
+set $background         #282828
+set $black              #181b18
+set $magenta            #BA8BAF
+set $grey               #373B41
+set $lightgrey          #665c54
+set $white              #d5c4a1
+set $yellow             #fabd2f
+set $red                #fb4934
+set $darkred            #A54242
+set $green              #b8bb26
+set $darkgreen          #b8bb26
+
+#class                  border   backgr.    text    indicator child_border
+client.focused          $yellow  $magenta   $black  $yellow   $magenta
+client.focused_inactive $red     $lightgrey $black  $red      $lightgrey
+client.unfocused        $magenta $grey      $white  $magenta  $grey
+client.urgent           $red     $red       $black  $red      $red
+client.background       $background
+
+#..........
+# Outputs / wallpaper
+#..........
+# Detected: DP-2 (AORUS CO49DQ ultrawide, supports 144Hz) + eDP-1 (Lenovo 1920x1200)
+# Refresh fix: DP-2 was sitting at 60Hz.
+output DP-2  mode 5120x1440@144Hz position 0 0    scale 1
+output eDP-1 mode 1920x1200@60Hz   position 5120 0 scale 1
+output * bg ~/.local/share/wallpapers/navajo.jpg fill
+
+# Lid switch
+set $laptop eDP-1
+bindswitch --reload --locked lid:on  output $laptop disable
+bindswitch --reload --locked lid:off output $laptop enable
+
+# Workspace pinning (i3 had DisplayPort-1~1/~2/~3 xrandr-split monitors;
+# without a monitor split they all land on DP-2 for now)
+workspace 0 output DP-2
+workspace 1 output DP-2
+workspace 2 output DP-2
+workspace 3 output eDP-1
+
+#..........
+# Input
+#..........
+input * {
+    xkb_layout gb
+    xkb_numlock enabled
+}
+
+input "2:7:SynPS/2_Synaptics_TouchPad" {
+    tap enabled
+    natural_scroll disabled
+}
+
+input "2:10:TPPS/2_Elan_TrackPoint" {
+    pointer_accel 0
+    scroll_factor 0.5
+}
+
+#..........
+# Autostart
+#..........
+# Push sway's session env into systemd user, so xdg-desktop-portal-* and
+# other user services see WAYLAND_DISPLAY/XDG_CURRENT_DESKTOP at activation
+# time. Without this, the screencast portal can't bind to the compositor
+# and Slack/Firefox/etc. fail with "give screen share access" errors.
+exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP XDG_SESSION_TYPE
+
+exec nm-applet --indicator
+exec blueman-applet
+exec dunst
+exec gammastep
+exec /usr/lib/xfce4/notifyd/xfce4-power-manager
+exec_always pkill -x swayidle ; swayidle -w \
+    timeout 600  'hyprlock' \
+    timeout 900  'swaymsg "output * dpms off"' \
+        resume   'swaymsg "output * dpms on"' \
+    timeout 7200 'systemctl suspend' \
+    before-sleep 'hyprlock'
+
+# autorandr equivalent — kanshi reacts to display hot-plug.
+# exec_always + pkill so `swaymsg reload` respawns it cleanly.
+exec_always pkill -x kanshi ; kanshi
+
+# GTK theme is managed via ~/.config/gtk-3.0/settings.ini and gsettings;
+# don't override from here.
+
+#..........
+# Modifier
+#..........
+# Mod1 = Alt, Mod4 = Super
+set $mod Mod1
+
+#..........
+# Gaps presets
+#..........
+bindsym $mod+g       gaps inner current set 0;  gaps outer current set 20; gaps bottom current set 50
+bindsym $mod+Shift+g gaps outer current set 100; gaps right current set 500; gaps left current set 500
+bindsym Mod4+g       gaps outer current set 50; gaps inner current set 50; gaps bottom current set 50
+bindsym Mod4+Shift+g gaps outer current set 20; gaps inner current set 20; gaps bottom current set 50
+bindsym Ctrl+q       gaps outer current set 25; gaps inner current set 50; gaps bottom current set 50
+
+#..........
+# Media keys
+#..........
+bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
+bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
+bindsym XF86AudioMute        exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
+
+bindsym XF86MonBrightnessUp   exec brightnessctl -d 'intel_backlight' set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl -d 'intel_backlight' set 5%-
+
+# Screenshot (replaces scrot -s)
+bindsym --release Print exec grim -g "$(slurp)" - | wl-copy
+
+# Display profile toggle — XF86Display flips between home (external+laptop)
+# and laptop-only. Useful when a KVM is hiding hotplug events.
+bindsym XF86Display        exec ~/.config/sway/toggle-display.sh
+bindsym Mod4+Shift+F12     exec kanshictl switch home
+
+#..........
+# Window rules
+#..........
+floating_modifier $mod
+
+bindsym $mod+Shift+Q kill
+
+for_window [title=".*Figure.*"]                floating enable
+for_window [class=".*[Zz]oom.*"]               floating enable
+for_window [app_id=".*[Zz]oom.*"]              floating enable
+for_window [class=".*steam.*"]                 floating enable
+for_window [title=".*Quick Format Citation.*"] floating enable
+for_window [class=".*Slack.*"]                 floating enable
+for_window [app_id=".*[Ss]lack.*"]             floating enable
+for_window [class=".*Signal.*"]                floating enable
+for_window [app_id=".*signal.*"]               floating enable
+for_window [class=".*whatsapp.*"]              floating enable
+for_window [class=".*teams.*"]                 floating enable
+for_window [app_id=".*teams.*"]                floating enable
+for_window [class=".*Blueman.*"]               floating enable
+
+for_window [app_id="alacritty"]   border none
+for_window [class="Firefox"]      inhibit_idle fullscreen
+for_window [app_id="firefox"]     inhibit_idle fullscreen
+for_window [app_id="vlc"]         inhibit_idle fullscreen
+
+#..........
+# Launchers
+#..........
+bindsym $mod+Return    exec alacritty
+bindsym Mod4+w         exec env MOZ_ENABLE_WAYLAND=1 firefox
+bindsym Mod4+s         exec slack --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer
+bindsym Mod4+z         exec signal-desktop --use-tray-icon
+bindsym Mod4+t         exec teams-for-linux
+bindsym Mod4+a         exec whatsapp-nativefier
+bindsym Mod4+Shift+l   exec hyprlock
+bindsym $mod+d         exec rofi -i -show run
+
+#..........
+# Layout
+#..........
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+bindsym $mod+h focus left
+
+bindsym $mod+Shift+J move down
+bindsym $mod+Shift+K move up
+bindsym $mod+Shift+L move right
+bindsym $mod+Shift+H move left
+
+bindsym $mod+Left  split h
+bindsym $mod+Right split h
+bindsym $mod+Up    split v
+bindsym $mod+Down  split v
+
+bindsym Mod4+f       fullscreen
+bindsym $mod+Shift+f fullscreen global
+# Centered-max: toggle the focused window between tiled and a centered
+# floating 1920x1200 "virtual laptop monitor", so reflex-maximizing on the
+# 5120px ultrawide doesn't produce a useless full-width window.
+bindsym $mod+f       exec ~/.config/sway/center-zoom.sh
+
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout default
+
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space       focus mode_toggle
+
+#..........
+# Workspaces
+#..........
+bindsym $mod+0 workspace 0
+bindsym $mod+1 workspace 1
+bindsym $mod+2 workspace 2
+bindsym $mod+3 workspace 3
+bindsym $mod+4 workspace 4
+bindsym $mod+5 workspace 5
+bindsym $mod+6 workspace 6
+bindsym $mod+7 workspace 7
+bindsym $mod+8 workspace 8
+bindsym $mod+9 workspace 9
+bindsym $mod+Escape  exec ~/.config/sway/scratchpad-show.sh 1200 800
+bindsym Mod4+Escape  move scratchpad
+
+bindsym $mod+Shift+0 move workspace 0
+bindsym $mod+Shift+1 move workspace 1
+bindsym $mod+Shift+2 move workspace 2
+bindsym $mod+Shift+3 move workspace 3
+bindsym $mod+Shift+4 move workspace 4
+bindsym $mod+Shift+5 move workspace 5
+bindsym $mod+Shift+6 move workspace 6
+bindsym $mod+Shift+7 move workspace 7
+bindsym $mod+Shift+8 move workspace 8
+bindsym $mod+Shift+9 move workspace 9
+
+bindsym Mod4+Left  move workspace to output left
+bindsym Mod4+h     move workspace to output left
+bindsym Mod4+Right move workspace to output right
+bindsym Mod4+l     move workspace to output right
+bindsym Mod4+Up    move workspace to output up
+bindsym Mod4+k     move workspace to output up
+bindsym Mod4+Down  move workspace to output up
+bindsym Mod4+j     move workspace to output up
+
+#..........
+# Reload / system
+#..........
+bindsym $mod+Shift+R reload
+bindsym Mod4+Shift+R exec pkill -SIGUSR2 waybar
+
+set $mode_system (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym e       exec swaymsg exit,        mode "default"
+    bindsym s       exec systemctl suspend,   mode "default"
+    bindsym h       exec systemctl hibernate, mode "default"
+    bindsym r       exec systemctl reboot,    mode "default"
+    bindsym Shift+s exec systemctl poweroff,  mode "default"
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym Ctrl+$mod+Delete mode "$mode_system"
+
+mode "resize" {
+    bindsym j     resize grow down  10 px or 10 ppt
+    bindsym k     resize grow up    10 px or 10 ppt
+    bindsym l     resize grow right 10 px or 10 ppt
+    bindsym h     resize grow left  10 px or 10 ppt
+    bindsym Left  resize grow left  10 px or 10 ppt
+    bindsym Down  resize grow down  10 px or 10 ppt
+    bindsym Up    resize grow up    10 px or 10 ppt
+    bindsym Right resize grow right 10 px or 10 ppt
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+bindsym $mod+r mode "resize"
+
+#..........
+# Bar — waybar (config at ~/.config/waybar/)
+#..........
+bar {
+    swaybar_command waybar
+    position top
+    mode dock
+    hidden_state show
+    modifier none
+}
+
+include /etc/sway/config.d/*

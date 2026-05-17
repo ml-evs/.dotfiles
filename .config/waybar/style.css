@@ -1,144 +1,99 @@
+/* Polybar-flavoured waybar */
+
 * {
-    padding: 0 4px;
-    color: #ffffff;
+    padding: 0;
+    margin: 0;
+    color: #D8D8D8;
     border: none;
     border-radius: 0;
-    font-family: 'Iosevka Term SS07 Medium', 'FontAwesome 5 Free Solid', monospace;
-    font-size: 14px;
+    font-family: 'IosevkaTerm Nerd Font', 'Symbols Nerd Font', monospace;
+    font-weight: 500;
+    font-size: 18px;
+    min-height: 0;
 }
+
 window#waybar {
-    background-color: rgba(38, 38, 38, 0.4);
-    /*border-bottom: 3px solid rgba(0, 0, 0, 0.8);*/
-    color: #ffffff;
+    background-color: rgba(22, 24, 26, 0.85);  /* #16181a @ ~85% */
+    color: #D8D8D8;
+    min-height: 42px;
     transition-property: background-color;
-    transition-duration: .5s;
+    transition-duration: .3s;
 }
 
-window#waybar.hidden {
-    opacity: 0.2;
-}
+window#waybar.hidden { opacity: 0.2; }
+window#waybar.empty  { background-color: transparent; }
 
-window#waybar.empty {
-    background-color: transparent;
-}
-window#waybar.solo {
-    background-color: #FFFFFF;
-}
-
-#workspaces button {
-    padding: 0 5px;
-    color: black;
-    border-bottom: 2px solid transparent;
-}
-
-/* https://github.com/Alexays/Waybar/wiki/FAQ#the-workspace-buttons-have-a-strange-hover-effect */
-#workspaces button:hover {
-    background: rgba(0, 0, 0, 0.5);
-    box-shadow: inherit;
-    border-bottom: 2px solid #ffffff;
-}
-
-/*#workspaces button.current_output {*/
-/*    border-bottom: 2px solid #BA8BAF;*/
-/*}*/
-
-#workspaces button.visible {
-    border-bottom: 2px solid #BA8BAF;
-}
-
-
-#workspaces button.focused {
-    background-color: initial;
-    color: initial;
-    border-bottom: 2px solid #FABD2F;
-}
-
-#workspaces button.urgent {
-    background-color: #eb4d4b;
-}
-
-#mode {
-    background-color: #64727D;
-    border-bottom: 3px solid #ffffff;
-}
-
-#clock,
-#battery,
-#cpu,
-#memory,
-#disk,
-#temperature,
-#backlight,
-#network,
-#custom-spotify,
-#custom-tw,
-#pulseaudio,
-#custom-media,
-#tray,
-#mode,
-#idle_inhibitor {
+/* Workspaces — polybar's i3 module: small index, focused underlined in primary */
+#workspaces {
     margin: 0 4px;
 }
 
-#battery.full {
-    background-color: rgba(38, 38, 38, 0.4);
-    color: #FFFFFF;
+#workspaces button {
+    padding: 0 8px;
+    margin: 4px 1px;
+    color: #D8D8D8;
+    background: transparent;
+    border-bottom: 2px solid transparent;
 }
 
-#temperature.critical {
-    background-color: #f53c3c;
-    color: #ffffff;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+#workspaces button:hover {
+    background: transparent;
+    box-shadow: inherit;
+    border-bottom: 2px solid #D8D8D8;
 }
 
-#memory.critical {
-    background-color: #f53c3c;
-    color: #ffffff;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+#workspaces button.visible {
+    border-bottom: 2px solid #ffb52a;  /* polybar primary */
 }
 
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #000000;
-    }
+#workspaces button.focused {
+    border-bottom: 2px solid #ffb52a;
 }
 
-#battery.charging:not(.full) {
-    color: #B8BB26;
+#workspaces button.urgent {
+    color: #ff6e5e;                   /* polybar alert */
+    border-bottom: 2px solid #ff6e5e;
 }
 
-#battery.critical:not(.charging) {
-    background-color: #f53c3c;
-    color: #ffffff;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+#mode {
+    color: #ffb52a;
+    padding: 0 8px;
 }
 
-#battery.warning:not(.charging) {
-    background-color: #D75F5F;
-    color: #000000;
+/* Module spacing */
+#custom-info-docker,
+#custom-mpris,
+#custom-tex,
+#custom-tw,
+#pulseaudio,
+#disk,
+#memory,
+#cpu,
+#network,
+#temperature,
+#clock,
+#battery,
+#idle_inhibitor,
+#tray {
+    padding: 0 8px;
+    background: transparent;
 }
 
-#custom-vpn {
-    color: #FFAF00;
+#tray {
+    padding: 0 6px;
 }
 
-#custom-spotify {
-    color: #1DB954;
-}
+/* Accents matching polybar */
+#custom-info-docker { color: #1d76ed; }   /* docker blue */
+#custom-mpris       { color: #D8D8D8; }
+#custom-tex         { color: #D8D8D8; }
+#custom-tw          { color: #ffb52a; }
 
-#custom-tw {
-    color: #FFAF00;
-}
+/* States — text colour only, no background fills */
+#cpu.warning,
+#memory.warning,
+#temperature.critical,
+#battery.warning           { color: #ffb52a; }
+
+#battery.critical          { color: #ff6e5e; }
+#battery.charging          { color: #b8bb26; }

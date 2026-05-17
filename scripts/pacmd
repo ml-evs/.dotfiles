@@ -1,0 +1,19 @@
+#!/bin/sh
+# Shim for apps (notably Zoom) that probe for the legacy `pacmd` binary at
+# startup. We run pipewire-pulse, so PulseAudio's classic `pacmd` is gone.
+# Most callers only need `pacmd --version` to succeed; if anything beyond
+# that is asked, hand off to `pactl` which speaks the same socket.
+
+case "$1" in
+    --version|-v)
+        echo "pacmd 16.1 (shim over pipewire-pulse)"
+        exit 0
+        ;;
+    -h|--help)
+        echo "pacmd shim — see pactl(1)"
+        exit 0
+        ;;
+    *)
+        exec pactl "$@"
+        ;;
+esac
