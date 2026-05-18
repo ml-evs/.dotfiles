@@ -127,7 +127,7 @@
     "custom/info-docker": {
         "exec": "~/.i3/scripts/info-docker.sh",
         "interval": 60,
-        "format": " {}",
+        "format": "󰡨 {}",
         "tooltip": false
     },
     "custom/mpris": {
