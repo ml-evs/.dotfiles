@@ -90,7 +90,7 @@ exec nm-applet --indicator
 exec blueman-applet
 exec dunst
 exec gammastep
-exec /usr/lib/xfce4/notifyd/xfce4-power-manager
+exec_always xfce4-power-manager
 exec_always pkill -x swayidle ; swayidle -w \
     timeout 600  'hyprlock' \
     timeout 900  'swaymsg "output * dpms off"' \
