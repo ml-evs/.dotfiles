@@ -97,3 +97,55 @@ window#waybar.empty  { background-color: transparent; }
 
 #battery.critical          { color: #ff6e5e; }
 #battery.charging          { color: #b8bb26; }
+
+/* ---------------------------------------------------------------
+ * Tray context menus (nm-applet, Slack, Nextcloud, ...).
+ * waybar's `* { ... }` zeroes padding/border/min-height on every node.
+ * dbusmenu-gtk3 popups inherit that scope, leaving menu items flush
+ * and separators/checkboxes invisible. Restore them explicitly.
+ * --------------------------------------------------------------- */
+menu {
+    background-color: #16181a;
+    color: #d8d8d8;
+    padding: 4px 0;
+    border: 1px solid rgba(213, 196, 161, 0.3);
+}
+
+menuitem {
+    padding: 6px 14px;
+    min-height: 24px;
+    color: #d8d8d8;
+}
+
+menuitem:hover, menuitem:focus, menuitem:selected {
+    background-color: rgba(186, 139, 175, 0.4);
+    color: #ffffff;
+}
+
+menuitem:disabled {
+    color: rgba(216, 216, 216, 0.4);
+}
+
+menuitem check, menuitem radio,
+menuitem check:checked, menuitem radio:checked {
+    min-width: 14px;
+    min-height: 14px;
+    margin-right: 8px;
+    border: 1px solid rgba(213, 196, 161, 0.6);
+    background-color: transparent;
+}
+
+menuitem check:checked, menuitem radio:checked {
+    background-color: #ffb52a;
+}
+
+menu separator {
+    min-height: 1px;
+    background-color: rgba(213, 196, 161, 0.25);
+    margin: 4px 6px;
+}
+
+menu arrow {
+    min-width: 10px;
+    min-height: 10px;
+}

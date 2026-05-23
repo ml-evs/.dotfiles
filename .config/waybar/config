@@ -15,6 +15,7 @@
     "modules-right": [
         "idle_inhibitor",
         "custom/info-docker",
+        "backlight",
         "pulseaudio",
         "disk",
         "memory",
@@ -88,6 +89,23 @@
         "format-disconnected": "",
         "on-click": "alacritty -e nmtui"
     },
+    "backlight": {
+        "device": "amdgpu_bl1",
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "󰃛",
+            "󰃜",
+            "󰃝",
+            "󰃞",
+            "󰃟",
+            "󰃠",
+            "󰃡",
+            "󰃢"
+        ],
+        "tooltip": false,
+        "on-scroll-up": "brightnessctl -d amdgpu_bl1 set +5%",
+        "on-scroll-down": "brightnessctl -d amdgpu_bl1 set 5%-"
+    },
     "pulseaudio": {
         "tooltip": false,
         "scroll-step": 1,
@@ -114,7 +132,8 @@
             "",
             ""
         ],
-        "tooltip-format": "{timeTo}"
+        "tooltip-format": "{timeTo}",
+        "on-click": "xfce4-power-manager-settings"
     },
     "idle_inhibitor": {
         "format": "{icon}",

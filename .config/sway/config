@@ -43,8 +43,8 @@ client.background       $background
 #..........
 # Detected: DP-2 (AORUS CO49DQ ultrawide, supports 144Hz) + eDP-1 (Lenovo 1920x1200)
 # Refresh fix: DP-2 was sitting at 60Hz.
-output DP-2  mode 5120x1440@144Hz position 0 0    scale 1
-output eDP-1 mode 1920x1200@60Hz   position 5120 0 scale 1
+output DP-2  mode 1920x1080@144Hz position 0 0    scale 1
+output eDP-1 mode 1920x1200@60Hz   position 0 1080 scale 1
 output * bg ~/.local/share/wallpapers/navajo.jpg fill
 
 # Lid switch
@@ -67,9 +67,11 @@ input * {
     xkb_numlock enabled
 }
 
-input "2:7:SynPS/2_Synaptics_TouchPad" {
+input type:touchpad {
     tap enabled
     natural_scroll disabled
+    dwt enabled
+    middle_emulation enabled
 }
 
 input "2:10:TPPS/2_Elan_TrackPoint" {
@@ -92,11 +94,11 @@ exec dunst
 exec gammastep
 exec_always xfce4-power-manager
 exec_always pkill -x swayidle ; swayidle -w \
-    timeout 600  'hyprlock' \
+    timeout 600  'pgrep -x hyprlock || hyprlock' \
     timeout 900  'swaymsg "output * dpms off"' \
         resume   'swaymsg "output * dpms on"' \
     timeout 7200 'systemctl suspend' \
-    before-sleep 'hyprlock'
+    before-sleep 'pgrep -x hyprlock || hyprlock'
 
 # autorandr equivalent — kanshi reacts to display hot-plug.
 # exec_always + pkill so `swaymsg reload` respawns it cleanly.
@@ -127,8 +129,8 @@ bindsym XF86AudioRaiseVolume exec pactl set-sink-volume @DEFAULT_SINK@ +5%
 bindsym XF86AudioLowerVolume exec pactl set-sink-volume @DEFAULT_SINK@ -5%
 bindsym XF86AudioMute        exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
 
-bindsym XF86MonBrightnessUp   exec brightnessctl -d 'intel_backlight' set +5%
-bindsym XF86MonBrightnessDown exec brightnessctl -d 'intel_backlight' set 5%-
+bindsym XF86MonBrightnessUp   exec brightnessctl -d amdgpu_bl1 set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl -d amdgpu_bl1 set 5%-
 
 # Screenshot (replaces scrot -s)
 bindsym --release Print exec grim -g "$(slurp)" - | wl-copy
@@ -173,7 +175,7 @@ bindsym Mod4+s         exec slack --ozone-platform=wayland --enable-features=Web
 bindsym Mod4+z         exec signal-desktop --use-tray-icon
 bindsym Mod4+t         exec teams-for-linux
 bindsym Mod4+a         exec whatsapp-nativefier
-bindsym Mod4+Shift+l   exec hyprlock
+bindsym Mod4+Shift+l   exec pgrep -x hyprlock || hyprlock
 bindsym $mod+d         exec rofi -i -show run
 
 #..........
