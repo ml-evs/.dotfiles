@@ -1,0 +1,6 @@
+[Unit]
+Description=Unlock the FCC lock on Quectel EC25-E
+[Service]
+ExecStart=mbimcli -p -d /dev/cdc-wdm0  --quectel-set-radio-state=on
+[Install]
+WantedBy=graphical-session.target

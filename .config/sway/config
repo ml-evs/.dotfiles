@@ -101,8 +101,10 @@ exec_always pkill -x swayidle ; swayidle -w \
     before-sleep 'pgrep -x hyprlock || hyprlock'
 
 # autorandr equivalent — kanshi reacts to display hot-plug.
-# exec_always + pkill so `swaymsg reload` respawns it cleanly.
-exec_always pkill -x kanshi ; kanshi
+# Run as a systemd user service (Restart=always) bound to the sway
+# session, so a kanshi crash auto-respawns instead of leaving outputs
+# stuck at a fallback mode. Starting the target pulls in kanshi.service.
+exec systemctl --user start sway-session.target
 
 # GTK theme is managed via ~/.config/gtk-3.0/settings.ini and gsettings;
 # don't override from here.

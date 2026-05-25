@@ -1,6 +1,10 @@
 .git/
-.config
 .venv*
 keys
 .claude
 CLAUDE.md
+.config/alacritty/themes
+nohup.out
+backup
+spell
+undo
