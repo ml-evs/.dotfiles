@@ -1,5 +1,7 @@
 [Unit]
 Description=Redshift GTK
+# X11/i3 only — under sway this is replaced by gammastep (wayland gamma).
+ConditionEnvironment=XDG_SESSION_TYPE=x11
 
 [Service]
 Environment=DISPLAY=:0

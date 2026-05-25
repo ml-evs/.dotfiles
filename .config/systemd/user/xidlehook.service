@@ -1,5 +1,7 @@
 [Unit]
 Description=Automatic Screen Locker
+# X11/i3 only — under sway this is replaced by swayidle.
+ConditionEnvironment=XDG_SESSION_TYPE=x11
 
 [Service]
 Type=simple
