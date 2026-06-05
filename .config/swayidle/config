@@ -1,0 +1,21 @@
+# swayidle idle-management rules. Read by `swayidle -w` (default path).
+# Kept in a config file rather than inline in sway's config because sway's
+# parser splits exec lines on ';', which silently broke the old
+# `exec_always pkill ... ; swayidle ...` one-liner.
+#
+# Ladder: lock at 10m, screens off at 15m, suspend at 30m (AC and battery
+# alike). swayidle is the SOLE idle manager: xfce4-power-manager's idle
+# suspend / blank / DPMS / lid actions were zeroed via xfconf (it keeps only
+# brightness + battery tray). Two idle daemons used to fight and caused
+# surprise suspends right after unlock -- do NOT re-enable xfpm's
+# inactivity/dpms/lid-action settings.
+# hyprlock launches are guarded with `pgrep` so concurrent triggers
+# (idle timeout + before-sleep) can't stack multiple lock screens.
+
+# NOTE: temporarily on swaylock — hyprlock 0.9.5 segfaults on the full
+# config and corrupts the gamma LUT (red screen) on crash. Restore
+# 'pgrep -x hyprlock || hyprlock' once the hyprlock config/binary is fixed.
+timeout 600  'pgrep -x hyprlock || hyprlock'
+timeout 900  'swaymsg "output * dpms off"' resume 'swaymsg "output * dpms on"'
+timeout 1800 'systemctl suspend'
+before-sleep 'pgrep -x hyprlock || hyprlock'

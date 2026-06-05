@@ -9,24 +9,22 @@ profile home {
     output eDP-1 mode 1920x1200@60Hz position 1600,1440 scale 1
 }
 
-profile tv {
-    # Sony TV via HDMI/KVM, 1080p with laptop below.
-    output "Sony SONY TV  *30" mode 1920x1080@60Hz position 0,0 scale 1
-    output eDP-1 mode 1920x1200@60Hz position 0,1080 scale 1
-}
-
 profile work {
     # Dell ultrawide on the left, laptop to the right.
     output "Dell Inc. DELL P3425WE *" mode 3440x1440@60Hz position 0,0 scale 1
     output eDP-1 mode 1920x1200@60Hz position 3440,0 scale 1
 }
 
-profile docked {
-    output "GIGA-BYTE TECHNOLOGY CO., LTD. AORUS CO49DQ *" mode 5120x1440@144Hz position 0,0 scale 1
-    output eDP-1 disable
-}
+# No separate "docked" profile: it would list the same outputs as `home`
+# (ultrawide + eDP-1) and kanshi picks the first match, so it could never be
+# selected. When docked with the lid shut, sway's lid bindswitch disables
+# eDP-1 instead (see `bindswitch lid:on output $laptop disable` in sway).
 
 profile laptop {
-    output "GIGA-BYTE TECHNOLOGY CO., LTD. AORUS CO49DQ *" disable
+    # Undocked: only eDP-1 is connected. Do NOT name the external here —
+    # kanshi requires every output a profile lists to be connected for the
+    # profile to match, so naming the (absent) ultrawide made this profile
+    # never match when undocked ("no profile matched"), leaving eDP-1
+    # stranded at its docked position. List only outputs that are present.
     output eDP-1 mode 1920x1200@60Hz position 0,0 scale 1
 }

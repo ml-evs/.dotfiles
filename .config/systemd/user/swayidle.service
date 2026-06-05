@@ -1,0 +1,16 @@
+[Unit]
+Description=swayidle idle management
+Documentation=man:swayidle(1)
+PartOf=graphical-session.target
+After=graphical-session.target
+ConditionEnvironment=WAYLAND_DISPLAY
+
+[Service]
+Type=simple
+# Reads ~/.config/swayidle/config by default.
+ExecStart=/usr/bin/swayidle -w
+Restart=always
+RestartSec=1
+
+[Install]
+WantedBy=sway-session.target

@@ -41,10 +41,11 @@ client.background       $background
 #..........
 # Outputs / wallpaper
 #..........
-# Detected: DP-2 (AORUS CO49DQ ultrawide, supports 144Hz) + eDP-1 (Lenovo 1920x1200)
-# Refresh fix: DP-2 was sitting at 60Hz.
-output DP-2  mode 1920x1080@144Hz position 0 0    scale 1
-output eDP-1 mode 1920x1200@60Hz   position 0 1080 scale 1
+# Output modes and positions are managed entirely by kanshi
+# (~/.config/kanshi/config), which has per-arrangement profiles incl. a
+# laptop-only fallback. Don't set static `output ... position` lines here:
+# they apply unconditionally on every reload and stranded eDP-1 at y=1080
+# (a phantom gap above the laptop) when undocked. Only the wallpaper stays.
 output * bg ~/.local/share/wallpapers/navajo.jpg fill
 
 # Lid switch
@@ -93,12 +94,11 @@ exec blueman-applet
 exec dunst
 exec gammastep
 exec_always xfce4-power-manager
-exec_always pkill -x swayidle ; swayidle -w \
-    timeout 600  'pgrep -x hyprlock || hyprlock' \
-    timeout 900  'swaymsg "output * dpms off"' \
-        resume   'swaymsg "output * dpms on"' \
-    timeout 1800 'systemctl suspend' \
-    before-sleep 'pgrep -x hyprlock || hyprlock'
+# swayidle runs as a systemd user service (swayidle.service, bound to
+# sway-session.target, Restart=always). Rules live in
+# ~/.config/swayidle/config. NOT an inline exec_always: sway's parser
+# splits exec lines on ';', which silently broke the old
+# `pkill ... ; swayidle ...` one-liner so swayidle never started.
 
 # autorandr equivalent — kanshi reacts to display hot-plug.
 # Run as a systemd user service (Restart=always) bound to the sway
@@ -172,11 +172,12 @@ for_window [app_id="vlc"]         inhibit_idle fullscreen
 # Launchers
 #..........
 bindsym $mod+Return    exec alacritty
-bindsym Mod4+w         exec env MOZ_ENABLE_WAYLAND=1 firefox
+# Native Wayland Firefox can't do in-page drags (column resize, calendar
+# event resize, etc.) on this setup, so force XWayland. Revert to
+# MOZ_ENABLE_WAYLAND=1 once the upstream Firefox bug is fixed.
+bindsym Mod4+w         exec env MOZ_ENABLE_WAYLAND=0 firefox
 bindsym Mod4+s         exec slack --ozone-platform=wayland --enable-features=WebRTCPipeWireCapturer
 bindsym Mod4+z         exec signal-desktop --use-tray-icon
-bindsym Mod4+t         exec teams-for-linux
-bindsym Mod4+a         exec whatsapp-nativefier
 bindsym Mod4+Shift+l   exec pgrep -x hyprlock || hyprlock
 bindsym $mod+d         exec rofi -i -show run
 
