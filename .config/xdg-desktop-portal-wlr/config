@@ -1,4 +1,9 @@
 [screencast]
 chooser_type = dmenu
-chooser_cmd = bemenu
+# bemenu defaults to a single-line *horizontal* menu with case-sensitive
+# matching. Entries here are long ("Window: <title> (<app_id>)"), so most
+# scroll off-screen and typing to filter misses on case. bemenu then returns
+# the raw filter text, which xdpw rejects as "unknown target" and treats as
+# the user declining -- hence needing several attempts to pick a window.
+chooser_cmd = bemenu -i -w -l 20 -p "Share:" --scrollbar autohide --counter always
 max_fps = 30
