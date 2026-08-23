@@ -50,7 +50,7 @@
     "cpu": {
         "interval": 2,
         "tooltip": false,
-        "format": " {usage}%",
+        "format": " {usage:>3}%",
         "states": {
             "warning": 90
         },
