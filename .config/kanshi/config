@@ -5,7 +5,7 @@
 profile home {
     # Gigabyte ultrawide native, laptop centered below.
     # Laptop X = (5120 - 1920) / 2 = 1600; Y = 1440 (ultrawide height).
-    output "GIGA-BYTE TECHNOLOGY CO., LTD. AORUS CO49DQ *" mode 5120x1440@144Hz position 0,0 scale 1
+    output DP-2 mode 5120x1440@144Hz position 0,0 scale 1
     output eDP-1 mode 1920x1200@60Hz position 1600,1440 scale 1
 }
 

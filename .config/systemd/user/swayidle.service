@@ -8,7 +8,7 @@ ConditionEnvironment=WAYLAND_DISPLAY
 [Service]
 Type=simple
 # Reads ~/.config/swayidle/config by default.
-ExecStart=/usr/bin/swayidle -w
+ExecStart=/usr/bin/hypridle
 Restart=always
 RestartSec=1
 

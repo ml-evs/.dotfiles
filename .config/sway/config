@@ -92,8 +92,13 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec nm-applet --indicator
 exec blueman-applet
 exec dunst
-exec gammastep
-exec_always xfce4-power-manager
+# Polkit authentication agent: shows the password prompt for actions that
+# need auth (e.g. adding a *system* NetworkManager connection). Without it,
+# polkitd has no way to prompt and such actions fail as "insufficient
+# permissions" despite the session being active.
+exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# exec gammastep
+# exec_always xfce4-power-manager
 # swayidle runs as a systemd user service (swayidle.service, bound to
 # sway-session.target, Restart=always). Rules live in
 # ~/.config/swayidle/config. NOT an inline exec_always: sway's parser
@@ -104,7 +109,7 @@ exec_always xfce4-power-manager
 # Run as a systemd user service (Restart=always) bound to the sway
 # session, so a kanshi crash auto-respawns instead of leaving outputs
 # stuck at a fallback mode. Starting the target pulls in kanshi.service.
-exec systemctl --user start sway-session.target
+ exec systemctl --user start sway-session.target
 
 # GTK theme is managed via ~/.config/gtk-3.0/settings.ini and gsettings;
 # don't override from here.
