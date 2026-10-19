@@ -1,0 +1,695 @@
+#!/usr/bin/env python3
+"""dlwt — git worktree helper for the datalab checkout.
+
+Creates worktrees under a single root directory (default: <repo>/.worktrees),
+seeds them with the heavy local-only artefacts from the main checkout using
+copy-on-write reflinks (instant, ~0 extra disk on btrfs/XFS, and free to
+diverge afterwards), and provides an audit/cleanup path so worktrees don't
+accumulate forever.
+
+  dlwt new <name> [--pr N] [--branch B] [--from REF] [--no-seed]
+  dlwt seed [<name>]          re-run seeding in an existing worktree
+  dlwt list [--size] [--no-gh]
+  dlwt path <name>
+  dlwt rm <name>... [--force]
+  dlwt clean [--yes] [--force]
+  dlwt migrate [--yes]        move stray worktrees under the root
+
+Anything with uncommitted changes or unpushed commits is never removed
+without --force.
+"""
+
+from __future__ import annotations
+
+import argparse
+import json
+import os
+import shutil
+import subprocess
+import sys
+from dataclasses import dataclass, field
+from pathlib import Path
+
+# Local-only artefacts copied from the main checkout into a new worktree.
+# Directories are reflink-copied; on btrfs/XFS this is near-instant and shares
+# extents until a file is modified, so each worktree is still independent.
+SEED_DIRS = ["webapp/node_modules", "pydatalab/.venv"]
+SEED_FILES = [
+    "pydatalab/.env",
+    "webapp/.env",
+    "webapp/.env.test_e2e",
+    "docker-compose.override.yml",
+    "plugins.toml",
+]
+
+DEFAULT_ROOT_NAME = ".worktrees"
+BASE_BRANCH = "origin/main"
+
+
+class Fail(Exception):
+    pass
+
+
+def run(args, cwd=None, check=True, capture=True):
+    proc = subprocess.run(
+        args,
+        cwd=cwd,
+        check=False,
+        text=True,
+        stdout=subprocess.PIPE if capture else None,
+        stderr=subprocess.PIPE if capture else None,
+    )
+    if check and proc.returncode != 0:
+        detail = (proc.stderr or proc.stdout or "").strip()
+        raise Fail(f"command failed: {' '.join(args)}\n{detail}")
+    return proc
+
+
+def git(args, cwd=None, check=True):
+    return run(["git", *args], cwd=cwd, check=check)
+
+
+def git_out(args, cwd=None):
+    proc = git(args, cwd=cwd, check=False)
+    return proc.stdout.strip() if proc.returncode == 0 else None
+
+
+# --------------------------------------------------------------------------
+# repo discovery
+# --------------------------------------------------------------------------
+
+
+def main_checkout() -> Path:
+    """The primary (non-worktree) checkout, wherever we are invoked from."""
+    common = git_out(["rev-parse", "--path-format=absolute", "--git-common-dir"])
+    if not common:
+        raise Fail("not inside a git repository")
+    return Path(common).parent
+
+
+def worktree_root() -> Path:
+    env = os.environ.get("DLWT_ROOT")
+    return Path(env) if env else main_checkout() / DEFAULT_ROOT_NAME
+
+
+# --------------------------------------------------------------------------
+# worktree model
+# --------------------------------------------------------------------------
+
+
+@dataclass
+class Worktree:
+    path: Path
+    branch: str | None
+    head: str
+    is_main: bool = False
+    dirty: int = 0
+    ahead: int = 0
+    behind: int = 0
+    upstream: str | None = None
+    upstream_gone: bool = False
+    merged: bool = False
+    pr: str | None = None  # "#1234 MERGED"
+    pr_state: str | None = None
+    last_commit: str = ""
+    size: int | None = None
+    notes: list[str] = field(default_factory=list)
+
+    @property
+    def name(self) -> str:
+        return self.path.name
+
+    @property
+    def protected(self) -> bool:
+        """True if removing this would destroy work that exists nowhere else.
+
+        Note that removing a worktree does not delete commits: the branch ref
+        survives in the shared repository. Only uncommitted changes are at risk.
+        """
+        return self.is_main or self.dirty > 0
+
+    @property
+    def unpushed(self) -> bool:
+        """Local commits that exist on no remote."""
+        if self.upstream and not self.upstream_gone:
+            return self.ahead > 0
+        return not self.merged
+
+    @property
+    def verdict(self) -> str:
+        if self.is_main:
+            return "main"
+        if self.dirty:
+            return "dirty"
+        if self.pr_state == "OPEN":
+            # The work is safe on the remote, but an open PR is probably still
+            # being worked on, so don't sweep it up by default.
+            return "open"
+        if self.pr_state == "MERGED" or self.merged:
+            return "removable"
+        if self.upstream and not self.upstream_gone and self.ahead == 0:
+            return "removable"
+        return "review"
+
+
+def list_worktrees() -> list[Worktree]:
+    out = git_out(["worktree", "list", "--porcelain"]) or ""
+    trees: list[Worktree] = []
+    cur: dict = {}
+    for line in out.splitlines() + [""]:
+        if not line.strip():
+            if cur.get("worktree"):
+                branch = cur.get("branch")
+                if isinstance(branch, str) and branch.startswith("refs/heads/"):
+                    branch = branch[len("refs/heads/") :]
+                else:
+                    branch = None
+                trees.append(
+                    Worktree(
+                        path=Path(cur["worktree"]),
+                        branch=branch,
+                        head=str(cur.get("HEAD", ""))[:8],
+                    )
+                )
+            cur = {}
+            continue
+        key, _, value = line.partition(" ")
+        cur[key] = value or True
+    if trees:
+        trees[0].is_main = True
+    return trees
+
+
+def enrich(trees: list[Worktree], *, use_gh: bool, sizes: bool) -> None:
+    pr_by_branch = fetch_pr_states() if use_gh else {}
+
+    for wt in trees:
+        if not wt.path.exists():
+            wt.notes.append("directory missing (run: git worktree prune)")
+            continue
+
+        status = git_out(["status", "--porcelain"], cwd=wt.path)
+        wt.dirty = len([ln for ln in (status or "").splitlines() if ln.strip()])
+
+        wt.upstream = git_out(
+            ["rev-parse", "--abbrev-ref", "--symbolic-full-name", "@{u}"], cwd=wt.path
+        )
+        if wt.upstream:
+            exists = git_out(["rev-parse", "--verify", "--quiet", wt.upstream], cwd=wt.path)
+            wt.upstream_gone = not exists
+            if exists:
+                counts = git_out(["rev-list", "--left-right", "--count", "@{u}...HEAD"], cwd=wt.path)
+                if counts:
+                    behind, ahead = counts.split()
+                    wt.behind, wt.ahead = int(behind), int(ahead)
+
+        wt.merged = (
+            git(["merge-base", "--is-ancestor", "HEAD", BASE_BRANCH], cwd=wt.path, check=False).returncode == 0
+        )
+
+        wt.last_commit = git_out(["log", "-1", "--format=%cs"], cwd=wt.path) or ""
+
+        # Skip the primary checkout: its branch is usually `main`, which also
+        # matches any PR opened from a fork's default branch.
+        if wt.branch and not wt.is_main and wt.branch in pr_by_branch:
+            num, state = pr_by_branch[wt.branch]
+            wt.pr, wt.pr_state = f"#{num}", state
+
+        if sizes:
+            proc = run(["du", "-sb", str(wt.path)], check=False)
+            if proc.returncode == 0:
+                wt.size = int(proc.stdout.split()[0])
+
+
+def fetch_pr_states() -> dict[str, tuple[int, str]]:
+    """Map branch name -> (PR number, state). Single API call; best effort."""
+    if not shutil.which("gh"):
+        return {}
+    proc = run(
+        [
+            "gh", "pr", "list",
+            "--state", "all",
+            "--limit", "1000",
+            "--json", "number,headRefName,state",
+        ],
+        check=False,
+    )
+    if proc.returncode != 0:
+        print("warning: could not query GitHub for PR states", file=sys.stderr)
+        return {}
+    result: dict[str, tuple[int, str]] = {}
+    for pr in json.loads(proc.stdout):
+        # Keep the highest-numbered PR per branch (branches get reused).
+        prev = result.get(pr["headRefName"])
+        if prev is None or pr["number"] > prev[0]:
+            result[pr["headRefName"]] = (pr["number"], pr["state"])
+    return result
+
+
+# --------------------------------------------------------------------------
+# seeding
+# --------------------------------------------------------------------------
+
+
+def reflink_copy(src: Path, dst: Path) -> None:
+    """cp -a --reflink=auto: CoW where the filesystem supports it."""
+    run(["cp", "-a", "--reflink=auto", str(src), str(dst)], capture=False)
+
+
+def rewrite_venv_paths(venv: Path, old: Path) -> int:
+    """Point a copied virtualenv's console scripts at their new location.
+
+    A venv is not relocatable: every script in bin/ carries an absolute shebang
+    and activate scripts hard-code VIRTUAL_ENV. Left alone, a copied venv runs
+    the *original* checkout's interpreter and imports its source tree.
+    """
+    new = str(venv)
+    changed = 0
+    bindir = venv / "bin"
+    if not bindir.is_dir():
+        return 0
+    for entry in bindir.iterdir():
+        if entry.is_symlink() or not entry.is_file():
+            continue
+        try:
+            text = entry.read_text()
+        except (UnicodeDecodeError, OSError):
+            continue  # compiled binary
+        if str(old) not in text:
+            continue
+        mode = entry.stat().st_mode
+        entry.write_text(text.replace(str(old), new))
+        entry.chmod(mode)
+        changed += 1
+    return changed
+
+
+def seed(target: Path, source: Path, *, quiet: bool = False) -> None:
+    # Progress goes to stderr so that `dlwt new` leaves only the worktree path
+    # on stdout, ready for `cd "$(dlwt new foo)"`.
+    def say(msg):
+        if not quiet:
+            print(f"  {msg}", file=sys.stderr)
+
+    for rel in SEED_DIRS:
+        src, dst = source / rel, target / rel
+        if not src.is_dir():
+            continue
+        if dst.exists():
+            say(f"skip {rel} (already present)")
+            continue
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        say(f"copy {rel} …")
+        reflink_copy(src, dst)
+        if rel.endswith(".venv"):
+            n = rewrite_venv_paths(dst, src)
+            say(f"     rewrote {n} script paths in {rel}/bin")
+
+    for rel in SEED_FILES:
+        src, dst = source / rel, target / rel
+        if not src.is_file() or dst.exists():
+            continue
+        dst.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(src, dst)
+        say(f"copy {rel}")
+
+    # Reconcile the copied venv with this worktree: this rewrites the editable
+    # install so `import pydatalab` resolves to *this* worktree's src/, not the
+    # checkout the venv was copied from. Fast, since nothing else changed.
+    pydatalab = target / "pydatalab"
+    if (pydatalab / ".venv").is_dir() and shutil.which("uv"):
+        say("uv sync (relink editable install) …")
+        proc = run(["uv", "sync", "--all-extras", "--dev"], cwd=pydatalab, check=False)
+        if proc.returncode != 0:
+            say(f"     warning: uv sync failed:\n{proc.stderr.strip()}")
+
+
+# --------------------------------------------------------------------------
+# commands
+# --------------------------------------------------------------------------
+
+
+def cmd_new(args) -> int:
+    source = main_checkout()
+    root = worktree_root()
+    root.mkdir(parents=True, exist_ok=True)
+    ensure_root_ignored(source, root)
+
+    name = args.name
+    target = root / name
+    if target.exists():
+        print(f"{target} already exists", file=sys.stderr)
+        print(target)
+        return 0
+
+    if args.pr:
+        git(["worktree", "add", "--detach", str(target), BASE_BRANCH])
+        print(f"checking out PR #{args.pr} …", file=sys.stderr)
+        run(["gh", "pr", "checkout", str(args.pr)], cwd=target, capture=False)
+    else:
+        branch = args.branch or f"ml-evs/{name}"
+        exists = git_out(["rev-parse", "--verify", "--quiet", f"refs/heads/{branch}"])
+        if exists:
+            git(["worktree", "add", str(target), branch])
+        else:
+            git(["worktree", "add", "-b", branch, str(target), args.from_ref or BASE_BRANCH])
+
+    if not args.no_seed:
+        print(f"seeding {target.name} from {source} …", file=sys.stderr)
+        seed(target, source)
+
+    print(target)  # stdout: the only thing a shell wrapper needs
+    return 0
+
+
+def cmd_seed(args) -> int:
+    target = resolve(args.name) if args.name else Path.cwd()
+    seed(target, main_checkout())
+    return 0
+
+
+def cmd_path(args) -> int:
+    print(resolve(args.name))
+    return 0
+
+
+def resolve(name: str) -> Path:
+    for wt in list_worktrees():
+        if wt.name == name or str(wt.path) == name:
+            return wt.path
+    candidate = worktree_root() / name
+    if candidate.exists():
+        return candidate
+    raise Fail(f"no worktree named {name!r}")
+
+
+def human(n: int | None) -> str:
+    if n is None:
+        return ""
+    for unit in ("B", "K", "M", "G", "T"):
+        if n < 1024:
+            return f"{n:.0f}{unit}"
+        n /= 1024
+    return f"{n:.0f}P"
+
+
+VERDICT_ORDER = {"main": 0, "dirty": 1, "open": 2, "review": 3, "removable": 4}
+
+
+def cmd_list(args) -> int:
+    trees = list_worktrees()
+    enrich(trees, use_gh=not args.no_gh, sizes=args.size)
+    trees.sort(key=lambda w: (VERDICT_ORDER.get(w.verdict, 9), w.name))
+
+    rows = [("", "NAME", "BRANCH", "PR", "STATE", "LOCAL", "UPDATED", "SIZE")]
+    marks = {"main": "*", "dirty": "!", "open": "o", "review": "?", "removable": "-"}
+    for wt in trees:
+        local = []
+        if wt.dirty:
+            local.append(f"{wt.dirty} dirty")
+        if wt.ahead:
+            local.append(f"↑{wt.ahead}")
+        if wt.behind:
+            local.append(f"↓{wt.behind}")
+        if wt.upstream_gone:
+            local.append("upstream gone")
+        if not wt.upstream and not wt.is_main:
+            local.append("no upstream")
+        rows.append(
+            (
+                marks.get(wt.verdict, " "),
+                wt.name,
+                (wt.branch or f"({wt.head})")[:42],
+                wt.pr or "",
+                wt.pr_state or state_label(wt),
+                ", ".join(local),
+                wt.last_commit,
+                human(wt.size),
+            )
+        )
+
+    widths = [max(len(r[i]) for r in rows) for i in range(len(rows[0]))]
+    for i, row in enumerate(rows):
+        print("  ".join(cell.ljust(widths[j]) for j, cell in enumerate(row)).rstrip())
+        if i == 0:
+            print("  ".join("-" * w for w in widths))
+
+    for wt in trees:
+        for note in wt.notes:
+            print(f"note: {wt.name}: {note}")
+
+    removable = [w for w in trees if w.verdict == "removable"]
+    if removable:
+        total = sum(w.size or 0 for w in removable)
+        size = f" ({human(total)})" if args.size else ""
+        print(f"\n{len(removable)} removable{size} — `dlwt clean` to review, `dlwt clean --yes` to remove")
+
+    orphans = find_orphans(trees)
+    if orphans:
+        total = sum(size for _, size in orphans)
+        print(f"\nnot registered as worktrees — leftover directories ({human(total)} total):")
+        for path, size in orphans:
+            print(f"  {human(size):>6}  {path}")
+        print("  git cannot vouch for these; check and `rm -rf` by hand")
+    return 0
+
+
+def state_label(wt: Worktree) -> str:
+    if wt.merged:
+        return "merged"
+    if wt.upstream and not wt.upstream_gone and wt.ahead == 0:
+        return "pushed"
+    return ""
+
+
+ORPHAN_MARKERS = ("pydatalab", "webapp", "mkdocs.yml", ".env", "logs", "docker-compose.yml")
+
+
+def find_orphans(trees: list[Worktree]) -> list[tuple[Path, int]]:
+    """Leftovers next to the checkout that git no longer knows about.
+
+    These are the remains of worktrees removed with `rm -rf` rather than
+    `git worktree remove`, so git dropped the registration but the files (and
+    any node_modules inside them) stayed behind.
+    """
+    known = {wt.path.resolve() for wt in trees}
+    out = []
+    for entry in sorted(main_checkout().parent.iterdir()):
+        if not entry.is_dir() or entry.resolve() in known:
+            continue
+        if (entry / ".git").exists() or any((entry / m).exists() for m in ORPHAN_MARKERS):
+            proc = run(["du", "-sb", str(entry)], check=False)
+            size = int(proc.stdout.split()[0]) if proc.returncode == 0 else 0
+            out.append((entry, size))
+    return out
+
+
+def cmd_rm(args) -> int:
+    trees = {w.name: w for w in list_worktrees()}
+    enrich(list(trees.values()), use_gh=False, sizes=False)
+    failed = False
+    for name in args.name:
+        wt = trees.get(name)
+        if wt is None:
+            print(f"no worktree named {name!r}", file=sys.stderr)
+            failed = True
+            continue
+        if not remove_one(wt, force=args.force):
+            failed = True
+    return 1 if failed else 0
+
+
+def remove_one(wt: Worktree, *, force: bool) -> bool:
+    if wt.is_main:
+        print(f"refusing to remove the main checkout ({wt.name})", file=sys.stderr)
+        return False
+    if wt.protected and not force:
+        print(
+            f"refusing to remove {wt.name}: {wt.dirty} uncommitted change(s) (use --force)",
+            file=sys.stderr,
+        )
+        return False
+
+    cmd = ["worktree", "remove", str(wt.path)]
+    if force:
+        cmd.insert(2, "--force")
+    proc = git(cmd, check=False)
+    if proc.returncode != 0:
+        print(f"failed to remove {wt.name}: {proc.stderr.strip()}", file=sys.stderr)
+        return False
+
+    # `git worktree remove` deregisters the worktree and then deletes the
+    # directory, but it leaves ignored files (node_modules, .venv, caches)
+    # behind and still exits 0 — so a "successful" removal can strand
+    # hundreds of MB that git will no longer account for. Finish the job.
+    leftover = 0
+    if wt.path.exists():
+        for root, _, files in os.walk(wt.path):
+            for name in files:
+                try:
+                    leftover += os.lstat(os.path.join(root, name)).st_size
+                except OSError:
+                    pass
+        shutil.rmtree(wt.path, ignore_errors=True)
+    if wt.path.exists():
+        print(f"removed {wt.name} (could not delete {wt.path})", file=sys.stderr)
+    elif leftover:
+        print(f"removed {wt.name} (+{human(leftover)} of ignored files git left behind)")
+    else:
+        print(f"removed {wt.name}")
+
+    if wt.branch:
+        # -d only deletes branches already contained in the base branch, so a
+        # branch holding unique commits survives even here.
+        if git(["branch", "-d", wt.branch], check=False).returncode == 0:
+            print(f"        deleted branch {wt.branch}")
+    return True
+
+
+def cmd_clean(args) -> int:
+    trees = list_worktrees()
+    enrich(trees, use_gh=not args.no_gh, sizes=True)
+    wanted = {"removable"} | ({"open"} if args.include_open else set())
+    candidates = [w for w in trees if w.verdict in wanted]
+    kept = [w for w in trees if w.verdict in {"dirty", "open", "review"} - wanted]
+
+    if not candidates:
+        print("nothing to clean")
+    else:
+        total = sum(w.size or 0 for w in candidates)
+        verb = "removing" if args.yes else "would remove"
+        print(f"{verb} {len(candidates)} worktrees, reclaiming ~{human(total)}:")
+        for wt in candidates:
+            reason = f"PR {wt.pr} {wt.pr_state}" if wt.pr else state_label(wt) or "no local-only work"
+            extra = f", {wt.ahead} unpushed commit(s) kept on branch" if wt.ahead else ""
+            print(f"  {wt.name:<34} {human(wt.size):>6}  {reason}{extra}")
+        print("\nbranches are not deleted unless already merged, so no commits are lost")
+
+    if kept:
+        print(f"\nkeeping {len(kept)} (nothing here is removed automatically):")
+        kept.sort(key=lambda w: (VERDICT_ORDER.get(w.verdict, 9), w.name))
+        for wt in kept:
+            if wt.dirty:
+                detail = f"{wt.dirty} uncommitted change(s)"
+            elif wt.pr:
+                detail = f"PR {wt.pr}"
+            else:
+                detail = "unmerged, no PR found"
+            print(f"  {wt.name:<34} {wt.verdict:<9} {detail}")
+
+    if not args.yes:
+        if candidates:
+            print("\nre-run with --yes to remove them")
+        return 0
+
+    ok = True
+    print()
+    for wt in candidates:
+        ok &= remove_one(wt, force=args.force)
+    git(["worktree", "prune"], check=False)
+    return 0 if ok else 1
+
+
+def cmd_migrate(args) -> int:
+    root = worktree_root()
+    source = main_checkout()
+    trees = [w for w in list_worktrees() if not w.is_main]
+    strays = [w for w in trees if w.path.parent.resolve() != root.resolve()]
+    if not strays:
+        print(f"all worktrees already live under {root}")
+        return 0
+
+    print(f"{'moving' if args.yes else 'would move'} {len(strays)} worktrees into {root}:")
+    for wt in strays:
+        print(f"  {wt.path}  ->  {root / wt.name}")
+    if not args.yes:
+        print("\nre-run with --yes to move them")
+        return 0
+
+    root.mkdir(parents=True, exist_ok=True)
+    ensure_root_ignored(source, root)
+    for wt in strays:
+        dest = root / wt.name
+        if dest.exists():
+            print(f"skip {wt.name}: {dest} exists", file=sys.stderr)
+            continue
+        proc = git(["worktree", "move", str(wt.path), str(dest)], check=False)
+        if proc.returncode != 0:
+            print(f"failed to move {wt.name}: {proc.stderr.strip()}", file=sys.stderr)
+        else:
+            print(f"moved {wt.name}")
+    return 0
+
+
+def ensure_root_ignored(repo: Path, root: Path) -> None:
+    """Keep the worktree root out of `git status` without touching .gitignore."""
+    try:
+        rel = root.resolve().relative_to(repo.resolve())
+    except ValueError:
+        return  # root lives outside the repo; nothing to ignore
+    exclude = repo / ".git" / "info" / "exclude"
+    entry = f"/{rel}/"
+    if exclude.exists() and entry in exclude.read_text().splitlines():
+        return
+    exclude.parent.mkdir(parents=True, exist_ok=True)
+    with exclude.open("a") as handle:
+        handle.write(f"{entry}\n")
+
+
+def build_parser() -> argparse.ArgumentParser:
+    parser = argparse.ArgumentParser(prog="dlwt", description=__doc__,
+                                     formatter_class=argparse.RawDescriptionHelpFormatter)
+    sub = parser.add_subparsers(dest="command", required=True)
+
+    p = sub.add_parser("new", help="create and seed a worktree")
+    p.add_argument("name")
+    p.add_argument("--pr", type=int, help="check out this PR into the worktree")
+    p.add_argument("--branch", help="branch name (default: ml-evs/<name>)")
+    p.add_argument("--from", dest="from_ref", help=f"base ref for a new branch (default: {BASE_BRANCH})")
+    p.add_argument("--no-seed", action="store_true")
+    p.set_defaults(func=cmd_new)
+
+    p = sub.add_parser("seed", help="copy local-only artefacts into a worktree")
+    p.add_argument("name", nargs="?")
+    p.set_defaults(func=cmd_seed)
+
+    p = sub.add_parser("list", help="audit every worktree")
+    p.add_argument("--size", action="store_true", help="measure disk usage (slower)")
+    p.add_argument("--no-gh", action="store_true", help="skip the GitHub PR lookup")
+    p.set_defaults(func=cmd_list)
+
+    p = sub.add_parser("path", help="print a worktree's path")
+    p.add_argument("name")
+    p.set_defaults(func=cmd_path)
+
+    p = sub.add_parser("rm", help="remove named worktrees")
+    p.add_argument("name", nargs="+")
+    p.add_argument("--force", action="store_true")
+    p.set_defaults(func=cmd_rm)
+
+    p = sub.add_parser("clean", help="remove worktrees whose work is safely upstream")
+    p.add_argument("--yes", action="store_true", help="actually remove (default: dry run)")
+    p.add_argument("--force", action="store_true", help="also remove worktrees with uncommitted changes")
+    p.add_argument("--include-open", action="store_true", help="also remove worktrees for open PRs")
+    p.add_argument("--no-gh", action="store_true")
+    p.set_defaults(func=cmd_clean)
+
+    p = sub.add_parser("migrate", help="move stray worktrees under the root")
+    p.add_argument("--yes", action="store_true")
+    p.set_defaults(func=cmd_migrate)
+    return parser
+
+
+def main() -> int:
+    args = build_parser().parse_args()
+    try:
+        return args.func(args)
+    except Fail as exc:
+        print(f"dlwt: {exc}", file=sys.stderr)
+        return 1
+    except KeyboardInterrupt:
+        return 130
+
+
+if __name__ == "__main__":
+    sys.exit(main())
