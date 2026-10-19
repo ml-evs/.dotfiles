@@ -19,8 +19,12 @@ Personal dotfiles for Matthew Evans on Manjaro Linux. The repo lives at
   (fprintd), FIDO2 (Google Titan via pam_u2f), and password all race
   concurrently. No locker before this worked properly with the fingerprint
   reader on sway.
-- **Idle / suspend**: swayidle. 10 min → lock, 15 min → DPMS off,
-  2 h → suspend. Lid handling owned by xfce4-power-manager when running.
+- **Idle / suspend**: hypridle (still via the legacy-named `swayidle.service`
+  unit). 2.5 min → dim, 5 min → lock, 6 min → DPMS off, 2 h → suspend
+  (`scripts/idle-suspend` defers until SSH ptys are also 2 h idle, since
+  hypridle only sees local Wayland input). Config started from Hyprland's
+  example: use `swaymsg 'output * power off|on'`, never `hyprctl` (absent).
+  Lid handling owned by xfce4-power-manager when running.
 - **Outputs**: kanshi with `home` / `docked` / `laptop` profiles. Auto-switches
   on real hotplug; `XF86Display` key manually toggles for the KVM case.
 - **Wallpaper**: swaybg via `output * bg`, single image. Image is non-ultrawide
