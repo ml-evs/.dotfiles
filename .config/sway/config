@@ -92,11 +92,11 @@ exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DE
 exec nm-applet --indicator
 exec blueman-applet
 exec dunst
-# Polkit authentication agent: shows the password prompt for actions that
-# need auth (e.g. adding a *system* NetworkManager connection). Without it,
-# polkitd has no way to prompt and such actions fail as "insufficient
-# permissions" despite the session being active.
-exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
+# No graphical polkit agent: with one registered it also captures prompts from
+# terminal tools (systemctl's pkttyagent is only a fallback). NetworkManager
+# system-connection edits are instead allowed by a polkit rule for the sudo
+# group in /etc/polkit-1/rules.d/ (the stock NM rule only covers wheel).
+# exec /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1
 # exec gammastep
 # exec_always xfce4-power-manager
 # swayidle runs as a systemd user service (swayidle.service, bound to

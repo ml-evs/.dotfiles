@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+# Run by hypridle's suspend listener once the local seat has been idle for
+# the listener timeout. hypridle only sees Wayland input, so typing over SSH
+# never resets it; instead, hold off until no SSH pty has had input for
+# IDLE_SECS either. The kernel bumps a tty's atime whenever typed input is
+# read from it (it's what `w` shows as IDLE), so no shell hooks are needed.
+# hypridle's on-resume kills this (pkill -x idle-suspend) if local input
+# comes back first.
+set -u
+idle_secs=${1:-7200}
+
+last_ssh_input() {
+    local newest=0 tty t
+    # utmp entries with a remote host; skip tmux panes and local displays.
+    while read -r tty; do
+        t=$(stat -c %X "/dev/$tty" 2>/dev/null) || continue
+        (( t > newest )) && newest=$t
+    done < <(who | awk '$5 ~ /^\(/ && $5 !~ /^\((tmux|:)/ {print $2}')
+    echo "$newest"
+}
+
+while :; do
+    (( $(date +%s) - $(last_ssh_input) >= idle_secs )) && exec systemctl suspend
+    sleep 60
+done
