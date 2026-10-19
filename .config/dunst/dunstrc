@@ -1,5 +1,9 @@
 [play_sound]
     summary = "*"
+    # script = /home/mevans/.config/dunst/sound.sh
+
+[claude]
+    appname = "Claude Code"
     script = /home/mevans/.config/dunst/sound.sh
 
 [urgency_low]
