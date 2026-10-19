@@ -1,0 +1,15 @@
+---
+ansible-navigator:
+  color:
+    # Don't redefine the terminal palette via OSC 4; use the terminal's own colour scheme
+    osc4: false
+  execution-environment:
+    # Use the local (uv) Ansible install rather than a container image
+    enabled: false
+  logging:
+    file: ~/.cache/ansible-navigator/ansible-navigator.log
+  mode: interactive
+  playbook-artifact:
+    # Keep run artifacts (full task results) out of the deployment repos;
+    # ANAV_REPO is set by the `anav` shell function
+    save-as: ~/.cache/ansible-navigator/$ANAV_REPO/{playbook_name}-{time_stamp}.json

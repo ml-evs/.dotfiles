@@ -8,3 +8,5 @@ nohup.out
 backup
 spell
 undo
+.pre-commit
+.ansible

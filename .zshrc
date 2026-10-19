@@ -1,6 +1,5 @@
 # Path to your oh-my-zsh installation.
 #
-export ANSIBLE_STDOUT_CALLBACK=debug
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_CUSTOM=$HOME/.oh-my-zsh/custom
 #export PIPENV_VENV_IN_PROJECT=1
@@ -47,52 +46,36 @@ unsplit () {
     polybar -r ext2 &
 }
 
+# datalab worktrees. `dlwt` (~/.dotfiles/scripts/dlwt) does the work: it puts
+# every worktree under <repo>/.worktrees/ and seeds it by reflink-copying
+# node_modules and .venv out of the main checkout, so a new tree is ready in
+# seconds and costs ~no disk until its files diverge. This wrapper only adds
+# what a subprocess can't do: cd, and starting tmuxinator.
+#
+#   gwtpr            list every worktree, with a verdict on what's safe to bin
+#   gwtpr 1234       worktree for PR #1234
+#   gwtpr my-thing   worktree on branch ml-evs/my-thing
+#
+# Cleanup is `dlwt clean` (dry run) then `dlwt clean --yes`.
 gwtpr () {
-    cd $(git rev-parse --show-toplevel);
-    if [ $1 -eq 0 ]; then
-        gh pr list
+    local target
+    cd "$(git rev-parse --show-toplevel)" || return 1
+
+    if [ $# -eq 0 ]; then
+        dlwt list
         return
-    fi 
+    fi
 
     if [[ $1 =~ ^[0-9]+$ ]]; then
-        pr_number=$1
-        tree="../pr-$pr_number"
-        if [ -d $tree ]; then
-            cd $tree && gh pr checkout $1
-        else
-            gh pr view $1
-            git worktree add $tree
-            cd $tree
-            gh pr checkout $1
-        fi
+        target=$(dlwt new "pr-$1" --pr "$1") || return 1
     else
-        branch_name="ml-evs/$1"
-        tree="../$1"
-        if [ -d "$tree" ]; then
-            cd $tree && git checkout $branch_name
-        else
-            git worktree add $tree $branch_name
-        fi
-    fi 
-
-    if [ ! -d "webapp/node_modules" ]; then
-        cd webapp; yarn install --dev; cd ../
+        target=$(dlwt new "$1") || return 1
     fi
 
-    if [ ! -d "pydatalab/.venv" ]; then
-        cd pydatalab; uv venv; uv sync --all-extras; cd ../
-    fi
-
-    if [ ! -f "pydatalab/.env" ]; then
-        cp ../datalab-main/pydatalab/.env pydatalab/.env
-    fi
-
-    if [ ! -f "webapp/.env" ]; then
-        cp ../datalab-main/webapp/.env webapp/.env
-    fi
+    cd "$target" || return 1
 
     if [ "$TERM_PROGRAM" != "tmux" ]; then
-        tmuxinator start datalab $(realpath $tree)
+        tmuxinator start datalab "$target"
     fi
 }
 
@@ -187,3 +170,25 @@ source $HOME/.dotfiles/zshrc.global
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 #. "/home/mevans/.deno/env"
+
+# Run a datalab deployment playbook through ansible-navigator as a single run, e.g.
+# `anav` (whole playbook), `anav deploy`, or `anav maintenance deploy` / `anav maintenance,deploy`.
+# Navigator settings (colours, artifact/log locations) are in ~/.ansible-navigator.yml
+anav() {
+    local repo tag valid
+    local -a tags
+    repo=$(git rev-parse --show-toplevel 2>/dev/null) || { echo "anav: not in a deployment repo" >&2; return 1 }
+    # Allow `anav make [tags]` as well as `anav [tags]`
+    [[ $1 == make ]] && shift
+    # Tags may be space- and/or comma-separated; check them as the deployment Makefiles do
+    tags=(${(s:,:)${(j:,:)@}})
+    valid=$(grep "tags:" "$repo/ansible/playbook.yml" | sed 's/.*tags://g' | tr -d '[]"' | tr ',' '\n' | tr -d ' ')
+    for tag in $tags; do
+        grep -qx -- "$tag" <<<"$valid" || { echo "anav: '$tag' is not a valid tag; valid tags: $(sort -u <<<"$valid" | tr '\n' ' ')" >&2; return 1 }
+    done
+    # Unlock rbw in this terminal first: otherwise .vault-pass.sh triggers pinentry-curses
+    # inside navigator's hidden pty, where it can't be answered and spins at 100% CPU on exit
+    rbw unlocked >/dev/null 2>&1 || rbw unlock || return 1
+    (cd "$repo" && ANAV_REPO=${repo:t} uv run --with ansible-navigator ansible-navigator run ansible/playbook.yml \
+        --vault-password-file=./.vault-pass.sh -i ansible/inventory.yml ${tags:+--tags=${(j:,:)tags}})
+}
