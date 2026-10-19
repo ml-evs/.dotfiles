@@ -107,5 +107,7 @@ else
     ln -s $HOME/.dotfiles/.pylintrc ~/.pylintrc
     ln -s $HOME/.dotfiles/.hgrc ~/.hgrc
     ln -s $HOME/.dotfiles/.gitconfig ~/.gitconfig
+    ln -s $HOME/.dotfiles/.ansible.cfg ~/.ansible.cfg
+    ln -s $HOME/.dotfiles/.ansible-navigator.yml ~/.ansible-navigator.yml
 
 fi
