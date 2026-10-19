@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+# Connect the UH Cisco AnyConnect VPN (SAML/MS365 SSO) through NetworkManager.
+# Clicking the connection in nm-applet runs the SSO login fine, but the cookie
+# gets lost somewhere between nm-applet and NM ("final secrets request failed
+# to provide sufficient secrets"). So run the same auth dialog ourselves, in
+# nm-applet's legacy stdin/stdout protocol, and hand the secrets straight to
+# `nmcli connection up` instead. The cookie never touches disk.
+#
+# The connection needs useragent=AnyConnect... in vpn.data, otherwise the ASA
+# serves a password form instead of SSO, and *-flags set so no secret is
+# system-owned (system-owned secrets need polkit settings.modify.system).
+#
+#   uh-vpn            connect
+#   uh-vpn down       disconnect
+set -euo pipefail
+con=${UH_VPN_CON:-"UH SSO"}
+
+if [[ ${1:-} == down ]]; then
+    exec nmcli connection down "$con"
+fi
+
+uuid=$(nmcli -g connection.uuid connection show "$con")
+
+coproc DLG {
+    /usr/lib/nm-openconnect-auth-dialog -u "$uuid" -n "$con" \
+        -s org.freedesktop.NetworkManager.openconnect -i 2>/dev/null
+}
+
+# Feed the connection's vpn.data ("k = v, k = v, ...") as DATA_KEY/DATA_VAL.
+while IFS= read -r kv; do
+    printf 'DATA_KEY=%s\nDATA_VAL=%s\n\n' "${kv%% = *}" "${kv#* = }" >&"${DLG[1]}"
+done < <(nmcli -g vpn.data connection show "$con" | sed 's/, /\n/g')
+printf 'DONE\n\n' >&"${DLG[1]}"
+
+# Dialog replies with alternating key/value lines, ending in a blank line.
+declare -A secrets
+while IFS= read -r key <&"${DLG[0]}" && [[ -n $key ]]; do
+    IFS= read -r val <&"${DLG[0]}"
+    secrets[$key]=$val
+done
+printf 'QUIT\n\n' >&"${DLG[1]}"
+wait "$DLG_PID" || true
+
+if [[ -z ${secrets[cookie]:-} ]]; then
+    echo "uh-vpn: login cancelled or failed (no cookie)" >&2
+    exit 1
+fi
+
+nmcli --wait 60 connection up "$con" passwd-file <(
+    for k in cookie gateway gwcert resolve; do
+        [[ -n ${secrets[$k]:-} ]] && printf 'vpn.secrets.%s:%s\n' "$k" "${secrets[$k]}"
+    done
+)
